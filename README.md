@@ -49,7 +49,7 @@ Laya and NanoJev are faster on this short input but have lower label agreement o
 
 ### Long-input optimization history
 
-**Historical native-runner measurements, not the public API's input limit.** The released API currently caps each question at8192tokens and rejects the30k/50k-character fixtures below. The research runner allowed65536tokens; long-input public API support has not been released.
+**Historical native-runner measurements, not the public API's input limit.** The released API currently caps each question at8192tokens and rejects the30k/50k-character fixtures below. The research runner allowed65536tokens; long-input public API support has not been released. A subsequent near64K public-API candidate processed full input in20.843s but failed its synthetic quality gate; the8192limit is retained. [Trial results and native model limits](docs/CONTEXT.md).
 
 | State characters / prompt tokens | Stabilized baseline | Final recipe | Time reduction |
 |---|---:|---:|---:|

@@ -1,0 +1,347 @@
+{
+  "work_item": "WI-056",
+  "scope": "Pinned GB10 NVFP4 public API, synthetic repeated-filler evidence probes; provisional AI labels, not broad long-context accuracy certification",
+  "stages": {
+    "8k-diagnostic": {
+      "status": "FAIL",
+      "wrong": [
+        {
+          "kind": "long-http",
+          "case": "supported-begin",
+          "choice": "insufficient",
+          "expected": "supported"
+        },
+        {
+          "kind": "long-http",
+          "case": "supported-end",
+          "choice": "insufficient",
+          "expected": "supported"
+        },
+        {
+          "kind": "long-http",
+          "case": "refuted-begin",
+          "choice": "insufficient",
+          "expected": "refuted"
+        },
+        {
+          "kind": "long-repeat",
+          "case": "supported-begin",
+          "choice": "insufficient",
+          "expected": "supported"
+        },
+        {
+          "kind": "long-repeat",
+          "case": "supported-begin",
+          "choice": "insufficient",
+          "expected": "supported"
+        }
+      ],
+      "sequences": 16,
+      "tokens": 74338,
+      "http_requests": 17,
+      "peak": [
+        {
+          "allocated": 22237986304,
+          "reserved": 24297603072,
+          "peak_allocated": 23626977280,
+          "peak_reserved": 24297603072
+        }
+      ],
+      "max_probability_delta": 0,
+      "limit": 8191,
+      "near_limit_cases": 7,
+      "near_limit_correct": 4,
+      "short_controls": 7,
+      "short_controls_correct": 7,
+      "token_range": [
+        8171,
+        8174
+      ],
+      "character_range": [
+        13020,
+        13027
+      ],
+      "repeat_same_case_n": 3,
+      "repeat_median_seconds": 1.5279963180073537,
+      "repeat_seconds": [
+        1.5279963180073537,
+        1.5340941570175346,
+        1.5265719720046036
+      ],
+      "long_case_seconds": [
+        {
+          "case": "supported-begin",
+          "seconds": 1.5279963180073537,
+          "choice": "insufficient"
+        },
+        {
+          "case": "supported-middle",
+          "seconds": 1.537248078995617,
+          "choice": "supported"
+        },
+        {
+          "case": "supported-end",
+          "seconds": 1.5282946260122117,
+          "choice": "insufficient"
+        },
+        {
+          "case": "refuted-begin",
+          "seconds": 1.5391103930014651,
+          "choice": "insufficient"
+        },
+        {
+          "case": "refuted-middle",
+          "seconds": 1.5306311900203582,
+          "choice": "refuted"
+        },
+        {
+          "case": "refuted-end",
+          "seconds": 1.5305759870097972,
+          "choice": "refuted"
+        },
+        {
+          "case": "absent",
+          "seconds": 1.534293297008844,
+          "choice": "insufficient"
+        }
+      ],
+      "peak_allocated_gib": 22.004337310791016,
+      "peak_reserved_gib": 22.62890625,
+      "minimum_available_system_gib": 87.86983108520508,
+      "new_swapout": 0,
+      "completion_sha256": "af0a2e9fea3c71783bddf560189a16d070eff1a4bb06c6a1ba4623627c91545f"
+    },
+    "32k-diagnostic": {
+      "status": "FAIL",
+      "wrong": [
+        {
+          "kind": "long-http",
+          "case": "supported-begin",
+          "choice": "insufficient",
+          "expected": "supported"
+        },
+        {
+          "kind": "long-http",
+          "case": "supported-middle",
+          "choice": "insufficient",
+          "expected": "supported"
+        },
+        {
+          "kind": "long-http",
+          "case": "supported-end",
+          "choice": "insufficient",
+          "expected": "supported"
+        },
+        {
+          "kind": "long-repeat",
+          "case": "supported-begin",
+          "choice": "insufficient",
+          "expected": "supported"
+        },
+        {
+          "kind": "long-repeat",
+          "case": "supported-begin",
+          "choice": "insufficient",
+          "expected": "supported"
+        }
+      ],
+      "sequences": 16,
+      "tokens": 295585,
+      "http_requests": 17,
+      "peak": [
+        {
+          "allocated": 22237986304,
+          "reserved": 24297603072,
+          "peak_allocated": 23627486208,
+          "peak_reserved": 24297603072
+        }
+      ],
+      "max_probability_delta": 0,
+      "limit": 32767,
+      "near_limit_cases": 7,
+      "near_limit_correct": 4,
+      "short_controls": 7,
+      "short_controls_correct": 7,
+      "token_range": [
+        32754,
+        32757
+      ],
+      "character_range": [
+        52670,
+        52677
+      ],
+      "repeat_same_case_n": 3,
+      "repeat_median_seconds": 7.914037042995915,
+      "repeat_seconds": [
+        7.9013715620094445,
+        7.9275787500082515,
+        7.914037042995915
+      ],
+      "long_case_seconds": [
+        {
+          "case": "supported-begin",
+          "seconds": 7.9013715620094445,
+          "choice": "insufficient"
+        },
+        {
+          "case": "supported-middle",
+          "seconds": 7.920710145001067,
+          "choice": "insufficient"
+        },
+        {
+          "case": "supported-end",
+          "seconds": 7.910855927999364,
+          "choice": "insufficient"
+        },
+        {
+          "case": "refuted-begin",
+          "seconds": 7.925600188988028,
+          "choice": "refuted"
+        },
+        {
+          "case": "refuted-middle",
+          "seconds": 7.935246724984609,
+          "choice": "refuted"
+        },
+        {
+          "case": "refuted-end",
+          "seconds": 7.927789565990679,
+          "choice": "refuted"
+        },
+        {
+          "case": "absent",
+          "seconds": 7.927060750022065,
+          "choice": "insufficient"
+        }
+      ],
+      "peak_allocated_gib": 22.00481128692627,
+      "peak_reserved_gib": 22.62890625,
+      "minimum_available_system_gib": 87.86983108520508,
+      "new_swapout": 0,
+      "completion_sha256": "12b146503ad7107d12762aab7ce54fd81c41ac120e7c2da19b528adcb7569feb"
+    },
+    "64k-r1": {
+      "status": "FAIL",
+      "wrong": [
+        {
+          "kind": "long-http",
+          "case": "supported-begin",
+          "choice": "insufficient",
+          "expected": "supported"
+        },
+        {
+          "kind": "long-http",
+          "case": "supported-middle",
+          "choice": "insufficient",
+          "expected": "supported"
+        },
+        {
+          "kind": "long-http",
+          "case": "supported-end",
+          "choice": "insufficient",
+          "expected": "supported"
+        },
+        {
+          "kind": "long-repeat",
+          "case": "supported-begin",
+          "choice": "insufficient",
+          "expected": "supported"
+        },
+        {
+          "kind": "long-repeat",
+          "case": "supported-begin",
+          "choice": "insufficient",
+          "expected": "supported"
+        }
+      ],
+      "sequences": 247,
+      "tokens": 676340,
+      "http_requests": 17,
+      "peak": [
+        {
+          "allocated": 22237986304,
+          "reserved": 25671237632,
+          "peak_allocated": 23627486208,
+          "peak_reserved": 25671237632
+        }
+      ],
+      "max_probability_delta": 0.0,
+      "limit": 65535,
+      "near_limit_cases": 7,
+      "near_limit_correct": 4,
+      "short_controls": 7,
+      "short_controls_correct": 7,
+      "token_range": [
+        65521,
+        65524
+      ],
+      "character_range": [
+        105520,
+        105527
+      ],
+      "repeat_same_case_n": 3,
+      "repeat_median_seconds": 20.84344758099178,
+      "repeat_seconds": [
+        20.84344758099178,
+        20.840889535000315,
+        20.853212212998187
+      ],
+      "long_case_seconds": [
+        {
+          "case": "supported-begin",
+          "seconds": 20.84344758099178,
+          "choice": "insufficient"
+        },
+        {
+          "case": "supported-middle",
+          "seconds": 20.852136337023694,
+          "choice": "insufficient"
+        },
+        {
+          "case": "supported-end",
+          "seconds": 20.84627153800102,
+          "choice": "insufficient"
+        },
+        {
+          "case": "refuted-begin",
+          "seconds": 20.850015217001783,
+          "choice": "refuted"
+        },
+        {
+          "case": "refuted-middle",
+          "seconds": 20.839308113005245,
+          "choice": "refuted"
+        },
+        {
+          "case": "refuted-end",
+          "seconds": 20.829979322006693,
+          "choice": "refuted"
+        },
+        {
+          "case": "absent",
+          "seconds": 20.847044168011053,
+          "choice": "insufficient"
+        }
+      ],
+      "peak_allocated_gib": 22.00481128692627,
+      "peak_reserved_gib": 23.908203125,
+      "minimum_available_system_gib": 87.9195671081543,
+      "new_swapout": 0,
+      "completion_sha256": "8a3d1f880c92c8631177f54c69d2e162898f980ef8745894adbcd5e167ca240e"
+    },
+    "128k": {
+      "status": "SKIPPED",
+      "reason": "64K quality gate failed; no promotion to larger context"
+    },
+    "256k": {
+      "status": "SKIPPED",
+      "reason": "64K quality gate failed; no promotion to larger context"
+    }
+  },
+  "process_wall_seconds": 637.9632716178894,
+  "decision_sequences": 279,
+  "input_tokens": 1046263,
+  "http_requests": 51,
+  "actual_gpu_seconds": null,
+  "actual_forward_calls": null
+}

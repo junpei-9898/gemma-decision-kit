@@ -60,3 +60,5 @@ Quality evidence: WI034 kept all88reference probabilities identical to the stabi
 The50k result is full-prefill latency, **not** the separate historical ~0.17s cached-prefix experiment. Prefix reuse requires prior document processing and storage, and uses different fixtures. Those cache-hit numbers are excluded from this speedup table.
 
 [Machine-readable evidence](memory-long-input-results.json) contains byte-derived memory values, original coverage counts, computed speedup ratios and hashes of internal source reports. The full private corpus remains undistributed. No new inference was run for this documentation update. Public long-input acceptance above8192tokens would require a separate API/configuration change and release validation.
+
+A subsequent context-extension trial is documented [separately](CONTEXT.md). Near64K technical execution succeeded, but the quality gate failed; the public8192input limit remains unchanged.
