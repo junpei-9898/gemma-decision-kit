@@ -467,5 +467,18 @@
     "total": 112,
     "note": "Same aggregate as current kit but different per-case predictions and prompt; not a paired all-history optimization claim."
   },
-  "private_evidence": "Full input corpus, individual predictions and private logs are not distributed. Aggregates allow arithmetic checking, not independent corpus reproduction."
+  "private_evidence": "Full input corpus, individual predictions and private logs are not distributed. Aggregates allow arithmetic checking, not independent corpus reproduction.",
+  "measured_hardware": {
+    "platform": "Edge Xpert / NVIDIA GB10",
+    "GPU_count_per_run": 1,
+    "GPU_architecture": "Blackwell SM121",
+    "system_memory": "CPU/GPU unified, not dedicated VRAM",
+    "study_A_OS_visible_RAM_bytes": 130596163584,
+    "study_A_OS_visible_RAM_GiB": 121.62715530395508,
+    "OS_architecture": "Linux ARM64",
+    "study_A_container_CPU_quota": 8,
+    "study_A_OMP_NUM_THREADS": 4,
+    "runtime": "Kit: PyTorch2.11.0+cu130; other runtimes pinned per configuration",
+    "other_GPU_performance": "UNVERIFIED; no fixed speedup multiplier"
+  }
 }

@@ -2,6 +2,17 @@
 
 The defensible result is **highest observed v1 agreement among these tested configurations, combined with low single-question latency**. This is not universal dominance in accuracy, throughput, latency, memory or hardware efficiency. No new GPU experiments were run for this documentation update.
 
+### Measured hardware
+
+| Item | Test environment |
+|---|---|
+| Machine / GPU | Edge Xpert, one NVIDIA GB10 (Blackwell, SM121) per run |
+| Memory | CPU/GPU unified memory; OS-visible approximately121.6GiB, **not dedicated model VRAM** |
+| Platform | Linux ARM64; kit uses PyTorch2.11.0+cu130; other runtimes pinned per configuration |
+| Study-A CPU allocation | Container quota8CPUs, `OMP_NUM_THREADS=4` |
+
+A more powerful GPU **may reduce latency**, especially for compute-heavy long-input prefill, but we have not measured a speedup factor on other GPUs. CPU preprocessing, memory bandwidth and compatible kernels also matter; do not multiply these timings by advertised TOPS or bandwidth ratios. The pinned ARM64/GB10 image is not a validated x86/RTX deployment.
+
 ## Dataset, task and denominator
 
 All configurations classify Japanese evidence into supported/refuted/insufficient. The v1 table combines the same old80 and additional40 nonduplicated case IDs:120cases from30source groups, with4correlated variants/group. Labels are frozen AI-provisional judgments, not human gold. Data had already been used during Gemma development: this is regression evidence, not an independent unseen test. Do not treat120case IDs as120statistically independent examples or claim statistical significance.

@@ -8,6 +8,17 @@ Experimental release. Independent implementation inspired by state + typed quest
 
 **93.3% label agreement (112/120) and ~80ms warm short-question latency on GB10.** This was the highest agreement among the six tested configurations below. In the same-node HTTP comparison, short-question latency was **1.62× faster than DiffusionGemma**, with **+5.0percentage points** higher v1 agreement.
 
+### Measured hardware
+
+| Item | Test environment |
+|---|---|
+| Machine / GPU | Edge Xpert, one NVIDIA GB10 (Blackwell, SM121) per run |
+| Memory | CPU/GPU unified memory; OS-visible approximately121.6GiB, **not dedicated model VRAM** |
+| Platform | Linux ARM64; kit uses PyTorch2.11.0+cu130; other runtimes pinned per configuration |
+| Study-A CPU allocation | Container quota8CPUs, `OMP_NUM_THREADS=4` |
+
+A more powerful GPU **may reduce latency**, especially for compute-heavy long-input prefill, but we have not measured a speedup factor on other GPUs. CPU preprocessing, memory bandwidth and compatible kernels also matter; do not multiply these timings by advertised TOPS or bandwidth ratios. The pinned ARM64/GB10 image is not a validated x86/RTX deployment.
+
 These are fixed Japanese evidence judgments (`supported / refuted / insufficient`) against **AI-provisional labels**, not human-certified accuracy or a general leaderboard. Quality uses120case IDs; latency uses one54-character state repeated20times. Fast answers to that one example do not imply high corpus accuracy.
 
 | Configuration | Agreement (v1,120cases) | Short-question median | Study |
