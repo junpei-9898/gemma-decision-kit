@@ -1,0 +1,108 @@
+{
+  "measured_memory": {
+    "text": {
+      "peak_allocated_GiB": 21.98868179321289,
+      "peak_reserved_GiB": 23.908203125,
+      "minimum_supported_VRAM": "UNVERIFIED"
+    },
+    "media": {
+      "peak_allocated_GiB": 23.109740734100342,
+      "peak_reserved_GiB": 24.095703125,
+      "minimum_supported_VRAM": "UNVERIFIED"
+    }
+  },
+  "laya_input_coverage": {
+    "performance": {
+      "short/decision/default": {
+        "requests": 20,
+        "answer_denominator": 20,
+        "answers_matching_ai": 20,
+        "truncated_requests": 0,
+        "median_successful_workflow_seconds": 0.008810730651021004
+      },
+      "medium/decision/default": {
+        "requests": 5,
+        "answer_denominator": 5,
+        "answers_matching_ai": 0,
+        "truncated_requests": 5,
+        "median_successful_workflow_seconds": 0.02157334703952074
+      },
+      "long/decision/default": {
+        "requests": 5,
+        "answer_denominator": 5,
+        "answers_matching_ai": 0,
+        "truncated_requests": 5,
+        "median_successful_workflow_seconds": 0.023081205785274506
+      },
+      "eight/decision/default": {
+        "requests": 5,
+        "answer_denominator": 40,
+        "answers_matching_ai": 10,
+        "truncated_requests": 0,
+        "median_successful_workflow_seconds": 0.04576814267784357
+      }
+    },
+    "quality": {
+      "quality_old80/v1/decision": {
+        "denominator": 80,
+        "correct_vs_ai": 33,
+        "truncated_requests": 0
+      },
+      "quality_dev60_v2/v2/decision": {
+        "denominator": 60,
+        "correct_vs_ai": 20,
+        "truncated_requests": 60
+      },
+      "quality_new40/v1/decision": {
+        "denominator": 40,
+        "correct_vs_ai": 14,
+        "truncated_requests": 0
+      },
+      "quality_new40/v2/decision": {
+        "denominator": 40,
+        "correct_vs_ai": 14,
+        "truncated_requests": 40
+      }
+    }
+  },
+  "long_input_history": [
+    {
+      "characters": 10000,
+      "prompt_tokens": 7138,
+      "original_FlashInfer_seconds": 1.242,
+      "stable_baseline_seconds": 1.563,
+      "final_seconds": 1.319212,
+      "reduction_from_stable_percent": 15.597440818937935,
+      "speed_ratio_from_stable": 1.1847981977119673,
+      "repeats": 3
+    },
+    {
+      "characters": 30000,
+      "prompt_tokens": 21197,
+      "original_FlashInfer_seconds": 5.615,
+      "stable_baseline_seconds": 6.569,
+      "final_seconds": 4.570492,
+      "reduction_from_stable_percent": 30.423321662353487,
+      "speed_ratio_from_stable": 1.4372632093000055,
+      "repeats": 3
+    },
+    {
+      "characters": 50000,
+      "prompt_tokens": 35257,
+      "original_FlashInfer_seconds": 13.714,
+      "stable_baseline_seconds": 15.248,
+      "final_seconds": 8.685709,
+      "reduction_from_stable_percent": 43.03706059811123,
+      "speed_ratio_from_stable": 1.7555273841202832,
+      "repeats": 3
+    }
+  ],
+  "scope": "Historical native long-input runner; current public API max8192tokens; no new inference or measured minimum VRAM",
+  "source_hashes": {
+    "reports/deep-runtime-fix-20260921/RESULTS.md": "7dcaa0227f6b5ee067b13c0c79bfbb97c30c1d5b5f35e5b7e10cc6d081a2734e",
+    "reports/decision-path-trial-20260923/RESULTS.md": "94d69e6a4cddfc7d633678006d01732838e5dc1b777bd8b0c682c3d4f1ec135d",
+    "reports/multi-model-20260920/comparison.json": "8e14228993e02e6221e9b5944715a156f164cf99d23247506b9411c89b295522",
+    "reports/nvfp4-media-release-20260924/result-text/completion.json": "76158ffed1a8a2df7037c76835bdc290835307d73b29f4d328e375ac8582c102",
+    "reports/nvfp4-media-release-20260924/result-media-r1/completion.json": "c2911817ea3af46ac793edc51a41d2127c293a94aab3387839252e41080ca398"
+  }
+}

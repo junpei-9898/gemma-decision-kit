@@ -1,5 +1,7 @@
 # Benchmark scope and validation
 
+[Memory footprint, Laya coverage and long-input optimization history](MEMORY_AND_LONG_INPUT.md)
+
 [Cross-OSS Japanese accuracy/latency comparison](COMPARISON.md) · [Source-derived aggregate data](comparison-results.json)
 
 ## Historical optimized text path

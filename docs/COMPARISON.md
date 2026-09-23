@@ -64,6 +64,8 @@ SemIf's40-case agreement improves from57.5% to92.5% with v2; its lower v1 result
 
 NanoJev uses the user-selected root best.safetensors checkpoint, described by its pinned README/run_config as navigation-oriented (coordinate teacher training, max_length512). Evaluation sets the public predictor limit to8192; longer inputs extrapolate beyond that training length. No retrospective checkpoint cherry-picking or Japanese fine-tuning was performed. Its short speed probe was incorrect0/20. These results do not characterize all NanoJev variants or its intended navigation performance.
 
+For measured memory and an explicit short/long Laya coverage table, see [memory and long-input evidence](MEMORY_AND_LONG_INPUT.md).
+
 ## Immutable versions and reproduction limits
 
 |Configuration|Source pin|Weights / revision|Precision and route|
