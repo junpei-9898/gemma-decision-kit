@@ -1,0 +1,7 @@
+include LICENSE NOTICE
+recursive-include licenses *.txt
+recursive-include docs *.md *.json
+recursive-include patches *.patch *.md
+recursive-include scripts *.py *.sh
+recursive-include examples *.json
+recursive-include tests *.py

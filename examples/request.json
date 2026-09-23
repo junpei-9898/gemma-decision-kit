@@ -1,0 +1,14 @@
+{
+  "state": "返品期限は購入から30日以内です。購入日は9月1日、返品申請日は9月10日です。",
+  "questions": {
+    "return_window": {
+      "type": "choice",
+      "instructions": "返品申請は期限内ですか。",
+      "criteria": {
+        "supported": "期限内である",
+        "refuted": "期限を過ぎている",
+        "insufficient": "情報が不足している"
+      }
+    }
+  }
+}

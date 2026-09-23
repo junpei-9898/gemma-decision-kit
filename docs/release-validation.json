@@ -1,0 +1,43 @@
+{
+  "date": "2026-09-23",
+  "hardware": "NVIDIA GB10 / Edge Xpert, Linux ARM64",
+  "runtime_image": "ghcr.io/miaai-lab/mia-vllm-gb10-linear-b12x@sha256:19627342e1da2607f4db50745dca30e57d7dd0ebff06062f03fd69b43a252931",
+  "actual_vllm_version": "0.26.1.dev0+gf2654939e.d20260726",
+  "CPU_contract_tests": 9,
+  "clean_final_wheel_install": "PASS",
+  "wheel_license_texts_included": "PASS",
+  "backends": {
+    "memory": {
+      "status": "PASS",
+      "sequences": 232,
+      "processed_tokens": 85943,
+      "choice_changes": 0,
+      "max_probability_delta": 0,
+      "http": "PASS"
+    },
+    "speed": {
+      "status": "PASS",
+      "sequences": 232,
+      "processed_tokens": 85943,
+      "choice_changes": 0,
+      "max_probability_delta": 0,
+      "http": "PASS"
+    }
+  },
+  "installation": {
+    "status": "PASS",
+    "fresh_runtime_source": true,
+    "fresh_extension_build": true,
+    "clean_target_install": true,
+    "actual_CLI_exact_HTTP_parity": true,
+    "sequences": 1,
+    "processed_tokens": 91,
+    "source_and_dependency_bytes": 34143599
+  },
+  "initial_failures_retained": [
+    "First evaluation harness needed Python import-cache invalidation after pip target installation; zero model calls.",
+    "Image branding was0.26.0 but actual installed vLLM is0.26.1.dev0; version guard corrected to exact observed build; zero model calls.",
+    "Fresh installer initially invoked unavailable python alias in image; changed to python3, rerun with new directories; zero model calls."
+  ],
+  "scope": "Same-backend packaging parity, not an independent new quality evaluation. Final packaging additions include license bundling and a CPU-tested -O rejection guard; inference math unchanged."
+}

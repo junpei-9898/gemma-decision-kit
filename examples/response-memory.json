@@ -1,0 +1,19 @@
+{
+  "profile": "memory",
+  "model": "turboderp/gemma-4-26B-A4B-it-exl3",
+  "answers": {
+    "return_window": {
+      "type": "choice",
+      "choice": "supported",
+      "probabilities": {
+        "supported": 1.0,
+        "refuted": 6.200804314460129e-10,
+        "insufficient": 8.830349784716418e-10
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 91
+  },
+  "probability_calibration": "uncalibrated"
+}
