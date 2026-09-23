@@ -1,0 +1,471 @@
+{
+  "scope": "Retrospective fixed Japanese evidence classification, not a uniform new benchmark or all-OSS ranking",
+  "labels": "AI provisional, not human gold",
+  "v1_case_ids": 120,
+  "source_groups": 30,
+  "derivatives_per_group": 4,
+  "v1_deduplication": "old80 plus additional40; excludes repeated v2 evaluations",
+  "source_aggregate_sha256": {
+    "WI017": {
+      "internal_report_name": "reports/multi-model-20260920/comparison.json",
+      "sha256": "8e14228993e02e6221e9b5944715a156f164cf99d23247506b9411c89b295522"
+    },
+    "WI047": {
+      "internal_report_name": "reports/optimized-diffusion-comparison-20260923/comparison.json",
+      "sha256": "26ffe4668b849f38275e0f1f4d57db4a1717237225d174715a33398876d418f0"
+    },
+    "WI048": {
+      "internal_report_name": "reports/paired-batch-diagnosis-20260923/RESULTS.md",
+      "sha256": "0bcaf241197173db660aa733b6116e7c0f6f40051adbe400f2f48fabd00250ca"
+    },
+    "WI053": {
+      "internal_report_name": "reports/nvfp4-media-release-20260924/RESULTS.md",
+      "sha256": "39b8b83725c869ef6a3b487d757523d007d0dd8cfdd63e048a28d385715c913c"
+    }
+  },
+  "configurations": [
+    {
+      "id": "kit",
+      "configuration": "Gemma Decision Kit · Gemma 4 26B-A4B NVFP4",
+      "study": "WI047",
+      "timing_boundary": "loopback HTTP",
+      "v1_correct": 112,
+      "v1_denominator": 120,
+      "v1_agreement_percent": 93.33333333333333,
+      "quality_sets": {
+        "quality_old80/v1/decision": {
+          "denominator": 80,
+          "observed": 80,
+          "correct_vs_ai": 73,
+          "invalid_or_missing": 0
+        },
+        "quality_dev60_v2/v2/decision": {
+          "denominator": 60,
+          "observed": 60,
+          "correct_vs_ai": 57,
+          "invalid_or_missing": 0
+        },
+        "quality_new40/v1/decision": {
+          "denominator": 40,
+          "observed": 40,
+          "correct_vs_ai": 39,
+          "invalid_or_missing": 0
+        },
+        "quality_new40/v2/decision": {
+          "denominator": 40,
+          "observed": 40,
+          "correct_vs_ai": 40,
+          "invalid_or_missing": 0
+        }
+      },
+      "performance": {
+        "short/decision/default": {
+          "workflows": 20,
+          "answer_denominator": 20,
+          "answers_matching_ai": 20,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.0804306895006448,
+          "truncated_requests": 0
+        },
+        "medium/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 5,
+          "answers_matching_ai": 5,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.34041725398856215,
+          "truncated_requests": 0
+        },
+        "long/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 5,
+          "answers_matching_ai": 5,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 1.2518749489972834,
+          "truncated_requests": 0
+        },
+        "eight/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 40,
+          "answers_matching_ai": 35,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.7328426410094835,
+          "truncated_requests": 0
+        }
+      }
+    },
+    {
+      "id": "diffusion",
+      "configuration": "DiffusionGemma 26B-A4B NVFP4",
+      "study": "WI047",
+      "timing_boundary": "loopback HTTP",
+      "v1_correct": 106,
+      "v1_denominator": 120,
+      "v1_agreement_percent": 88.33333333333333,
+      "quality_sets": {
+        "quality_old80/v1/decision": {
+          "denominator": 80,
+          "observed": 80,
+          "correct_vs_ai": 69,
+          "invalid_or_missing": 0
+        },
+        "quality_dev60_v2/v2/decision": {
+          "denominator": 60,
+          "observed": 60,
+          "correct_vs_ai": 52,
+          "invalid_or_missing": 0
+        },
+        "quality_new40/v1/decision": {
+          "denominator": 40,
+          "observed": 40,
+          "correct_vs_ai": 37,
+          "invalid_or_missing": 0
+        },
+        "quality_new40/v2/decision": {
+          "denominator": 40,
+          "observed": 40,
+          "correct_vs_ai": 36,
+          "invalid_or_missing": 0
+        }
+      },
+      "performance": {
+        "short/decision/default": {
+          "workflows": 20,
+          "answer_denominator": 20,
+          "answers_matching_ai": 20,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.13058683900453616,
+          "truncated_requests": 0
+        },
+        "medium/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 5,
+          "answers_matching_ai": 5,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.36380330598331057,
+          "truncated_requests": 0
+        },
+        "long/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 5,
+          "answers_matching_ai": 5,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 1.3589591780037154,
+          "truncated_requests": 0
+        },
+        "eight/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 40,
+          "answers_matching_ai": 40,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.37755259400000796,
+          "truncated_requests": 0
+        }
+      }
+    },
+    {
+      "id": "qwen",
+      "configuration": "Eider · Qwen3.6-35B-A3B NVFP4",
+      "study": "WI017",
+      "timing_boundary": "loopback HTTP",
+      "v1_correct": 103,
+      "v1_denominator": 120,
+      "v1_agreement_percent": 85.83333333333333,
+      "quality_sets": {
+        "quality_old80/v1/decision": {
+          "denominator": 80,
+          "observed": 80,
+          "correct_vs_ai": 68,
+          "invalid_or_missing": 0
+        },
+        "quality_dev60_v2/v2/decision": {
+          "denominator": 60,
+          "observed": 60,
+          "correct_vs_ai": 53,
+          "invalid_or_missing": 0
+        },
+        "quality_new40/v1/decision": {
+          "denominator": 40,
+          "observed": 40,
+          "correct_vs_ai": 35,
+          "invalid_or_missing": 0
+        },
+        "quality_new40/v2/decision": {
+          "denominator": 40,
+          "observed": 40,
+          "correct_vs_ai": 35,
+          "invalid_or_missing": 0
+        }
+      },
+      "performance": {
+        "short/decision/default": {
+          "workflows": 20,
+          "answer_denominator": 20,
+          "answers_matching_ai": 20,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.2503417416010052,
+          "truncated_requests": 0
+        },
+        "medium/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 5,
+          "answers_matching_ai": 5,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.9699737438932061,
+          "truncated_requests": 0
+        },
+        "long/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 5,
+          "answers_matching_ai": 5,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 4.172911299392581,
+          "truncated_requests": 0
+        },
+        "eight/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 40,
+          "answers_matching_ai": 35,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 1.1537340870127082,
+          "truncated_requests": 0
+        }
+      }
+    },
+    {
+      "id": "semif",
+      "configuration": "SemIf · Qwen3.5-4B BF16",
+      "study": "WI017",
+      "timing_boundary": "native Python API",
+      "v1_correct": 77,
+      "v1_denominator": 120,
+      "v1_agreement_percent": 64.16666666666667,
+      "quality_sets": {
+        "quality_old80/v1/decision": {
+          "denominator": 80,
+          "observed": 80,
+          "correct_vs_ai": 54,
+          "invalid_or_missing": 0
+        },
+        "quality_dev60_v2/v2/decision": {
+          "denominator": 60,
+          "observed": 60,
+          "correct_vs_ai": 51,
+          "invalid_or_missing": 0
+        },
+        "quality_new40/v1/decision": {
+          "denominator": 40,
+          "observed": 40,
+          "correct_vs_ai": 23,
+          "invalid_or_missing": 0
+        },
+        "quality_new40/v2/decision": {
+          "denominator": 40,
+          "observed": 40,
+          "correct_vs_ai": 37,
+          "invalid_or_missing": 0
+        }
+      },
+      "performance": {
+        "short/decision/default": {
+          "workflows": 20,
+          "answer_denominator": 20,
+          "answers_matching_ai": 20,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.11959911370649934,
+          "truncated_requests": 0
+        },
+        "medium/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 5,
+          "answers_matching_ai": 0,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.803329044021666,
+          "truncated_requests": 0
+        },
+        "long/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 5,
+          "answers_matching_ai": 5,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 2.84941495815292,
+          "truncated_requests": 0
+        },
+        "eight/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 40,
+          "answers_matching_ai": 30,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 1.1006055027246475,
+          "truncated_requests": 0
+        },
+        "eight/decision/shared": {
+          "workflows": 5,
+          "answer_denominator": 40,
+          "answers_matching_ai": 30,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.6697205738164485,
+          "truncated_requests": 0
+        }
+      }
+    },
+    {
+      "id": "laya",
+      "configuration": "Laya multilingual · 0.322B",
+      "study": "WI017",
+      "timing_boundary": "native Python API",
+      "v1_correct": 47,
+      "v1_denominator": 120,
+      "v1_agreement_percent": 39.166666666666664,
+      "quality_sets": {
+        "quality_old80/v1/decision": {
+          "denominator": 80,
+          "observed": 80,
+          "correct_vs_ai": 33,
+          "invalid_or_missing": 0
+        },
+        "quality_dev60_v2/v2/decision": {
+          "denominator": 60,
+          "observed": 60,
+          "correct_vs_ai": 20,
+          "invalid_or_missing": 0
+        },
+        "quality_new40/v1/decision": {
+          "denominator": 40,
+          "observed": 40,
+          "correct_vs_ai": 14,
+          "invalid_or_missing": 0
+        },
+        "quality_new40/v2/decision": {
+          "denominator": 40,
+          "observed": 40,
+          "correct_vs_ai": 14,
+          "invalid_or_missing": 0
+        }
+      },
+      "performance": {
+        "short/decision/default": {
+          "workflows": 20,
+          "answer_denominator": 20,
+          "answers_matching_ai": 20,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.008810730651021004,
+          "truncated_requests": 0
+        },
+        "medium/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 5,
+          "answers_matching_ai": 0,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.02157334703952074,
+          "truncated_requests": 5
+        },
+        "long/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 5,
+          "answers_matching_ai": 0,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.023081205785274506,
+          "truncated_requests": 5
+        },
+        "eight/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 40,
+          "answers_matching_ai": 10,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.04576814267784357,
+          "truncated_requests": 0
+        }
+      }
+    },
+    {
+      "id": "nanojev",
+      "configuration": "NanoJev · 0.6B navigation checkpoint",
+      "study": "WI017",
+      "timing_boundary": "native Python API",
+      "v1_correct": 46,
+      "v1_denominator": 120,
+      "v1_agreement_percent": 38.333333333333336,
+      "quality_sets": {
+        "quality_old80/v1/decision": {
+          "denominator": 80,
+          "observed": 80,
+          "correct_vs_ai": 28,
+          "invalid_or_missing": 0
+        },
+        "quality_dev60_v2/v2/decision": {
+          "denominator": 60,
+          "observed": 60,
+          "correct_vs_ai": 17,
+          "invalid_or_missing": 0
+        },
+        "quality_new40/v1/decision": {
+          "denominator": 40,
+          "observed": 40,
+          "correct_vs_ai": 18,
+          "invalid_or_missing": 0
+        },
+        "quality_new40/v2/decision": {
+          "denominator": 40,
+          "observed": 40,
+          "correct_vs_ai": 18,
+          "invalid_or_missing": 0
+        }
+      },
+      "performance": {
+        "short/decision/default": {
+          "workflows": 20,
+          "answer_denominator": 20,
+          "answers_matching_ai": 0,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.040643754648044705,
+          "truncated_requests": 0
+        },
+        "medium/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 5,
+          "answers_matching_ai": 0,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.6305579282343388,
+          "truncated_requests": 0
+        },
+        "long/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 5,
+          "answers_matching_ai": 0,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 3.7735025510191917,
+          "truncated_requests": 0
+        },
+        "eight/decision/default": {
+          "workflows": 5,
+          "answer_denominator": 40,
+          "answers_matching_ai": 15,
+          "failed_or_unsupported_requests": 0,
+          "median_successful_workflow_seconds": 0.5076450021006167,
+          "truncated_requests": 0
+        }
+      }
+    }
+  ],
+  "additional_model_pins": {
+    "semif": {
+      "repo": "Qwen/Qwen3.5-4B",
+      "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a"
+    },
+    "laya": {
+      "repo": "convaiinnovations/laya-multilingual",
+      "revision": "052592a15d198d9ad47da779604259b10b47b7aa"
+    },
+    "nanojev": {
+      "repo": "C-Tianyu/NanoJev",
+      "revision": "4a19595eada0857133c0d2be024f879a4077054b"
+    }
+  },
+  "historical_eider_gemma_v1": {
+    "old80": 74,
+    "new40": 38,
+    "total": 112,
+    "note": "Same aggregate as current kit but different per-case predictions and prompt; not a paired all-history optimization claim."
+  },
+  "private_evidence": "Full input corpus, individual predictions and private logs are not distributed. Aggregates allow arithmetic checking, not independent corpus reproduction."
+}

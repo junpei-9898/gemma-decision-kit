@@ -1,5 +1,7 @@
 # Benchmark scope and validation
 
+[Cross-OSS Japanese accuracy/latency comparison](COMPARISON.md) · [Source-derived aggregate data](comparison-results.json)
+
 ## Historical optimized text path
 
 GB10 / Edge Xpert, Linux ARM64, NVFP4 Gemma4 26B-A4B, pinned runtime/revision in `gemma_decision.profiles`. Warm preparation + inference + extraction, excluding model load, HTTP and logging. This is the default text-only recipe, not a speed promise for `--media`.
