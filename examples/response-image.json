@@ -1,0 +1,30 @@
+{
+  "profile": "speed",
+  "model": "nvidia/Gemma-4-26B-A4B-NVFP4",
+  "answers": {
+    "q": {
+      "type": "choice",
+      "choice": "supported",
+      "probabilities": {
+        "supported": 1.0,
+        "refuted": 9.237449661970594e-09,
+        "insufficient": 4.501973413345846e-09
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 372
+  },
+  "probability_calibration": "uncalibrated",
+  "media": {
+    "type": "image",
+    "width": 960,
+    "height": 640,
+    "token_counts_by_question": {
+      "q": {
+        "image": 260,
+        "video": 0
+      }
+    }
+  }
+}

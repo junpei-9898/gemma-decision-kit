@@ -13,12 +13,12 @@ class Fake:
     def score(self,tokens):self.calls+=1;return [.7,.2,.1]
 
 def engine():
-    e=DecisionEngine.__new__(DecisionEngine);e.backend=Fake();e.limit=8192;e.lock=threading.Lock();e.profile='memory';return e
+    e=DecisionEngine.__new__(DecisionEngine);e.backend=Fake();e.limit=8192;e.lock=threading.Lock();e.profile='speed';return e
 
 class ContractTests(unittest.TestCase):
     def test_python_optimized_mode_rejected_before_gpu_load(self):
         import subprocess,sys
-        r=subprocess.run([sys.executable,"-O","-c","from gemma_decision.core import DecisionEngine; DecisionEngine('memory','/nonexistent')"],capture_output=True,text=True)
+        r=subprocess.run([sys.executable,"-O","-c","from gemma_decision.core import DecisionEngine; DecisionEngine('speed','/nonexistent')"],capture_output=True,text=True)
         self.assertNotEqual(r.returncode,0);self.assertIn("runtime guards",r.stderr)
     def test_order_mapping_and_usage(self):
         e=engine();r=e.predict(body());self.assertEqual(r['answers']['q']['choice'],'yes');self.assertEqual(r['usage']['input_tokens'],3);self.assertEqual(e.backend.calls,1)
@@ -44,7 +44,7 @@ class ContractTests(unittest.TestCase):
     def test_http(self):
         e=engine();s=make_server(e,0);t=threading.Thread(target=s.serve_forever);t.start();base=f'http://127.0.0.1:{s.server_port}'
         try:
-            self.assertEqual(json.load(urllib.request.urlopen(base+'/health'))['profile'],'memory')
+            self.assertEqual(json.load(urllib.request.urlopen(base+'/health'))['profile'],'speed')
             req=urllib.request.Request(base+'/v1/decisions',json.dumps(body()).encode(),{'Content-Type':'application/json'})
             self.assertEqual(json.load(urllib.request.urlopen(req))['answers']['q']['choice'],'yes')
             req=urllib.request.Request(base+'/v1/decisions',b'{}',{'Content-Type':'application/json'})

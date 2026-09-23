@@ -1,43 +1,177 @@
 {
-  "date": "2026-09-23",
+  "date": "2026-09-24",
+  "version": "0.2.0",
   "hardware": "NVIDIA GB10 / Edge Xpert, Linux ARM64",
   "runtime_image": "ghcr.io/miaai-lab/mia-vllm-gb10-linear-b12x@sha256:19627342e1da2607f4db50745dca30e57d7dd0ebff06062f03fd69b43a252931",
-  "actual_vllm_version": "0.26.1.dev0+gf2654939e.d20260726",
-  "CPU_contract_tests": 9,
-  "clean_final_wheel_install": "PASS",
-  "wheel_license_texts_included": "PASS",
-  "backends": {
-    "memory": {
-      "status": "PASS",
-      "sequences": 232,
-      "processed_tokens": 85943,
-      "choice_changes": 0,
-      "max_probability_delta": 0,
-      "http": "PASS"
+  "vllm": "0.26.1.dev0+gf2654939e.d20260726",
+  "text_packaging_parity": {
+    "status": "PASS",
+    "sequences": 231,
+    "tokens": 85852,
+    "peak": [
+      {
+        "allocated": 22229466624,
+        "reserved": 25671237632,
+        "peak_allocated": 23610167296,
+        "peak_reserved": 25671237632
+      }
+    ],
+    "max_probability_delta": 0.0
+  },
+  "media_packaging_parity": {
+    "status": "PASS",
+    "sequences": 121,
+    "tokens": 45817,
+    "peak": [
+      {
+        "allocated": 23404272128,
+        "reserved": 25872564224,
+        "peak_allocated": 24813895168,
+        "peak_reserved": 25872564224
+      }
+    ],
+    "max_probability_delta": 0.0
+  },
+  "media_fixture_scope": {
+    "images": 3,
+    "image_questions": 9,
+    "image_resolution": [
+      960,
+      640
+    ],
+    "videos": 2,
+    "video_questions": 4,
+    "video_resolution": [
+      640,
+      360
+    ],
+    "video_seconds": 4,
+    "video_source_fps": 1,
+    "video_source_frames": 4,
+    "gold": "AI provisional, frozen before predictions"
+  },
+  "media_API_measurements": {
+    "image": {
+      "cold": {
+        "n": 9,
+        "correct": 9,
+        "median_ms": 127.44362201192416,
+        "min_ms": 125.10531200678088,
+        "max_ms": 132.99949598149396,
+        "prompt_token_range": [
+          368,
+          372
+        ]
+      },
+      "repeat-1": {
+        "n": 9,
+        "correct": 9,
+        "median_ms": 60.83922600373626,
+        "min_ms": 58.702296984847635,
+        "max_ms": 61.68022900237702,
+        "prompt_token_range": [
+          368,
+          372
+        ]
+      },
+      "repeat-2": {
+        "n": 9,
+        "correct": 9,
+        "median_ms": 59.38366299960762,
+        "min_ms": 57.406531006563455,
+        "max_ms": 60.452434001490474,
+        "prompt_token_range": [
+          368,
+          372
+        ]
+      }
     },
-    "speed": {
-      "status": "PASS",
-      "sequences": 232,
-      "processed_tokens": 85943,
-      "choice_changes": 0,
-      "max_probability_delta": 0,
-      "http": "PASS"
+    "video": {
+      "cold": {
+        "n": 4,
+        "correct": 4,
+        "median_ms": 145.05664850003086,
+        "min_ms": 144.3031610106118,
+        "max_ms": 146.78687302512117,
+        "prompt_token_range": [
+          405,
+          410
+        ]
+      },
+      "repeat-1": {
+        "n": 4,
+        "correct": 4,
+        "median_ms": 69.01857251068577,
+        "min_ms": 66.93345800158568,
+        "max_ms": 71.99069700436667,
+        "prompt_token_range": [
+          405,
+          410
+        ]
+      },
+      "repeat-2": {
+        "n": 4,
+        "correct": 4,
+        "median_ms": 68.79282850422896,
+        "min_ms": 66.55970902647823,
+        "max_ms": 71.92087898147292,
+        "prompt_token_range": [
+          405,
+          410
+        ]
+      }
     }
   },
-  "installation": {
-    "status": "PASS",
-    "fresh_runtime_source": true,
-    "fresh_extension_build": true,
-    "clean_target_install": true,
-    "actual_CLI_exact_HTTP_parity": true,
-    "sequences": 1,
-    "processed_tokens": 91,
-    "source_and_dependency_bytes": 34143599
-  },
-  "initial_failures_retained": [
-    "First evaluation harness needed Python import-cache invalidation after pip target installation; zero model calls.",
-    "Image branding was0.26.0 but actual installed vLLM is0.26.1.dev0; version guard corrected to exact observed build; zero model calls.",
-    "Fresh installer initially invoked unavailable python alias in image; changed to python3, rerun with new directories; zero model calls."
+  "measurement_scope": "Media predict() validation, preprocessing, inference, extraction; loaded/warm runtime. cold resets prefix+processor caches, not OS/runtime/kernel state. Each unique question once per cache phase; two identical repeats. Input data URL already built; excludes file read/base64 construction, HTTP and model load. Legacy-reference token IDs and probabilities matched39/39. Generic API matched corresponding cold/repeat native reference39/39. Not a new speedup claim versus different historical prompts.",
+  "retained_failures": [
+    "Initial strict cross-cache comparison reported FAIL: cold reference versus warmed repeats, max probability delta0.00028694825945718705. All choices unchanged. New trial compared matching cache phases and yielded exact parity; original failure retained.",
+    "Local no-isolation wheel build lacked bdist_wheel. Built final wheel inside the pinned runtime image using its existing build tools, without adding dependencies."
   ],
-  "scope": "Same-backend packaging parity, not an independent new quality evaluation. Final packaging additions include license bundling and a CPU-tested -O rejection guard; inference math unchanged."
+  "limitations": [
+    "NVFP4 only; EXL3 is available only in historical v0.1.0.",
+    "No audio; video audio tracks ignored; visual frames are sampled.",
+    "No general quality guarantee from13unique synthetic media questions.",
+    "No arbitrary-device certification; GB10 only.",
+    "Probabilities uncalibrated.",
+    "Default text-mode and media-mode recipes differ; do not apply text-only speed/memory figures to media mode."
+  ],
+  "final_wheel_validation": {
+    "status": "PASS",
+    "valid_media": [
+      {
+        "type": "image",
+        "width": 960,
+        "height": 640
+      },
+      {
+        "type": "video",
+        "width": 640,
+        "height": 360,
+        "source_frames": 4,
+        "duration_seconds": 4.0,
+        "frame_selection": "pinned_vllm_default; sampled, not full-frame analysis",
+        "audio_processed": false
+      },
+      {
+        "type": "image",
+        "width": 960,
+        "height": 640
+      }
+    ],
+    "invalid_media_rejected": 4,
+    "invalid_http_rejected": 4,
+    "expanded_token_overflow": "PASS",
+    "CPU_tests": 17,
+    "sequences": 4,
+    "tokens": 1245
+  },
+  "final_wheel_sha256": "0bb90f96ebae223abbea15b9aae3a2519cda1a7ad90e7d0b6a83d3cf344caf1e",
+  "clean_CPU_wheel_install": "PASS",
+  "CPU_contract_tests": 17,
+  "fresh_process_example_ms": {
+    "image": 19532.522466994124,
+    "video": 296.651626995299,
+    "jpeg": 328.58697601477616,
+    "text": 385.9049679886084
+  }
 }

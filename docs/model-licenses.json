@@ -4,11 +4,5 @@
     "revision": "a19cfe00be84568a6867111c9a68c9c44fdcffe6",
     "license": "apache-2.0",
     "license_link": "https://ai.google.dev/gemma/apache_2"
-  },
-  "memory": {
-    "model": "turboderp/gemma-4-26B-A4B-it-exl3",
-    "revision": "7102602329b793263e5490c7a575d5364e6052cb",
-    "license": "apache-2.0",
-    "license_link": "https://ai.google.dev/gemma/docs/gemma_4_license"
   }
 }

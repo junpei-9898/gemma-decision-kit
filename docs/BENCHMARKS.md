@@ -1,38 +1,47 @@
-# Benchmark scope and release validation
+# Benchmark scope and validation
 
-## Historical native inference (GB10 / Edge Xpert)
+## Historical optimized text path
 
-Warm preparation + inference + answer extraction; excludes model load, extension build, HTTP and logging. These are pre-packaging native measurements, not an HTTP latency promise. Same frozen Japanese decision inputs, no truncation. Model revisions are in `gemma_decision.profiles`. NVFP4 uses the pinned GB10 image (actual vLLM0.26.1.dev0+gf2654939e.d20260726); EXL3 uses6b84a21 with ARM guards. NVFP4/EXL3 were measured at different times, not simultaneous randomized A/B.
+GB10 / Edge Xpert, Linux ARM64, NVFP4 Gemma4 26B-A4B, pinned runtime/revision in `gemma_decision.profiles`. Warm preparation + inference + extraction, excluding model load, HTTP and logging. This is the default text-only recipe, not a speed promise for `--media`.
 
-| Input | NVFP4 speed recipe | EXL3 before compact head | EXL3 compact128 |
+| State length / total prompt tokens / questions | Median |
+|---|---:|
+|54characters /222tokens /1question|83.32ms (20repeats)|
+|2099characters /1878tokens /1question|344.47ms (5repeats)|
+|8108characters /6744tokens /1question|1251.00ms (5repeats)|
+|104characters /2360tokens /8sequential questions|739.35ms (20repeats)|
+
+Historical peak PyTorch allocated GPU tensors:21.997GiB with3GiB FP8 KV pool. This is not whole-process RSS or minimum discrete VRAM certification. On220 AI-provisionally labeled judgments (120overlapping case IDs including instruction variants), the sequential recipe scored209/220. No human-gold or general non-inferiority certification. The full historical private corpus is not distributed, so these historical scores cannot be reproduced from the public examples alone. The former EXL3 comparison remains in the v0.1.0 tag; EXL3 is no longer an active backend.
+
+## v0.2.0 image/video and release checks
+
+Release regression: **231/231 text decisions matched prior choices and probabilities exactly**. The frozen media evidence prompt matched historical expanded token IDs and probabilities on39/39outputs. The generic media API matched a direct native reference in the same cache state on39/39outputs. All13unique questions were correct against frozen AI-provisional labels (9image +4video), with two repeated calls per question also correct.
+
+| New generic media API | Cache-cold median | First identical repeat | Second identical repeat |
 |---|---:|---:|---:|
-| 54 state characters /222 prompt tokens,1question |83.32ms|133.51ms|133.02ms|
-| 2099 characters /1878tokens,1question |344.47ms|557.13ms|557.18ms|
-| 8108 characters /6744tokens,1question |1251.00ms|2068.96ms|2075.64ms|
-| 104 characters,8 independent questions /2360 total tokens,sequential |739.35ms|1237.22ms|1232.35ms|
-| Peak PyTorch GPU allocated tensors |21.997GiB|14.463GiB|13.947GiB|
+|Image (9questions,368–372tokens)|127.44ms|60.84ms|59.38ms|
+|Video (4questions,405–410tokens)|145.06ms|69.02ms|68.79ms|
 
-EXL3 medians use10 repeats each; NVFP4 short/eight20, medium/long5. Character count covers state, whereas token count includes question/instructions/template. Memory is not whole-process RSS or a certified minimum VRAM. NVFP4 includes a persistent3GiB FP8 KV allocation; EXL3 is cacheless, so the difference is not attributable to quantization alone. Both use text-only paths. Multimodal memory/quality/speed was not certified here.
+These times include validation, decode/processor work, inference and extraction inside `predict()`. The data URL already exists; file reading/base64 creation, HTTP and model load are excluded. The runtime/kernels were warm. Cold clears prefix and processor caches. These are medians across different questions, not many independent repetitions of the same prompt. Do not compare directly with historical different prompts and claim a new speedup.
 
-Compact EXL3 saves about0.516GiB versus its own prior recipe. Paired full/compact-head measurements showed a few milliseconds saved, but separate end-to-end runs were essentially unchanged. No large speed gain is claimed.
+Media peak PyTorch allocated memory including startup profiling:23.110GiB; allocated at trial end21.797GiB, reserved24.095GiB. Text peak21.989GiB in the new regression. GB10 uses unified memory; these do not certify minimum discrete VRAM.
 
-## Provisional quality and rejected settings
+An initial strict comparison mixed cold reference with warm repeated outputs and reported FAIL (max probability difference0.000287, no changed choices). The retained corrected trial compares each matching cache phase and achieves exact parity; cross-cache bitwise identity is not claimed.
 
-On220 fixed AI-provisionally labeled judgments (overlapping120case IDs, including multiple instruction variants), both sequential NVFP4 and EXL3 scored209/220. They did not make identical errors: EXL3 improved one NVFP4 error and lost one NVFP4 correct answer. This is not human-gold certification or a general non-inferiority result.
+See [release-validation.json](release-validation.json) for measured results. Images and videos use their own validated recipe: query32 attention, scale reconciliation, BF16/auto KV,3GiB KV,16384 internal context and bounded prefix/processor caches. Text-only compact-head/MoE changes are not enabled here.
 
-EXL3 batch2/4 scored210/220 and batch1/8 scored209/220. Numerical confidence differences and a borderline choice change remained. These experimental batch paths are **not enabled in the released API**. The repeated mixed8question workflow was8/8 for EXL3 at every tested batch size (the historical NVFP4 recipe scored7/8). A previous internal EXL3 narrative incorrectly stated7/8; raw predictions and unchanged labels establish8/8.
+Media fixtures: three synthetic960x640 images (9questions) and two640x360,4-second,4-frame/1fps clips (4questions). The frozen evidence prompt and the new generic API prompt are evaluated separately. Report13unique questions rather than inflating the sample size with repeats. Provisional labels were frozen before predictions. These tests do not certify real-world OCR, long or dense video, or audio.
 
-Host bulk-tokenization/deferred-readback did not give a repeatable speed improvement and is disabled. MoE capacity64/32 was slower. Capacity64 also made an additional mixed-workflow mistake with batch4 (8/8→7/8) and was rejected. Defaults remain capacity128, deterministic fused accumulation, no CPU expert offload, no persistent EXL KV cache, and sequential requests.
+Video is sampled-frame visual analysis. Cache-cold means prefix and processor caches reset, not model-loading/OS/kernel cold. Repeated calls reuse caches and can change probability values slightly; compare against an equally warmed reference. Startup/first-ever kernel latency is separate. Peak memory includes initialization profiling when noted.
 
-## Packaged release checks
-
-The installed package was compared against the same-backend historical predictions: **231/231 choices and all probability values exactly matched for each backend**, including220 fixed quality records and short/medium/long/eight workflows. A real loopback HTTP request was also exercised with the published synthetic example for each backend. This verifies packaging parity on the tested machine, not quality on new data.
-
-[release-validation.json](release-validation.json) records the published audit summary. The historical full fixtures and raw private operational logs are not distributed in this repository; historical accuracy cannot be independently reproduced from the small public example alone. The public contract tests, synthetic request and benchmark command below are reproducible and deliberately do not claim to recreate the historical corpus.
+## Reproduce on your data
 
 ```sh
-# After runtime installation: warm measurements on YOUR supplied request.
-python3 scripts/benchmark.py --profile memory --model-path /models/exl3 --input examples/request.json --repeats 10
+python3 scripts/benchmark.py --profile speed --model-path /models/nvfp4 --input examples/request.json --repeats 10
+python3 scripts/benchmark.py --profile speed --media --model-path /models/nvfp4 --input examples/image-request.json --repeats 10
+python3 scripts/benchmark.py --profile speed --media --model-path /models/nvfp4 --input examples/video-request.json --repeats 10
 ```
 
-Report hardware/runtime/model revision, input token counts, number of questions, warm repetitions and aggregate elapsed time with any comparison. This script reports latency only; it does not invent gold labels or estimate accuracy.
+The script reports warm request latency including validation/preprocessing and answer extraction, after one warmup request. In media mode this is repeated identical input with prefix/processor caches enabled. It does not include HTTP/model load, invent labels, or estimate accuracy. Report hardware, immutable runtime/model version, mode, input tokens, media dimensions/frame sampling, question count, repetitions and cache state with comparisons.
+
+Final distributed wheel: clean install and17CPU tests PASS; PNG/JPEG/MP4 examples and text-in-media-mode smoke PASS; four corrupt/over-limit media inputs rejected both by the decoder check and HTTP400; expanded-token overflow rejected. A fresh process still incurs first-use compilation: image example took 19.53seconds after model load (not127ms). The subsequent video example took 0.30seconds. Warm table values are not first-request guarantees.

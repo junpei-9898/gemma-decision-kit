@@ -1,7 +1,7 @@
 Gemma Decision Kit
 Copyright 2026 gemma-decision-kit contributors.
 
-Project code is Apache-2.0, except upstream-derived MIT portions described below.
+Project code is Apache-2.0.
 This independent project is not an official Jev, Eider, Google, NVIDIA, or ExLlama release.
 
 vLLM (Apache-2.0): https://github.com/vllm-project/vllm
@@ -10,15 +10,10 @@ The NVFP4 gate/up reconciliation follows upstream PR55073 (9ac09fb algorithm).
 nv_runtime.py modifies the pinned GB10 vLLM development build’s attention host launch settings and MoE
 reduction/output alias handling at runtime; nv_head.py adapts its logits path.
 Modifications restrict execution to a sequential, three-choice decision path.
+The optional media recipe retains the vision encoder and query32 attention launch;
+it uses pinned vLLM preprocessing before enqueue to enforce expanded token limits.
+Synthetic shapes/video examples are project-authored, licensed Apache-2.0.
 The vLLM license is included in licenses/vLLM.txt.
-
-ExLlamaV3 (MIT): https://github.com/turboderp-org/exllamav3
-Copyright (c) 2025 Turboderp.
-exl_head.py's aligned output block slicing follows LinearEXL3.tp_import_split_n;
-modified for a single-device ABC head. patches/*.patch contain modified upstream
-source snippets, including ARM guards informed by vcruz305/exllamav3 commit
-94ba01d50a13fa9ff672473f2d0eef8b51a71e99. These upstream portions remain MIT.
-Full required MIT notice: licenses/ExLlamaV3.txt.
 
 Eider (Apache-2.0): https://github.com/rdaum/eider
 The state + typed questions interface inspired this API. Eider Rust runtime/code

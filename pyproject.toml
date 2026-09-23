@@ -3,8 +3,8 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "gemma-decision-kit"
-version = "0.1.0"
-description = "Text-only, three-choice Gemma decision inference with speed/memory profiles"
+version = "0.2.0"
+description = "NVFP4 Gemma three-choice decisions for text, images and short video"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
 readme = "README.md"
@@ -14,8 +14,6 @@ gemma-decision = "gemma_decision.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.setuptools.package-data]
-gemma_decision = ["exl_manifest.json"]
 
 [tool.setuptools]
 license-files = ["LICENSE", "NOTICE", "licenses/*.txt"]

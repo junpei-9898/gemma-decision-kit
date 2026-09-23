@@ -5,8 +5,11 @@ from .profiles import PROFILES
 
 
 def validate(body):
-    if not isinstance(body, dict) or set(body) != {'state', 'questions'}:
-        raise ValueError('Expected exactly state and questions')
+    if not isinstance(body, dict) or set(body) not in ({'state', 'questions'},{'state','questions','media'}):
+        raise ValueError('Expected state, questions and optional media')
+    if 'media' in body:
+        from .media import validate_media
+        validate_media(body['media'])
     if not isinstance(body['state'], str) or not body['state'] or len(body['state']) > 200000:
         raise ValueError('state must be nonempty text, at most 200000 characters')
     questions = body['questions']
@@ -32,13 +35,13 @@ def prompt_text(state, q):
 
 
 class DecisionEngine:
-    def __init__(self, profile, model_path, max_input_tokens=8192):
+    def __init__(self, profile, model_path, max_input_tokens=8192, media=False):
         if not __debug__:
             raise RuntimeError("Python -O disables required runtime guards; use normal Python")
         if profile not in PROFILES or not 1 <= max_input_tokens <= 8192:
             raise ValueError('Unsupported profile or token limit')
         from .backends import load_backend
-        self.backend = load_backend(profile, model_path)
+        self.backend = load_backend(profile, model_path, media=media)
         self.profile = profile
         self.limit = max_input_tokens
         self.lock = threading.Lock()
@@ -48,16 +51,28 @@ class DecisionEngine:
         # All questions validated/tokenized before any inference; no truncation.
         with self.lock:
             prepared=[]
+            media_info=None
+            if 'media' in body:
+                if not getattr(self.backend,'media',False):raise ValueError('Restart with --media for image/video inputs')
+                from .media import inspect_media, messages
+                media_info=inspect_media(body['media'])
             for key,q in body['questions'].items():
-                ids=self.backend.tokenizer.apply_chat_template([{'role':'user','content':prompt_text(body['state'],q)}],tokenize=True,add_generation_prompt=True,enable_thinking=False)
-                if not isinstance(ids,list):ids=ids['input_ids']
+                if media_info is not None:
+                    payload,ids,counts=self.backend.prepare_media(messages(body['media'],prompt_text(body['state'],q)),self.limit)
+                else:
+                    ids=self.backend.tokenizer.apply_chat_template([{'role':'user','content':prompt_text(body['state'],q)}],tokenize=True,add_generation_prompt=True,enable_thinking=False)
+                    if not isinstance(ids,list):ids=ids['input_ids']
+                    payload=ids;counts=None
                 if len(ids)>self.limit:raise ValueError(f'Question {key} exceeds token limit; input was not truncated')
-                prepared.append((key,q,ids))
+                prepared.append((key,q,ids,payload,counts))
             answers={}
-            for key,q,ids in prepared:
-                values=self.backend.score(ids)
+            for key,q,ids,payload,counts in prepared:
+                values=self.backend.score_media(payload) if media_info is not None else self.backend.score(ids)
                 if len(values)!=3 or any(not math.isfinite(v) or v<0 for v in values) or abs(sum(values)-1)>1e-5:
                     raise RuntimeError('Invalid backend probability distribution')
                 probabilities=dict(zip(q['criteria'],values))
                 answers[key]={'type':'choice','choice':max(probabilities,key=probabilities.get),'probabilities':probabilities}
-        return {'profile':self.profile,'model':PROFILES[self.profile]['model'],'answers':answers,'usage':{'input_tokens':sum(len(x[2]) for x in prepared)},'probability_calibration':'uncalibrated'}
+        result={'profile':self.profile,'model':PROFILES[self.profile]['model'],'answers':answers,'usage':{'input_tokens':sum(len(x[2]) for x in prepared)},'probability_calibration':'uncalibrated'}
+
+        if media_info is not None:result['media']={**media_info,'token_counts_by_question':{x[0]:x[4] for x in prepared}}
+        return result

@@ -17,10 +17,11 @@ def parse_json(text):
 
 
 def main():
-    p=argparse.ArgumentParser(description='Local text-only three-choice decisions')
+    p=argparse.ArgumentParser(description='Local NVFP4 three-choice decisions')
     p.add_argument('command',choices=['info','validate','predict','serve'])
     p.add_argument('--profile',choices=PROFILES,default='speed')
     p.add_argument('--model-path')
+    p.add_argument('--media',action='store_true',help='Load vision encoder and validated image/video recipe')
     p.add_argument('--input',default='-',help='JSON path or stdin')
     p.add_argument('--port',type=int,default=8765)
     p.add_argument('--max-input-tokens',type=int,default=8192)
@@ -37,7 +38,7 @@ def main():
     # Runtime libraries may print during initialization/inference; stdout is JSON only.
     from contextlib import redirect_stdout
     with redirect_stdout(sys.stderr):
-        engine=DecisionEngine(args.profile,args.model_path,args.max_input_tokens)
+        engine=DecisionEngine(args.profile,args.model_path,args.max_input_tokens,media=args.media)
         if args.command=='predict':result=engine.predict(body)
     if args.command=='predict':print(json.dumps(result,ensure_ascii=False));return
     from .server import serve

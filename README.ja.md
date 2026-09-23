@@ -1,23 +1,23 @@
 # Gemma Decision Kit
 
-Gemma4を使い、文章から3択の判定と確率を返す実験的なCLI/APIです。自由文の回答は返しません。新しいモデルを学習したものではなく、既存モデルの判定処理を最適化した独立実装です。公式JevやEiderの互換製品ではありません。
+**NVFP4版Gemma 4で、テキスト・画像・短い動画を3択判定するローカル実行キット**です。文章の回答を生成せず、選択結果と未校正の確率分布を返します。
 
-- `speed`: NVFP4＋vLLM。速度を優先。
-- `memory`: EXL3 4.10bpw＋ExLlamaV3。メモリを優先。
-- 1プロセスで片方だけロードします。切り替えには停止・再起動が必要です。
-- 初期版はテキスト・3択のみ。複数質問も逐次処理します。画像・動画・音声、真偽値型、スコア型は未対応です。
-- 確率は校正されていません。高確率でも正解とは限りません。バックエンドによって判定が変わる場合があります。
-
-[固定環境の導入手順](docs/INSTALL.md)に従ってください。実機検証はLinux ARM64のGB10/Edge Xpertで行っています。ほかのGPUで同じ性能・動作を保証するものではありません。モデル重みは同梱せず、利用者が固定revisionを取得します。
+- v0.2.0はNVFP4に一本化。EXL3は現行配布から外し、旧v0.1.0の履歴に保持。
+- 通常起動は従来のテキスト高速構成。`--media`で画像・動画に対応する構成を起動。
+- 同じNVFP4モデルを使いますが、テキスト専用と画像・動画対応ではKV設定や最適化が異なります。
+- 画像はPNG/JPEGを1枚、動画はMP4を1本。動画はフレームを抽出して視覚情報を判定し、音声は処理しません。
+- 3択・複数質問の逐次処理。真偽値型、score型、自由文生成、音声は未対応。
+- 実機確認環境はEdge Xpert / GB10、Linux ARM64。別GPUでの動作や性能は未認定。
 
 ```sh
-gemma-decision predict --profile speed --model-path /models/nvfp4 --input examples/request.json
-gemma-decision serve --profile memory --model-path /models/exl3 --port 8765
-curl http://127.0.0.1:8765/v1/decisions -H 'Content-Type: application/json' --data-binary @examples/request.json
+gemma-decision predict --model-path /models/nvfp4 --input examples/request.json
+gemma-decision predict --media --model-path /models/nvfp4 --input examples/image-request.json
+gemma-decision predict --media --model-path /models/nvfp4 --input examples/video-request.json
+gemma-decision serve --media --model-path /models/nvfp4 --port 8765
 ```
 
-入力は[例](examples/request.json)、実機の応答は[NVFP4](examples/response-speed.json)・[EXL3](examples/response-memory.json)を参照。APIはlocalhost限定です。上限超過入力は切り捨てずエラーにします。
+[導入手順](docs/INSTALL.md)・[画像/動画のAPIと制限](docs/MEDIA.md)・[検証結果](docs/BENCHMARKS.md)。APIは127.0.0.1限定です。
 
-[速度・メモリ・精度・既知の制約](docs/BENCHMARKS.md)。過去のベンチマークは固定AI暫定ラベルを使用したもので、未知データでの品質保証ではありません。配布パッケージへの移植時は両構成それぞれ231判定で、元の判定と確率の完全一致を確認しました。
+独立した実験版であり、公式Jev・Eiderの互換品を認定するものではありません。確率は正答率の保証ではなく、テストの正解はAI暫定ラベルです。小規模合成素材での検証を一般的な精度保証に読み替えないでください。
 
-新規コードはApache-2.0。ExLlama由来のMIT部分の表示も保持しています。[NOTICE](NOTICE)と[ライセンスの区分](docs/LICENSES.md)を確認してください。モデル重み・実行イメージのライセンスは配布コードとは別に扱います。
+コードと自作サンプルはApache-2.0。モデル重みは別途ダウンロードします。[ライセンス詳細](docs/LICENSES.md)。

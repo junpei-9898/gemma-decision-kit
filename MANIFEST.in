@@ -1,7 +1,6 @@
 include LICENSE NOTICE
 recursive-include licenses *.txt
 recursive-include docs *.md *.json
-recursive-include patches *.patch *.md
-recursive-include scripts *.py *.sh
-recursive-include examples *.json
+recursive-include scripts *.py
+recursive-include examples *.json *.png *.mp4 *.md
 recursive-include tests *.py

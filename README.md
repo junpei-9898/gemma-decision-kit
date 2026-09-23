@@ -1,16 +1,12 @@
 # Gemma Decision Kit
 
-Local text decisions with three named choices and an **uncalibrated probability distribution**. No prose answers. Two startup profiles: **speed** (Gemma 4 NVFP4/vLLM) and **memory** (Gemma 4 EXL3 4.10bpw/ExLlamaV3).
+Local **NVFP4 Gemma 4 decisions for text, images and short videos**: three named choices with an **uncalibrated probability distribution**, without prose generation. v0.2.0 removes the EXL3 backend from the active distribution; historical v0.1.0 remains available.
 
-Experimental release. Independent implementation inspired by state + typed-question interfaces; not an official Jev clone or drop-in Eider API. No new model training and no weights included.
-
-[日本語](README.ja.md)
+Experimental release. Independent implementation inspired by state + typed questions; not an official Jev clone or drop-in Eider API. No new model training, no bundled weights. [日本語](README.ja.md).
 
 ## Installation
 
-Clone `https://github.com/junpei-9898/gemma-decision-kit` and enter the repository directory.
-
-See [the pinned GPU installation guide](docs/INSTALL.md). Initial GPU validation targets NVIDIA GB10 / Edge Xpert, Linux ARM64, CUDA 13. Other devices are not certified by these benchmarks. Python-only schema/API tests do not require a GPU:
+Clone this repository, then follow [the pinned GPU installation guide](docs/INSTALL.md). Validated on NVIDIA GB10 / Edge Xpert, Linux ARM64, CUDA13. Other GPU architectures are unverified. CPU contract tests alone do not certify GPU inference.
 
 ```sh
 python3 -m venv .venv
@@ -23,25 +19,25 @@ python -m unittest discover -s tests -v
 
 ## Use
 
-After installing the matching GPU runtime and downloading a pinned model:
+After installing the pinned runtime and downloading the NVFP4 checkpoint:
 
 ```sh
-gemma-decision predict --profile speed --model-path /models/nvfp4 --input examples/request.json
-gemma-decision serve --profile memory --model-path /models/exl3 --port 8765
+# Original optimized text path (no vision encoder).
+gemma-decision predict --model-path /models/nvfp4 --input examples/request.json
+# Text + image/video service, one NVFP4 model with its vision encoder.
+gemma-decision serve --media --model-path /models/nvfp4 --port 8765
 curl http://127.0.0.1:8765/v1/decisions \
-  -H 'Content-Type: application/json' --data-binary @examples/request.json
+  -H 'Content-Type: application/json' --data-binary @examples/image-request.json
 ```
 
-Only one model is loaded. Stop the process normally and restart with the other profile/model path to switch. This is not zero-latency hot swapping. HTTP binds only to loopback; use an authenticated tunnel for remote use. This small serialized API is not a production Internet gateway.
+`--profile speed` is retained for compatibility and is the only profile. `--media` selects the separately validated vision recipe at startup. It does not simultaneously load a second model. Restart to switch modes. Text-only mode retains the original performance recipe; its speed/precision figures do not automatically apply to text served in media mode.
 
-Input: text `state` and 1–64 named `questions`, each with `type: "choice"`, text `instructions`, and exactly three ordered `criteria`. Criteria order maps to A/B/C and affects the prompt. Output has `answers[id].choice` and `probabilities`, plus profile/model provenance. Probabilities are not calibrated correctness guarantees. [Example](examples/request.json).
+Input: text `state`, 1–64 named `questions` (`type: "choice"`, `instructions`, exactly three ordered `criteria`), and optionally one `media` object. Choices map to A/B/C in insertion order. [Media contract and limits](docs/MEDIA.md). All questions run sequentially. Inputs over the expanded token limit (default8192 per question) are rejected without truncation. Output includes choice, probability distribution, token usage and media metadata when present. Probabilities are not calibrated correctness guarantees.
 
-No streaming, free-text generation, Boolean/score types, arbitrary choice counts, multimodal input, dynamic GPU batching, tensor parallelism, or LoRA in this release. Inputs over the token limit are rejected, never truncated. Default per-question limit8192tokens; published long-input measurements reached6744tokens. More than one question is processed sequentially to preserve the tested path. The NVFP4 implementation uses one constrained output-token step internally; EXL3 reads decision logits directly.
+HTTP binds only127.0.0.1. Use an authenticated tunnel for remote use. This is a small local serialized API, not an Internet production gateway. No audio, free-text generation, Boolean/score types, arbitrary choice counts, dynamic GPU batching, tensor parallelism or LoRA. Video is sampled-frame visual analysis; its audio track is not processed.
 
-## Evidence and limitations
+## Evidence and license
 
-[Benchmarks](docs/BENCHMARKS.md) distinguish historical optimization measurements from packaged-release validation. Lower memory does not imply faster inference or identical answers. Changing backend can change decisions. Do not infer general non-inferiority from the fixed provisional-label suite.
+[Benchmarks and validation](docs/BENCHMARKS.md) separate native historical speed from packaged API timings. Small synthetic media fixtures do not certify real-world OCR or arbitrary video accuracy.
 
-## License
-
-Project code: Apache-2.0. Certain ExLlama-derived portions remain MIT with their notice retained. See [NOTICE](NOTICE), [third-party/model licenses](docs/LICENSES.md), and [LICENSE](LICENSE). Model weights and container/runtime dependencies have their own licenses and are obtained separately.
+Code and project-authored examples: Apache-2.0. See [NOTICE](NOTICE), [license audit](docs/LICENSES.md), [LICENSE](LICENSE). Model weights and runtime/container dependencies are obtained separately under their own licenses.
