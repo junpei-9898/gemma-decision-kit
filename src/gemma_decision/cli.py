@@ -20,7 +20,7 @@ def main():
     p=argparse.ArgumentParser(description='Local NVFP4 three-choice decisions')
     p.add_argument('command',choices=['info','validate','predict','serve','transcribe','download-audio','analyze','serve-input'])
     p.add_argument('--semantics',choices=['eider','legacy'],default='legacy')
-    p.add_argument('--hardware',choices=['auto','gb10','standard'],default='auto',help='GB10 tuning or unpatched standard kernels; other GPU hardware remains unverified')
+    p.add_argument('--hardware',choices=['auto','spark','standard','gb10'],default='auto',help='Spark / GB10 OEM tuning or standard kernels; gb10 is a compatibility alias; other GPU hardware remains unverified')
     p.add_argument('--bridge-library',help='Path to pinned Eider Rust bridge library')
     p.add_argument('--profile',choices=PROFILES,default='speed')
     p.add_argument('--model-path')

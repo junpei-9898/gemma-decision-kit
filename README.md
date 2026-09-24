@@ -2,7 +2,7 @@
 
 [Current integration validation and known AV failure](docs/EIDER_RELEASE_VALIDATION.md): text61/64 with exact prior-answer parity; image9/9 and short-video3/3 synthetic checks. Combined AV reasoning is experimental and has a recorded error.
 
-v0.6.1 separates [GB10 tuning and the standard GPU policy](docs/HARDWARE.md) with `--hardware auto|gb10|standard`. Other NVIDIA GPU hardware remains unverified.
+The [Spark / GB10 OEM tuning and standard GPU policies](docs/HARDWARE.md) are selected with `--hardware auto|spark|standard`. Other NVIDIA GPU hardware remains unverified.
 
 # Gemma Decision Kit
 

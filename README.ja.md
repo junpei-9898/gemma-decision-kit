@@ -2,7 +2,7 @@
 
 [今回の統合検証と既知の映像＋音声の誤答](docs/EIDER_RELEASE_VALIDATION.md)：テキスト61/64で直前版と回答・確率一致、合成画像9/9・短い合成動画3/3。映像と発言を組み合わせる判断には誤答が残り、実験的な対応です。
 
-v0.6.1で[GB10専用最適化と標準GPU設定](docs/HARDWARE.md)を分離しました（`--hardware auto|gb10|standard`）。GB10以外のGPUでの実機動作は未検証です。
+[Spark／GB10搭載OEM向け最適化と標準GPU設定](docs/HARDWARE.md)を分離しました（`--hardware auto|spark|standard`）。GB10以外のGPUでの実機動作は未検証です。
 
 # Gemma Decision Kit
 

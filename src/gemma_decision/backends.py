@@ -34,13 +34,13 @@ class SpeedBackend:
         install_scale()
         self.media=media
         self.decision_logits=decision_logits
-        if self.hardware=='gb10' and media:
+        if self.hardware=='spark' and media:
             from .nv_runtime import prepare_attention
             prepare_attention({'query_block':32},{'patches':[]})
-        elif self.hardware=='gb10':install_runtime()
+        elif self.hardware=='spark':install_runtime()
         self.model=LLM(model=path,trust_remote_code=False,dtype='auto',kv_cache_dtype=decision_kv_dtype or ('auto' if media else 'fp8_e4m3'),max_model_len=context,kv_cache_memory_bytes=kv_bytes,gpu_memory_utilization=.25,max_num_seqs=1,max_num_batched_tokens=8192,enable_prefix_caching=media,enforce_eager=True,async_scheduling=False,logprobs_mode='raw_logits' if decision_logits else 'processed_logprobs',max_logprobs=64,limit_mm_per_prompt={'image':int(media),'audio':0,'video':int(media)},mm_processor_cache_gb=.125 if media else 0,seed=0,kernel_config={'moe_backend':'cutlass'})
         self.tokenizer=self.model.get_tokenizer();self.ids=candidate_ids(self.tokenizer)
-        if self.hardware=='gb10' and not media:self.model.apply_model(lambda m:install_candidates(m,TRIAL,self.ids,None))
+        if self.hardware=='spark' and not media:self.model.apply_model(lambda m:install_candidates(m,TRIAL,self.ids,None))
         self.params=SamplingParams(temperature=1,top_p=1,top_k=-1,max_tokens=1,allowed_token_ids=self.ids,logprobs=3,seed=0)
 
     def selected_logits(self, tokens, ids):
@@ -49,7 +49,7 @@ class SpeedBackend:
         from .nv_runtime import TRIAL
         from vllm import SamplingParams
         import math
-        if self.hardware=='gb10' and not self.media and self.ids != ids:
+        if self.hardware=='spark' and not self.media and self.ids != ids:
             self.model.apply_model(lambda m:install_candidates(m,TRIAL,ids,None))
             self.ids=list(ids)
         params=SamplingParams(temperature=1,top_p=1,top_k=-1,max_tokens=1,allowed_token_ids=ids,logprobs=len(ids),logprob_token_ids=ids if self.media or self.hardware=='standard' else None,seed=0)

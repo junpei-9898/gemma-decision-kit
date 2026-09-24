@@ -1,11 +1,13 @@
-# Hardware profiles (v0.6.1)
+# Hardware profiles
 
-Model selection and hardware tuning are separate. `--profile speed` still selects the one pinned NVFP4 Gemma checkpoint. `--hardware auto|gb10|standard` selects execution policy; `--semantics legacy|eider` independently selects the decision contract. Eider remains opt-in because the AV quality gate is unresolved.
+The canonical optimized profile is `spark`: DGX Spark and GB10-based OEM systems such as Edge Xpert share this policy. Selection checks the GB10 GPU and Linux ARM64 architecture, not the chassis brand. Real-machine results here were measured on Edge Xpert; other OEM products have not been independently tested. The old `gb10` input remains a compatibility alias, normalized to `spark`; responses now report `hardware_profile: "spark"`. Historical benchmark files retain their original `gb10` labels.
+
+Model selection and hardware tuning are separate. `--profile speed` still selects the one pinned NVFP4 Gemma checkpoint. `--hardware auto|spark|standard` selects execution policy; `--semantics legacy|eider` independently selects the decision contract. Eider remains opt-in because the AV quality gate is unresolved.
 
 | Policy | Selection / implementation |
 |---|---|
-| `auto` (default) | Linux ARM64 + device name GB10 + compute capability12.1 → `gb10`; other Blackwell-class CUDA devices → `standard` |
-| `gb10` | Rejects other devices. Retains validated Attention launch settings, text MoE reduction/output alias adjustments and compact selected-label text head. Visual mode retains its existing query32 setting and full output head. |
+| `auto` (default) | Linux ARM64 + device name GB10 + compute capability12.1 → `spark`; other Blackwell-class CUDA devices → `standard` |
+| `spark` | Rejects other devices. Retains validated Attention launch settings, text MoE reduction/output alias adjustments and compact selected-label text head. Visual mode retains its existing query32 setting and full output head. |
 | `standard` | Omits those GB10 runtime/Attention/MoE/head patches. Uses vLLM's ordinary CUTLASS NVFP4 backend and full vocabulary head, retrieving explicit Eider label logits with `logprob_token_ids`. It is a portability baseline, not a speed-equivalent promise. |
 
 Both use the same weights, Eider semantics, sequential scheduling and input limits. Text FP8 KV and visual auto KV settings are retained. Both retain the pinned model's gate/up scale **compatibility correction** (`nv_scale.py`); this is not a GB10 performance tuning option and disabling it would alter weight interpretation. “Standard” does not mean arbitrary vLLM versions, quantizations or models are supported.
