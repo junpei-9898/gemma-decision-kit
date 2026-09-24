@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 545" role="img" aria-label="Gemmaネイティブ判定：共通文章のKVを共有し、質問ごとに分岐"><title>Gemmaネイティブ判定：共通文章のKVを共有し、質問ごとに分岐</title><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#708399"/></marker></defs><style>text{font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;fill:#17253b}.label{font-size:21px;font-weight:650}.detail{font-size:17px;fill:#52637a}.note{font-size:18px;fill:#52637a}</style><rect x="0" y="0" width="1000" height="545" rx="20" fill="#f7f9fc"/>
+<g data-box="true"><rect x="40" y="35" width="270" height="95" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="175.0" y="66" text-anchor="middle">共通の文章 state</text>
+<text class="detail" x="175.0" y="94" text-anchor="middle">注文が届かない…</text>
+</g>
+<g data-box="true"><rect x="360" y="35" width="270" height="95" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="495.0" y="66" text-anchor="middle">共通部分を一度計算</text>
+<text class="detail" x="495.0" y="94" text-anchor="middle">prefill：入力を読む</text>
+</g>
+<g data-box="true"><rect x="685" y="35" width="275" height="95" rx="13" fill="#eeeafb" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="822.5" y="66" text-anchor="middle">KVキャッシュ</text>
+<text class="detail" x="822.5" y="94" text-anchor="middle">後続計算のための作業メモ</text>
+</g>
+<path d="M310 82 L355 82" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M630 82 L680 82" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M820 130 L820 166 L180 166 L180 200" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M820 166 L500 166 L500 200" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M820 166 L820 200" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-box="true"><rect x="40" y="205" width="280" height="90" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="180.0" y="236" text-anchor="middle">質問1：急ぎか？</text>
+<text class="detail" x="180.0" y="264" text-anchor="middle">共通KVを参照する子の状態</text>
+</g>
+<path d="M180 295 L180 335" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-box="true"><rect x="360" y="205" width="280" height="90" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="236" text-anchor="middle">質問2：担当は？</text>
+<text class="detail" x="500.0" y="264" text-anchor="middle">共通KVを参照する子の状態</text>
+</g>
+<path d="M500 295 L500 335" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-box="true"><rect x="680" y="205" width="280" height="90" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="820.0" y="236" text-anchor="middle">質問3：不満は？</text>
+<text class="detail" x="820.0" y="264" text-anchor="middle">共通KVを参照する子の状態</text>
+</g>
+<path d="M820 295 L820 335" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-box="true"><rect x="40" y="340" width="920" height="88" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="371" text-anchor="middle">質問部分をまとめて計算 → 候補ラベルの数値を読む</text>
+<text class="detail" x="500.0" y="399" text-anchor="middle">Gemma経路では固定64行の小型読み出しを使用</text>
+</g>
+<text class="note" x="500" y="476" text-anchor="middle">共有するのは計算の途中情報。Gemmaの重みを質問数だけコピーしない。</text>
+<text class="note" x="500" y="511" text-anchor="middle">共通部分の再計算と出力側の負担を減らすが、モデル本体の計算は残る。</text>
+</svg>

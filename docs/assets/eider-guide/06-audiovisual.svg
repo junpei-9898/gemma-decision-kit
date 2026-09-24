@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 625" role="img" aria-label="現在の音声付き動画処理：MOSSを終了してからGemmaを実行"><title>現在の音声付き動画処理：MOSSを終了してからGemmaを実行</title><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#708399"/></marker></defs><style>text{font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;fill:#17253b}.label{font-size:21px;font-weight:650}.detail{font-size:17px;fill:#52637a}.note{font-size:18px;fill:#52637a}</style><rect x="0" y="0" width="1000" height="625" rx="20" fill="#f7f9fc"/>
+<g data-box="true"><rect x="35" y="35" width="930" height="76" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="66" text-anchor="middle">入力：音声付き動画 ＋ 質問</text>
+<text class="detail" x="500.0" y="94" text-anchor="middle">キットが形式・トラック・長さを確認する</text>
+</g>
+<path d="M500 111 L500 140 L255 140 L255 165" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M500 140 L745 140 L745 165" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-box="true"><rect x="45" y="170" width="420" height="110" rx="13" fill="#eeeafb" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="255.0" y="201" text-anchor="middle">音声 → MOSS</text>
+<text class="detail" x="255.0" y="229" text-anchor="middle">Transformersの別プロセス</text>
+<text class="detail" x="255.0" y="253" text-anchor="middle">文字起こし・匿名話者・発話時刻</text>
+</g>
+<g data-box="true"><rect x="535" y="170" width="420" height="110" rx="13" fill="#fff1df" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="745.0" y="201" text-anchor="middle">映像 → FFmpeg</text>
+<text class="detail" x="745.0" y="229" text-anchor="middle">10秒以内に区切る・フレームを間引く</text>
+<text class="detail" x="745.0" y="253" text-anchor="middle">元の動画の時刻を保持する</text>
+</g>
+<path d="M255 280 L255 319 L500 319 L500 350" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M745 280 L745 319 L500 319" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text class="note" x="220" y="311" text-anchor="end">MOSSは終了する</text>
+<g data-box="true"><rect x="135" y="355" width="730" height="93" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="386" text-anchor="middle">Gemma 4 を vLLM で実行</text>
+<text class="detail" x="500.0" y="414" text-anchor="middle">同じ時間帯の映像 ＋ 発言テキストを判定する</text>
+</g>
+<path d="M500 448 L500 480" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-box="true"><rect x="135" y="485" width="730" height="88" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="516" text-anchor="middle">キットが結果を整理</text>
+<text class="detail" x="500.0" y="544" text-anchor="middle">区間の判定・時刻・処理範囲・集約結果</text>
+</g>
+<text class="note" x="500" y="609" text-anchor="middle">Gemmaに音声波形を直接入力する構成ではない。Eiderはこの経路に含まれない。</text>
+</svg>

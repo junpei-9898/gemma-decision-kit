@@ -4,6 +4,8 @@ Local **NVFP4 Gemma 4 decisions for text, images, short videos and audio**: thre
 
 Experimental release. Independent implementation inspired by state + typed questions; not an official Jev clone or drop-in Eider API. No new model training, no bundled weights. [日本語](README.ja.md).
 
+[Illustrated Eider / vLLM / Gemma guide (Japanese)](docs/EIDER_VLLM_GUIDE.ja.md) explains the engines, this kit’s implementation and audiovisual processing with seven diagrams. [Offline HTML edition](docs/EIDER_VLLM_GUIDE.ja.html).
+
 ## Automatic input processing (v0.5.0)
 
 Use `analyze --source recording.mp4` with your existing question JSON. Text/image/audio/video

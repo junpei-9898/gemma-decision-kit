@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" role="img" aria-label="4つの役割：入力を扱うアプリ、計算を動かすエンジン、モデル重み、GPU"><title>4つの役割：入力を扱うアプリ、計算を動かすエンジン、モデル重み、GPU</title><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#708399"/></marker></defs><style>text{font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;fill:#17253b}.label{font-size:21px;font-weight:650}.detail{font-size:17px;fill:#52637a}.note{font-size:18px;fill:#52637a}</style><rect x="0" y="0" width="1000" height="470" rx="20" fill="#f7f9fc"/>
+<g data-box="true"><rect x="65" y="35" width="535" height="90" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="332.5" y="66" text-anchor="middle">アプリケーション／今回のキット</text>
+<text class="detail" x="332.5" y="94" text-anchor="middle">入力を整理する・質問を作る・結果を返す</text>
+</g>
+<g data-box="true"><rect x="65" y="175" width="535" height="90" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="332.5" y="206" text-anchor="middle">推論エンジン：Eider または vLLM</text>
+<text class="detail" x="332.5" y="234" text-anchor="middle">モデルの計算を実行・管理する</text>
+</g>
+<g data-box="true"><rect x="65" y="315" width="535" height="90" rx="13" fill="#ffffff" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="332.5" y="346" text-anchor="middle">GPU：実際に計算するハードウェア</text>
+<text class="detail" x="332.5" y="374" text-anchor="middle">行列などの数値計算を実行する</text>
+</g>
+<g data-box="true"><rect x="685" y="175" width="255" height="114" rx="13" fill="#fff1df" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="812.5" y="206" text-anchor="middle">モデル：Gemma 4</text>
+<text class="detail" x="812.5" y="234" text-anchor="middle">構造 ＋ 学習済み重み</text>
+<text class="detail" x="812.5" y="258" text-anchor="middle">別途ロードするデータ</text>
+</g>
+<path d="M330 125 L330 170" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M330 265 L330 310" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M685 220 L610 220" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text class="note" x="500" y="447" text-anchor="middle">モデルは「何を計算するか」、エンジンは「どう実行するか」を担う。</text>
+</svg>

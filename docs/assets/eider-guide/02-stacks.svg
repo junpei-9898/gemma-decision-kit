@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 515" role="img" aria-label="ネイティブEiderと今回のキットは異なる実行構成"><title>ネイティブEiderと今回のキットは異なる実行構成</title><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#708399"/></marker></defs><style>text{font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;fill:#17253b}.label{font-size:21px;font-weight:650}.detail{font-size:17px;fill:#52637a}.note{font-size:18px;fill:#52637a}</style><rect x="0" y="0" width="1000" height="515" rx="20" fill="#f7f9fc"/>
+<text class="label" x="250" y="38" text-anchor="middle">ネイティブ Eider</text>
+<text class="label" x="750" y="38" text-anchor="middle">今回の配布物 v0.5.0</text>
+<g data-box="true"><rect x="45" y="65" width="410" height="86" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="250.0" y="96" text-anchor="middle">Eider の API・判定処理</text>
+<text class="detail" x="250.0" y="124" text-anchor="middle">質問を解釈し、回答型を整える</text>
+</g>
+<g data-box="true"><rect x="45" y="195" width="410" height="108" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="250.0" y="226" text-anchor="middle">Eider の実行基盤</text>
+<text class="detail" x="250.0" y="254" text-anchor="middle">Rust・モデル固有実装</text>
+<text class="detail" x="250.0" y="278" text-anchor="middle">CUDA／cuBLASLt</text>
+</g>
+<g data-box="true"><rect x="545" y="65" width="410" height="86" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="750.0" y="96" text-anchor="middle">gemma-decision-kit</text>
+<text class="detail" x="750.0" y="124" text-anchor="middle">入力処理・3択判定・独自最適化</text>
+</g>
+<g data-box="true"><rect x="545" y="195" width="410" height="108" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="750.0" y="226" text-anchor="middle">固定版 vLLM</text>
+<text class="detail" x="750.0" y="254" text-anchor="middle">モデルの実行基盤</text>
+<text class="detail" x="750.0" y="278" text-anchor="middle">キットから設定・一部処理を調整</text>
+</g>
+<g data-box="true"><rect x="45" y="354" width="410" height="92" rx="13" fill="#fff1df" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="250.0" y="385" text-anchor="middle">Gemma 4 の重み ＋ GPU</text>
+<text class="detail" x="250.0" y="413" text-anchor="middle">この構成ではEiderが計算を担当</text>
+</g>
+<g data-box="true"><rect x="545" y="354" width="410" height="92" rx="13" fill="#fff1df" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="750.0" y="385" text-anchor="middle">Gemma 4 の重み ＋ GPU</text>
+<text class="detail" x="750.0" y="413" text-anchor="middle">この構成ではvLLMが計算を担当</text>
+</g>
+<path d="M250 151 L250 190" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M250 303 L250 349" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M750 151 L750 190" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M750 303 L750 349" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text class="note" x="500" y="486" text-anchor="middle">Eiderの下にvLLMが必須なわけではない。今回のキットはEiderを呼んでいない。</text>
+</svg>
