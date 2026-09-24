@@ -49,8 +49,11 @@ class DecisionEngine:
         self.limit = limit
         self.lock = threading.Lock()
 
-    def predict(self, body):
+    def predict(self, body, *, token_budget=None):
         validate(body)
+        if token_budget is not None and (type(token_budget)!=int or token_budget<1):
+            raise ValueError("No remaining input token budget")
+        request_token_cap=min(MAX_REQUEST_TOKENS,token_budget) if token_budget is not None else MAX_REQUEST_TOKENS
         # All questions validated/tokenized before any inference; no truncation.
         with self.lock:
             prepared=[]
@@ -69,8 +72,8 @@ class DecisionEngine:
                     payload=ids;counts=None
                 if len(ids)>self.limit:raise ValueError(f'Question {key} exceeds token limit; input was not truncated')
                 total_tokens += len(ids)
-                if total_tokens > MAX_REQUEST_TOKENS:
-                    raise ValueError(f'Request exceeds aggregate {MAX_REQUEST_TOKENS} input tokens; no inference performed')
+                if total_tokens > request_token_cap:
+                    raise ValueError(f'Request exceeds aggregate {request_token_cap} input tokens; no inference performed')
                 prepared.append((key,q,ids,payload,counts))
             answers={}
             for key,q,ids,payload,counts in prepared:

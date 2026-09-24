@@ -4,6 +4,25 @@ Local **NVFP4 Gemma 4 decisions for text, images, short videos and audio**: thre
 
 Experimental release. Independent implementation inspired by state + typed questions; not an official Jev clone or drop-in Eider API. No new model training, no bundled weights. [日本語](README.ja.md).
 
+## Automatic input processing (v0.5.0)
+
+Use `analyze --source recording.mp4` with your existing question JSON. Text/image/audio/video
+routing is automatic. Video with speech pairs MOSS utterances and visual windows on the source
+timeline, with at most10seconds per window; no manual `--media`/`--audio` selection. Results
+include coverage, local provisional judgments and explicit failures. Multi-window final decisions
+aggregate local choices; this is not unrestricted joint reasoning over every original frame.
+
+```sh
+gemma-decision analyze --model-path /models/nvfp4 \
+  --source /input/recording.mp4 --input examples/request.json \
+  --audio-model-path /models/moss --audio-python /state/moss-env/bin/python \
+  --output /state/analysis.json
+```
+
+`serve-input` adds a serialized loopback `/v1/analyze` endpoint for bounded inline files; larger
+recordings use CLI. Existing `predict`/`serve` remain compatible. [Setup and limits](docs/UNIFIED_INPUT.md)
+· [Validation status](docs/UNIFIED_VALIDATION.md).
+
 ## Supported inputs
 
 | Input | Processing | Interface |
@@ -14,10 +33,9 @@ Experimental release. Independent implementation inspired by state + typed quest
 | Audio / video audio track | MOSS transcription, anonymous speakers and utterance times, optionally passed to Gemma; up to30minutes | `transcribe` / `predict --audio` (CLI/Python only) |
 
 v0.4.0 bundles the audio adapter. MOSS weights, audio dependencies and FFmpeg require separate
-setup. MOSS converts speech to text; Gemma does not gain a native audio encoder. Visual video
-input does not automatically process its audio track. **MOSS GPU transcription is verified;
-the audio-to-Gemma GPU trial stopped on new swapout, so end-to-end acceptance is pending.**
-[Audio setup](docs/AUDIO.md) · [Validation status](docs/AUDIO-VALIDATION.md).
+setup. MOSS converts speech to text; Gemma does not gain a native audio encoder. Legacy `predict --media` does not automatically process audio; `analyze --source` does. **v0.5.0 has actual short audiovisual pipeline checks. Generic model aggregation made an
+incorrect final choice; explicit `any`/`all` semantics provide logical aggregation.**
+[Audio setup](docs/AUDIO.md) · [Validation status](docs/UNIFIED_VALIDATION.md).
 
 ## Accuracy and speed on our Japanese decision task
 

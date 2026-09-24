@@ -3,7 +3,8 @@
 `transcribe` produces Japanese/multilingual text, anonymous speaker labels and utterance times.
 `predict --audio` runs this step and supplies the transcript to the existing Gemma choice engine.
 MOSS exits before Gemma loads. This adds preprocessing; it does not add an audio encoder to Gemma.
-GPU end-to-end acceptance is pending; see [validation status](AUDIO-VALIDATION.md).
+v0.5.0 verifies the actual MOSS→Gemma path; see [current validation](UNIFIED_VALIDATION.md).
+The [v0.4.0 failed trial](AUDIO-VALIDATION.md) remains recorded.
 Audio is CLI/Python only. Existing HTTP endpoints do not accept audio files or paths.
 
 ## Pinned worker setup
@@ -99,7 +100,9 @@ simultaneous residency is required.
 - Temporary decoded audio/results use a private directory and are removed after success/failure. Timeout/interrupt
   stops only the owned process group. Model cache/weights are not deleted. Offline library flags are set;
   use `--network none` for an OS-enforced network boundary. No cloud speech service is used.
-- Anonymous speaker IDs are local to this recording, not names. Times are utterance spans, not word times.
+- Anonymous speaker IDs are local to this recording, not names. v0.5.0 accepts fully timestamped
+  output with all speaker tags absent as `S0000` (unknown identity), with `missing_speaker_labels`;
+  this is not a verified single speaker. Missing/invalid timestamps or partially parsed text still fail. Times are utterance spans, not word times.
   Simultaneous-speaker/source separation, face matching, long-audio chunk speaker reconciliation and word alignment
   are not implemented. Recognition mistakes and attribution mistakes remain possible.
 - CLI jobs are synchronous. Server-side audio uploads/background jobs are not part of this release.

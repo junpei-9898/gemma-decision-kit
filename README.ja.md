@@ -7,9 +7,22 @@
 | テキスト | 本文をGemmaで3択判定 | `predict` / HTTP |
 | 画像 | PNG/JPEG 1枚の視覚情報を判定 | `--media`＋画像JSON / HTTP |
 | 動画 | 最大10秒のMP4 1本からフレームを抽出して判定 | `--media`＋動画JSON / HTTP |
-| 音声・動画の音声トラック | 最大30分の音声をMOSSで文字起こしし、必要に応じてGemmaで判定 | `transcribe` / `predict --audio`（CLI・Pythonのみ） |
+| 音声・動画の音声トラック | 最大30分の音声をMOSSで文字起こしし、必要に応じてGemmaで判定 | `transcribe` / `predict --audio`（従来経路はCLI・Pythonのみ。共通HTTPは`serve-input`） |
 
-音声機能のコードはv0.4.0に同梱しています。MOSS重み・音声用依存環境・FFmpegは別途セットアップが必要です。**MOSS単体の実機動作は確認済みですが、音声→Gemmaの実機通し試験はswap増加による停止で未完了です。** [導入手順](docs/AUDIO.md)・[検証状況](docs/AUDIO-VALIDATION.md)。動画の視覚処理と音声処理は別の入力経路で、動画を指定するだけで両方が自動処理されるわけではありません。
+音声機能のコードはv0.4.0に同梱しています。MOSS重み・音声用依存環境・FFmpegは別途セットアップが必要です。**v0.5.0では短い音声付き動画の実機処理を確認しました。任意の質問の区間集約には誤答があり、存在・全称条件は明示した`any`/`all`で集約できます。** [導入手順](docs/AUDIO.md)・[検証状況](docs/UNIFIED_VALIDATION.md)。従来の`predict`では映像と音声を別々に指定します。v0.5.0の`analyze --source`は両方を自動処理します。
+
+## 入力の自動処理（v0.5.0）
+
+`analyze --source ファイル`でテキスト・画像・音声・動画を判別します。音声付き動画ではMOSSの発話と映像を元の時刻で対応付け、10秒以内の区間を順にGemmaへ渡します。利用者による`--media`/`--audio`の選択は不要です。長い動画の最終判定は各区間の暫定3択結果を集約する方式で、全映像の一括理解や一瞬の出来事の検出を保証しません。
+
+```sh
+gemma-decision analyze --model-path /models/nvfp4 \
+  --source /input/recording.mp4 --input examples/request.json \
+  --audio-model-path /models/moss --audio-python /state/moss-env/bin/python \
+  --output /state/analysis.json
+```
+
+音声重み・依存環境は別途セットアップが必要です。処理範囲・未処理区間・発話時刻・区間ごとの判定を出力します。`serve-input`の`/v1/analyze`は小さいファイルのインライン送信に対応し、大きい録画はCLIで処理します。[使用方法と制限](docs/UNIFIED_INPUT.md)・[検証状況](docs/UNIFIED_VALIDATION.md)。従来の`predict`/`serve`も引き続き利用できます。
 
 ## 日本語判定の精度と速度
 

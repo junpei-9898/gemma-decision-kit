@@ -1,4 +1,7 @@
-# Audio validation — 2026-09-24
+# Audio validation — v0.4.0 historical trial
+
+The stopped trial below is preserved. v0.5.0 subsequently passed the actual audio→Gemma
+regression and a short audiovisual HTTP check; see [current results](UNIFIED_VALIDATION.md).
 
 Release candidate 0.4.0 implements MOSS transcription and sequential Gemma CLI integration.
 **End-to-end GPU acceptance is UNVERIFIED.** Do not interpret the CPU integration tests as

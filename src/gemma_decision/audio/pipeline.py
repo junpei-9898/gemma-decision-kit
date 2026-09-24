@@ -33,7 +33,13 @@ def transcribe(source,model_path,*,python=None,max_seconds=1800,timeout=1800,max
         root=str(Path(__file__).resolve().parents[2])
         bootstrap='import sys,runpy;sys.path.insert(0,'+repr(root)+');runpy.run_module("gemma_decision.audio.worker",run_name="__main__")'
         args=[python or sys.executable,'-c',bootstrap,'--model',str(Path(model_path).resolve()),'--audio',str(wav),'--output',str(output),'--max-new-tokens',str(max_new_tokens)]
-        run_owned(args,timeout,env=env)
+        try:run_owned(args,timeout,env=env)
+        except AudioError:
+            error=Path(str(output)+'.error.json')
+            if error.is_file() and error.stat().st_size<4096:
+                detail=json.loads(error.read_text()).get('error')
+                if isinstance(detail,str):raise AudioError(detail) from None
+            raise
         if not output.is_file() or output.stat().st_size>8*1024**2:raise AudioError('Missing or oversized transcript')
         try:result=validate_transcript(json.loads(output.read_text()))
         except (ValueError,TypeError,KeyError):raise AudioError('Worker returned an invalid transcript') from None
@@ -53,5 +59,5 @@ def predict_audio(body,source,model_path,*,engine_factory,transcript_output=None
     result=engine.predict(prepared)
     result['audio']={k:transcript[k] for k in ['schema_version','status','model','duration_seconds','sample_rate','warnings','usage']}
     result['audio']['segment_count']=len(transcript['segments'])
-    result['audio']['speaker_count']=len({s['speaker'] for s in transcript['segments']})
+    result['audio']['speaker_count']=len({s['speaker'] for s in transcript['segments'] if s['speaker']!='S0000'})
     return result

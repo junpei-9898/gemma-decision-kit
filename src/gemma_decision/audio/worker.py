@@ -32,6 +32,22 @@ def parsed_segments(text,duration):
     return segments
 
 
+
+def parse_with_warnings(text,duration):
+    try:return parsed_segments(text,duration), []
+    except AudioError:
+        # Some single-speaker generations omit all speaker tags. Preserve text/time,
+        # but explicitly label identity unknown; never infer a speaker from the voice.
+        pattern=re.compile(r'\s*\[(\d+(?:\.\d+)?)\]([^\[\]]+)\[(\d+(?:\.\d+)?)\]\s*')
+        cursor=0;segments=[]
+        for match in pattern.finditer(text):
+            if match.start()!=cursor:raise AudioError('Speech output has unparsed content; no partial transcript accepted')
+            segments.append({'start':float(match[1]),'end':float(match[3]),'speaker':'S0000','text':match[2].strip()})
+            cursor=match.end()
+        if not segments or cursor!=len(text):raise AudioError('Speech output has unparsed content; no partial transcript accepted')
+        return segments,['missing_speaker_labels']
+
+
 def infer(args):
     if importlib.metadata.version('transformers')!='5.8.1':raise AudioError('MOSS requires isolated Transformers5.8.1')
     import torch
@@ -59,10 +75,10 @@ def infer(args):
     eos=model.generation_config.eos_token_id;eos=[eos] if isinstance(eos,int) else eos or []
     if not len(generated) or int(generated[-1]) not in eos:raise AudioError('Speech generation incomplete or truncated')
     raw=processor.tokenizer.decode(generated,skip_special_tokens=True).strip()
-    segments=parsed_segments(raw,duration)
+    segments,parse_warnings=parse_with_warnings(raw,duration)
     torch.cuda.synchronize();pin=manifest()
     result={'schema_version':1,'status':'complete','model':{'id':pin['id'],'revision':pin['revision']},'duration_seconds':duration,'sample_rate':16000,'segments':segments,
-            'warnings':['speaker_identity_unverified','utterance_timestamps_not_word_timestamps']+([] if segments else ['empty_transcript_unverified']),
+            'warnings':['speaker_identity_unverified','utterance_timestamps_not_word_timestamps']+parse_warnings+([] if segments else ['empty_transcript_unverified']),
             'usage':{'prompt_tokens':prompt,'generated_tokens':int(generated.numel()),'forward_calls':calls[0],'peak_allocated_bytes':torch.cuda.max_memory_allocated(),'inference_seconds':time.perf_counter()-start}}
     return validate_transcript(result)
 
@@ -75,6 +91,9 @@ def main():
         write_private_json(args.output,infer(args))
     except Exception as exc:
         # No paths, generated speech, traceback or input-bearing exception message.
+        detail=str(exc) if isinstance(exc,AudioError) else 'MOSS runtime failed ('+type(exc).__name__+')'
+        try:write_private_json(args.output+'.error.json',{'error':detail})
+        except Exception:pass
         sys.stderr.write('MOSS worker failed ('+type(exc).__name__+')\n');return 2
     return 0
 

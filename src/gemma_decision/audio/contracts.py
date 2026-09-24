@@ -31,7 +31,7 @@ def validate_transcript(value):
         prior=a
         if not isinstance(s['speaker'],str) or not re.fullmatch(r'S\d{1,4}',s['speaker']):raise AudioError('Invalid anonymous speaker label')
         if not isinstance(s['text'],str) or not s['text'].strip():raise AudioError('Empty transcript segment')
-    allowed={'empty_transcript_unverified','speaker_identity_unverified','utterance_timestamps_not_word_timestamps'}
+    allowed={'missing_speaker_labels','empty_transcript_unverified','speaker_identity_unverified','utterance_timestamps_not_word_timestamps'}
     if not isinstance(value['warnings'],list) or any(not isinstance(w,str) or w not in allowed for w in value['warnings']):raise AudioError('Invalid warnings')
     usage=value['usage']
     if not isinstance(usage,dict) or set(usage)!={'prompt_tokens','generated_tokens','forward_calls','peak_allocated_bytes','inference_seconds'}:raise AudioError('Invalid usage fields')
