@@ -5,13 +5,13 @@ from .profiles import PROFILES
 _LOADED=False
 
 
-def load_backend(profile, model_path, media=False, context=65536, kv_bytes=3221225472):
+def load_backend(profile, model_path, media=False, context=65536, kv_bytes=3221225472, decision_logits=False):
     global _LOADED
     if _LOADED:raise RuntimeError('One backend per process; restart to change profile')
     if not Path(model_path).is_dir():raise ValueError('A local model directory is required')
     _LOADED=True
     if profile != "speed":raise ValueError("Only NVFP4 speed profile is distributed")
-    return SpeedBackend(model_path, media=media, context=context, kv_bytes=kv_bytes)
+    return SpeedBackend(model_path, media=media, context=context, kv_bytes=kv_bytes, decision_logits=decision_logits)
 
 
 def candidate_ids(tokenizer):
@@ -36,22 +36,21 @@ class SpeedBackend:
             from .nv_runtime import prepare_attention
             prepare_attention({'query_block':32},{'patches':[]})
         else:install_runtime()
-        self.model=LLM(model=path,trust_remote_code=False,dtype='auto',kv_cache_dtype=decision_kv_dtype or ('auto' if media else 'fp8_e4m3'),max_model_len=context,kv_cache_memory_bytes=kv_bytes,gpu_memory_utilization=.25,max_num_seqs=1,max_num_batched_tokens=8192,enable_prefix_caching=media,enforce_eager=True,async_scheduling=False,logprobs_mode='raw_logits' if decision_logits else 'processed_logprobs',limit_mm_per_prompt={'image':int(media),'audio':0,'video':int(media)},mm_processor_cache_gb=.125 if media else 0,seed=0,kernel_config={'moe_backend':'cutlass'})
+        self.model=LLM(model=path,trust_remote_code=False,dtype='auto',kv_cache_dtype=decision_kv_dtype or ('auto' if media else 'fp8_e4m3'),max_model_len=context,kv_cache_memory_bytes=kv_bytes,gpu_memory_utilization=.25,max_num_seqs=1,max_num_batched_tokens=8192,enable_prefix_caching=media,enforce_eager=True,async_scheduling=False,logprobs_mode='raw_logits' if decision_logits else 'processed_logprobs',max_logprobs=64,limit_mm_per_prompt={'image':int(media),'audio':0,'video':int(media)},mm_processor_cache_gb=.125 if media else 0,seed=0,kernel_config={'moe_backend':'cutlass'})
         self.tokenizer=self.model.get_tokenizer();self.ids=candidate_ids(self.tokenizer)
         if not media:self.model.apply_model(lambda m:install_candidates(m,TRIAL,self.ids,None))
         self.params=SamplingParams(temperature=1,top_p=1,top_k=-1,max_tokens=1,allowed_token_ids=self.ids,logprobs=3,seed=0)
 
     def selected_logits(self, tokens, ids):
         if not self.decision_logits:raise RuntimeError('Restart with decision_logits=True')
-        if self.media:raise ValueError('Direct Eider media adapter not validated')
         from .nv_head import install_candidates
         from .nv_runtime import TRIAL
         from vllm import SamplingParams
         import math
-        if self.ids != ids:
+        if not self.media and self.ids != ids:
             self.model.apply_model(lambda m:install_candidates(m,TRIAL,ids,None))
             self.ids=list(ids)
-        params=SamplingParams(temperature=1,top_p=1,top_k=-1,max_tokens=1,allowed_token_ids=ids,logprobs=len(ids),seed=0)
+        params=SamplingParams(temperature=1,top_p=1,top_k=-1,max_tokens=1,allowed_token_ids=ids,logprobs=len(ids),logprob_token_ids=ids if self.media else None,seed=0)
         r=self.model.generate([{'prompt_token_ids':tokens}],params,use_tqdm=False)[0]
         if r.prompt_token_ids!=tokens:raise RuntimeError('Backend changed input tokens')
         values=[r.outputs[0].logprobs[0][i].logprob for i in ids]
@@ -83,3 +82,45 @@ class SpeedBackend:
         r=self.model._run_engine(output_type=RequestOutput,use_tqdm=False)[0]
         if r.prompt_token_ids!=prepared['prompt_token_ids']:raise RuntimeError('Backend changed media tokens')
         return [math.exp(r.outputs[0].logprobs[0][i].logprob) for i in self.ids]
+
+    def prepare_eider_media(self, item, tokens, marker, limit, suffix):
+        import json
+        from .media import messages
+        if not self.media:raise ValueError('Restart with --media')
+        text=self.tokenizer.decode(tokens,skip_special_tokens=False,clean_up_tokenization_spaces=False)
+        if self.tokenizer.encode(text,add_special_tokens=False)!=tokens:
+            raise RuntimeError('Eider token roundtrip changed; media adapter refuses re-tokenization')
+        if text.count(marker)!=1:raise RuntimeError('Media marker must occur exactly once')
+        before,after=text.split(marker)
+        # Literal JSON strings, never template interpolation of user content.
+        # The pinned Gemma4 checkpoint template emits <|image|>/<|video|>.
+        # Its string-mode fallback emits image_soft_token, which is not a processor input marker.
+        visual_marker='<|image|>' if item['type']=='image' else '<|video|>'
+        template='{{ '+json.dumps(before+visual_marker+after)+' }}'
+        conversation=messages(item,'')
+        conversation[0]['content']=conversation[0]['content'][:1]
+        prepared=self.model._preprocess_chat_one(conversation,chat_template=template,
+            chat_template_content_format='openai',add_generation_prompt=False,
+            tokenization_kwargs={'add_special_tokens':False})
+        ids=prepared['prompt_token_ids']
+        if len(ids)>limit:raise ValueError('Expanded media token limit exceeded; no truncation')
+        if ids[-len(suffix):]!=suffix:raise RuntimeError('Media processor changed Eider question suffix')
+        cfg=self.model.model_config.hf_config
+        counts={name:ids.count(getattr(cfg,field,None)) for name,field in [('image','image_token_id'),('video','video_token_id')]}
+        if not any(counts.values()):raise RuntimeError('Missing visual tokens')
+        if not prepared.get('mm_kwargs') and not prepared.get('multi_modal_data'):
+            raise RuntimeError('Missing visual features')
+        return prepared,ids,counts
+
+    def selected_media_logits(self, prepared, ids):
+        import math
+        from vllm import SamplingParams
+        from vllm.outputs import RequestOutput
+        if not self.decision_logits or not self.media:raise RuntimeError('Requires Eider media backend')
+        params=SamplingParams(temperature=1,top_p=1,top_k=-1,max_tokens=1,allowed_token_ids=ids,logprobs=len(ids),logprob_token_ids=ids if self.media else None,seed=0)
+        self.model._add_request(prepared,params)
+        r=self.model._run_engine(output_type=RequestOutput,use_tqdm=False)[0]
+        if r.prompt_token_ids!=prepared['prompt_token_ids']:raise RuntimeError('Media tokens changed')
+        values=[r.outputs[0].logprobs[0][i].logprob for i in ids]
+        if not all(math.isfinite(v) for v in values):raise RuntimeError('Nonfinite selected logits')
+        return values

@@ -1,0 +1,411 @@
+{
+  "scope": "Small authored media integration checks plus known text regression; not general quality certification",
+  "media-r2": {
+    "unique_correct": 9,
+    "unique_denominator": 9,
+    "observed_unique": 9,
+    "replay_workflow_median_seconds": 0.148303363006562,
+    "questions_per_workflow": 3,
+    "answer_probability_changes": 3,
+    "scored": [
+      {
+        "id": "red",
+        "repeat": 0,
+        "question": "color",
+        "prediction": "red",
+        "expected": "red",
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "red",
+        "repeat": 0,
+        "question": "red",
+        "prediction": true,
+        "expected": true,
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "red",
+        "repeat": 0,
+        "question": "count",
+        "prediction": 1,
+        "expected": 1,
+        "correct": true,
+        "score": 1.0000004
+      },
+      {
+        "id": "red",
+        "repeat": 1,
+        "question": "color",
+        "prediction": "red",
+        "expected": "red",
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "red",
+        "repeat": 1,
+        "question": "red",
+        "prediction": true,
+        "expected": true,
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "red",
+        "repeat": 1,
+        "question": "count",
+        "prediction": 1,
+        "expected": 1,
+        "correct": true,
+        "score": 1.0000001
+      },
+      {
+        "id": "blue",
+        "repeat": 0,
+        "question": "color",
+        "prediction": "blue",
+        "expected": "blue",
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "blue",
+        "repeat": 0,
+        "question": "red",
+        "prediction": false,
+        "expected": false,
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "blue",
+        "repeat": 0,
+        "question": "count",
+        "prediction": 1,
+        "expected": 1,
+        "correct": true,
+        "score": 1.0000005
+      },
+      {
+        "id": "blue",
+        "repeat": 1,
+        "question": "color",
+        "prediction": "blue",
+        "expected": "blue",
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "blue",
+        "repeat": 1,
+        "question": "red",
+        "prediction": false,
+        "expected": false,
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "blue",
+        "repeat": 1,
+        "question": "count",
+        "prediction": 1,
+        "expected": 1,
+        "correct": true,
+        "score": 1.0000002
+      },
+      {
+        "id": "green",
+        "repeat": 0,
+        "question": "color",
+        "prediction": "green",
+        "expected": "green",
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "green",
+        "repeat": 0,
+        "question": "red",
+        "prediction": false,
+        "expected": false,
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "green",
+        "repeat": 0,
+        "question": "count",
+        "prediction": 1,
+        "expected": 1,
+        "correct": true,
+        "score": 1.0000002
+      },
+      {
+        "id": "green",
+        "repeat": 1,
+        "question": "color",
+        "prediction": "green",
+        "expected": "green",
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "green",
+        "repeat": 1,
+        "question": "red",
+        "prediction": false,
+        "expected": false,
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "green",
+        "repeat": 1,
+        "question": "count",
+        "prediction": 1,
+        "expected": 1,
+        "correct": true,
+        "score": 1.0000004
+      }
+    ]
+  },
+  "video": {
+    "unique_correct": 3,
+    "unique_denominator": 3,
+    "observed_unique": 3,
+    "replay_workflow_median_seconds": 0.17459576000692323,
+    "questions_per_workflow": 3,
+    "answer_probability_changes": 1,
+    "scored": [
+      {
+        "id": "green-video",
+        "repeat": 0,
+        "question": "color",
+        "prediction": "green",
+        "expected": "green",
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "green-video",
+        "repeat": 0,
+        "question": "red",
+        "prediction": false,
+        "expected": false,
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "green-video",
+        "repeat": 0,
+        "question": "count",
+        "prediction": 1,
+        "expected": 1,
+        "correct": true,
+        "score": 0.99984753
+      },
+      {
+        "id": "green-video",
+        "repeat": 1,
+        "question": "color",
+        "prediction": "green",
+        "expected": "green",
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "green-video",
+        "repeat": 1,
+        "question": "red",
+        "prediction": false,
+        "expected": false,
+        "correct": true,
+        "score": null
+      },
+      {
+        "id": "green-video",
+        "repeat": 1,
+        "question": "count",
+        "prediction": 1,
+        "expected": 1,
+        "correct": true,
+        "score": 0.999916
+      }
+    ]
+  },
+  "text": {
+    "correct": 61,
+    "denominator": 64,
+    "observed": 64,
+    "wrong": [
+      "numeric-01",
+      "numeric-07",
+      "data_boundary-05"
+    ],
+    "answer_probability_changes_from_WI075": [],
+    "median_seconds_excluding_first": 0.07594422600232065
+  },
+  "audio": {
+    "status": "complete",
+    "end_to_end_seconds": 180.3155013099895,
+    "answers": {
+      "q": {
+        "type": "choice",
+        "choice": "yes",
+        "probabilities": {
+          "yes": 0.9999999,
+          "no": 8.7642476e-08,
+          "unknown": 3.769456e-08
+        },
+        "confidence": 0.99999803
+      }
+    },
+    "usage": {
+      "input_tokens": 195,
+      "completed_decisions": 1
+    },
+    "audio_usage": {
+      "prompt_tokens": 190,
+      "generated_tokens": 47,
+      "forward_calls": 47,
+      "peak_allocated_bytes": 1869398528,
+      "inference_seconds": 1.2857594559900463
+    },
+    "coverage": {
+      "visual_sampling": null,
+      "full_frame_analysis": false,
+      "processed_windows": [],
+      "unprocessed_windows": [],
+      "processed_source": true
+    }
+  },
+  "av": {
+    "status": "complete",
+    "end_to_end_seconds": 217.7128133829683,
+    "answers": {
+      "q": {
+        "type": "choice",
+        "choice": "yes",
+        "probabilities": null,
+        "aggregation": "any",
+        "evidence_windows": [
+          "w0000"
+        ],
+        "scope": "logical reduction of provisional sampled-window judgments"
+      },
+      "combined": {
+        "type": "choice",
+        "choice": "unknown",
+        "probabilities": null,
+        "aggregation": "any",
+        "evidence_windows": [
+          "w0001"
+        ],
+        "scope": "logical reduction of provisional sampled-window judgments"
+      }
+    },
+    "usage": {
+      "input_tokens": 4768,
+      "completed_decisions": 4
+    },
+    "audio_usage": {
+      "prompt_tokens": 240,
+      "generated_tokens": 43,
+      "forward_calls": 43,
+      "peak_allocated_bytes": 1869502976,
+      "inference_seconds": 1.1505893190042116
+    },
+    "coverage": {
+      "visual_sampling": "2fps then pinned model sampling",
+      "full_frame_analysis": false,
+      "processed_windows": [
+        {
+          "id": "w0000",
+          "start": 0.0,
+          "end": 10.0
+        },
+        {
+          "id": "w0001",
+          "start": 10.0,
+          "end": 12.0
+        }
+      ],
+      "unprocessed_windows": []
+    }
+  },
+  "av-legacy": {
+    "status": "complete",
+    "end_to_end_seconds": 170.93392652802868,
+    "answers": {
+      "q": {
+        "type": "choice",
+        "choice": "yes",
+        "probabilities": null,
+        "aggregation": "any",
+        "evidence_windows": [
+          "w0000"
+        ],
+        "scope": "logical reduction of provisional sampled-window judgments"
+      },
+      "combined": {
+        "type": "choice",
+        "choice": "yes",
+        "probabilities": null,
+        "aggregation": "any",
+        "evidence_windows": [
+          "w0000"
+        ],
+        "scope": "logical reduction of provisional sampled-window judgments"
+      }
+    },
+    "usage": {
+      "input_tokens": 4568,
+      "completed_decisions": 4
+    },
+    "audio_usage": {
+      "prompt_tokens": 240,
+      "generated_tokens": 43,
+      "forward_calls": 43,
+      "peak_allocated_bytes": 1869502976,
+      "inference_seconds": 1.1505893190042116
+    },
+    "coverage": {
+      "visual_sampling": "2fps then pinned model sampling",
+      "full_frame_analysis": false,
+      "processed_windows": [
+        {
+          "id": "w0000",
+          "start": 0.0,
+          "end": 10.0
+        },
+        {
+          "id": "w0001",
+          "start": 10.0,
+          "end": 12.0
+        }
+      ],
+      "unprocessed_windows": []
+    }
+  },
+  "accounting": {
+    "recorded_decision_attempts": 108,
+    "recorded_physical_tokens": 32572,
+    "actual_gemma_forward_calls": null,
+    "actual_gpu_seconds": null,
+    "total_process_wall_seconds": 1888.570494119078,
+    "peak_allocated_bytes": 25379444224,
+    "peak_reserved_bytes": 27397193728,
+    "pre_ledger_attempts": {
+      "media-r0": "preprocessing failure, zero decision forward",
+      "media-r1": "one forward then missing selected raw logit; input token count unmeasured; upper bound 8192"
+    }
+  },
+  "release_decision": {
+    "default": "legacy",
+    "eider_mode": "opt-in",
+    "av_no_regression": "FAIL on registered fixture; legacy2/2 versus Eider1/2; ambiguous criteria limits generalization"
+  }
+}

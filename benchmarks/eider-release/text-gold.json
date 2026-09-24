@@ -1,0 +1,386 @@
+{
+  "routing-00": {
+    "expected": "billing",
+    "rationale": "現在の未解決依頼は返金。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "routing-01": {
+    "expected": "technical",
+    "rationale": "依頼は障害復旧。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "routing-02": {
+    "expected": "shipping",
+    "rationale": "届け先変更。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "routing-03": {
+    "expected": "access",
+    "rationale": "新規権限付与。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "routing-04": {
+    "expected": "billing",
+    "rationale": "配送照会は解決済みで送料返金が依頼。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "routing-05": {
+    "expected": "access",
+    "rationale": "有効な依頼は権限無効化。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "routing-06": {
+    "expected": "technical",
+    "rationale": "返金済み、画面障害。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "routing-07": {
+    "expected": "shipping",
+    "rationale": "受取方法変更。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "temporal-00": {
+    "expected": false,
+    "rationale": "終了境界は含まない。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "temporal-01": {
+    "expected": true,
+    "rationale": "08UTCは17JSTで包含境界。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "temporal-02": {
+    "expected": true,
+    "rationale": "障害と公開停止を混同しない。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "temporal-03": {
+    "expected": false,
+    "rationale": "9,10,11が3日間。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "temporal-04": {
+    "expected": true,
+    "rationale": "延期後14:30。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "temporal-05": {
+    "expected": false,
+    "rationale": "空白日。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "temporal-06": {
+    "expected": true,
+    "rationale": "更新後の失効時刻。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "temporal-07": {
+    "expected": false,
+    "rationale": "後の正式取消。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "evidence-00": {
+    "expected": "refuted",
+    "rationale": "全4台有効。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "evidence-01": {
+    "expected": "supported",
+    "rationale": "全員不参加の否定。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "evidence-02": {
+    "expected": "unknown",
+    "rationale": "障害0は利用者0を含意しない。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "evidence-03": {
+    "expected": "refuted",
+    "rationale": "同時空室不可とA空室。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "evidence-04": {
+    "expected": "unknown",
+    "rationale": "不完全一覧の不在。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "evidence-05": {
+    "expected": "unknown",
+    "rationale": "許可の有無を記録から決められない。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "evidence-06": {
+    "expected": "supported",
+    "rationale": "全称命題の適用。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "evidence-07": {
+    "expected": "supported",
+    "rationale": "排他的候補と否定。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "reference-00": {
+    "expected": "白井",
+    "rationale": "箱の運搬主体。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "reference-01": {
+    "expected": "西",
+    "rationale": "引継後の担当。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "reference-02": {
+    "expected": "初版",
+    "rationale": "指示対象を区別。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "reference-03": {
+    "expected": "本館A",
+    "rationale": "同名場所の識別。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "reference-04": {
+    "expected": "田中",
+    "rationale": "作成と確認の役割分離。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "reference-05": {
+    "expected": "箱2",
+    "rationale": "重量順1>3>2。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "reference-06": {
+    "expected": "未受付",
+    "rationale": "番号の入替混同を避ける。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "reference-07": {
+    "expected": "Xのみ",
+    "rationale": "資料単位の権限。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "rules-00": {
+    "expected": true,
+    "rationale": "例外適用。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "rules-01": {
+    "expected": false,
+    "rationale": "AND条件不足。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "rules-02": {
+    "expected": true,
+    "rationale": "OR条件。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "rules-03": {
+    "expected": false,
+    "rationale": "停止が優先。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "rules-04": {
+    "expected": false,
+    "rationale": "総支払額と商品合計を区別。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "rules-05": {
+    "expected": true,
+    "rationale": "4+1=5。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "rules-06": {
+    "expected": false,
+    "rationale": "逆は成立しない。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "rules-07": {
+    "expected": false,
+    "rationale": "予定は完了ではない。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "numeric-00": {
+    "expected": 3,
+    "rationale": "9+7-5-8=3。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "numeric-01": {
+    "expected": 3,
+    "rationale": "40-10=30分。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "numeric-02": {
+    "expected": 1,
+    "rationale": "2-1=1。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "numeric-03": {
+    "expected": 4,
+    "rationale": "18//4=4。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "numeric-04": {
+    "expected": 2,
+    "rationale": "(800-500-100)/100=2。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "numeric-05": {
+    "expected": 0,
+    "rationale": "必要4人へ4部配布済み。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "numeric-06": {
+    "expected": 2,
+    "rationale": "20-3-15=2。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "numeric-07": {
+    "expected": 4,
+    "rationale": "4-1-1+2=4。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "workflow-00": {
+    "expected": "C",
+    "rationale": "未実施の次工程。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "workflow-01": {
+    "expected": "納品",
+    "rationale": "納品未了。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "workflow-02": {
+    "expected": "法務確認",
+    "rationale": "AND依存の残り。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "workflow-03": {
+    "expected": "D",
+    "rationale": "C待ち。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "workflow-04": {
+    "expected": "審査前",
+    "rationale": "規定による差戻し。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "workflow-05": {
+    "expected": "満たしていない",
+    "rationale": "更新成功が前提。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "workflow-06": {
+    "expected": "箱詰め",
+    "rationale": "順序制約。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "workflow-07": {
+    "expected": "面接官不在",
+    "rationale": "必要人物が揃っていない。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "data_boundary-00": {
+    "expected": "refuted",
+    "rationale": "台帳保留、引用は無効。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "data_boundary-01": {
+    "expected": "refuted",
+    "rationale": "正式状態は却下。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "data_boundary-02": {
+    "expected": "refuted",
+    "rationale": "攻撃文の引用と実行を区別。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "data_boundary-03": {
+    "expected": "supported",
+    "rationale": "実際の結果を使用。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "data_boundary-04": {
+    "expected": "supported",
+    "rationale": "本文証拠を採用。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "data_boundary-05": {
+    "expected": "unknown",
+    "rationale": "仮定は実績証拠ではない。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "data_boundary-06": {
+    "expected": "unknown",
+    "rationale": "デモと実測の区別。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  },
+  "data_boundary-07": {
+    "expected": "supported",
+    "rationale": "実操作記録。",
+    "status": "AI_PROVISIONAL",
+    "created_without_model_predictions": true
+  }
+}

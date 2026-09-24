@@ -1,8 +1,12 @@
+> v0.6.0: adds opt-in actual pinned **Eider decision semantics + optimized vLLM**. Build the CPU bridge first: [Eider setup and API migration](docs/EIDER.md). Select `--semantics eider` for the new integration. The default remains `legacy` because a combined AV regression check failed. Historical benchmark tables below retain their original versions and are not automatically measurements of this new path.
+
+[Current integration validation and known AV failure](docs/EIDER_RELEASE_VALIDATION.md): text61/64 with exact prior-answer parity; image9/9 and short-video3/3 synthetic checks. Combined AV reasoning is experimental and has a recorded error.
+
 # Gemma Decision Kit
 
-Local **NVFP4 Gemma 4 decisions for text, images, short videos and audio**: three named choices with an **uncalibrated probability distribution**, without prose generation. v0.3.0 extends text input to the native256K context (262143input tokens); the default is64K. NVFP4 only; EXL3 remains in historical v0.1.0. [Context setup and measured accuracy](docs/CONTEXT.md).
+Local **NVFP4 Gemma 4 decisions for text, images, short videos and audio**: Eider `choice`, `noul` and `score` outputs with **uncalibrated probabilities**, without prose generation. v0.3.0 extends text input to the native256K context (262143input tokens); the default is64K. NVFP4 only; EXL3 remains in historical v0.1.0. [Context setup and measured accuracy](docs/CONTEXT.md).
 
-Experimental release. Independent implementation inspired by state + typed questions; not an official Jev clone or drop-in Eider API. No new model training, no bundled weights. [日本語](README.ja.md).
+Experimental release. Actual Eider CPU decision semantics with a project vLLM/media adapter; not an official Jev clone or a complete drop-in Eider API. No new model training, no bundled weights. [日本語](README.ja.md).
 
 [Illustrated Eider / vLLM / Gemma guide (Japanese)](docs/EIDER_VLLM_GUIDE.ja.md) explains the engines, this kit’s implementation and audiovisual processing with seven diagrams. [Offline HTML edition](docs/EIDER_VLLM_GUIDE.ja.html).
 
@@ -29,7 +33,7 @@ recordings use CLI. Existing `predict`/`serve` remain compatible. [Setup and lim
 
 | Input | Processing | Interface |
 |---|---|---|
-| Text | Gemma three-choice decisions | `predict` / HTTP |
+| Text | Eider choice / noul / score | `predict` / HTTP |
 | Image | Visual analysis of one PNG/JPEG | `--media` with image JSON / HTTP |
 | Video | Sampled frames from one MP4, up to10seconds | `--media` with video JSON / HTTP |
 | Audio / video audio track | MOSS transcription, anonymous speakers and utterance times, optionally passed to Gemma; up to30minutes | `transcribe` / `predict --audio` (CLI/Python only) |
@@ -124,9 +128,9 @@ curl http://127.0.0.1:8765/v1/decisions \
 
 `--profile speed` is retained for compatibility and is the only profile. `--media` selects the separately validated vision recipe at startup. It does not simultaneously load a second model. Restart to switch modes. Text-only mode retains the original performance recipe; its speed/precision figures do not automatically apply to text served in media mode.
 
-Input: text `state`, 1–64 named `questions` (`type: "choice"`, `instructions`, exactly three ordered `criteria`), and optionally one `media` object. Choices map to A/B/C in insertion order. [Media contract and limits](docs/MEDIA.md). All questions run sequentially. Text defaults to65535input tokens per question, with opt-in131071/262143limits; media mode remains8192. The limit includes the state, question, choices and chat template. Requests exceeding the configured limit or524288aggregate input tokens fail before inference, without truncation. Output includes choice, probability distribution, token usage and media metadata when present. Probabilities are not calibrated correctness guarantees.
+Input: text `state`, 1–64 named questions, optional inline media. Opt-in Eider semantics support choice (2–64 options), noul (true probability) and score (expected rubric position); [exact schema and migration](docs/EIDER.md). `--semantics legacy` retains the old three-choice API. All questions run sequentially. Text defaults to65535input tokens per question, with opt-in131071/262143limits; media mode remains8192. Expanded media and every question are checked before inference; no truncation. Probabilities are not calibrated correctness guarantees.
 
-HTTP binds only127.0.0.1. Use an authenticated tunnel for remote use. This is a small local serialized API, not an Internet production gateway. No HTTP audio, Gemma free-text generation, Boolean/score types, arbitrary choice counts, dynamic GPU batching, tensor parallelism or LoRA. `--media` video uses sampled-frame visual analysis; use the separate `--audio` path for speech.
+HTTP binds only127.0.0.1. Use an authenticated tunnel for remote use. This is a small local serialized API, not an Internet production gateway. Inline audio/video is available through `/v1/analyze` with per-request model loading. `/v1/decisions` is resident text/visual inference. No Gemma free-text generation, dynamic GPU batching, tensor parallelism or LoRA. `--media` video uses sampled-frame visual analysis; use the separate `--audio` path for speech.
 
 ## Evidence and license
 
@@ -159,7 +163,7 @@ gemma-decision predict --model-path /models/nvfp4 --input examples/request.json 
 
 ## Beyond three choices: additional typed-output evaluation
 
-**The Gemma row uses a research adapter; the public API remains three-choice only.** It does not yet expose variable choice counts, noul or score. Eider Qwen/Laya/NanoJev use native typed APIs; SemIf uses a research conversion. DiffusionGemma was blocked during startup and has no new measurements. Counts below are agreement with provisional labels on96short synthetic cases (26correlated groups); score uses the most probable of five levels.
+**Historical measurements: the Gemma row used the earlier research adapter, not the new v0.6.0 Eider integration.** The current API exposes typed outputs, but this table is retained without relabeling its measurements. Eider Qwen/Laya/NanoJev use native typed APIs; SemIf uses a research conversion. DiffusionGemma was blocked during startup and has no new measurements. Counts below are agreement with provisional labels on96short synthetic cases (26correlated groups); score uses the most probable of five levels.
 
 | Configuration | Choice 2 | Choice 4 | Choice 8 | Noul / boolean | Score: top level |
 |---|---:|---:|---:|---:|---:|

@@ -1,0 +1,3 @@
+# WI-076 release evidence
+
+Synthetic media fixtures and all corresponding initial/replay predictions, plus the known64-case text regression set with fixed AI provisional labels. Image/video fixtures are inline data URIs; no copyrighted/private media is fetched. Each media workflow has3questions. Score quality uses argmax of the rubric distribution; the API returns its expectation. Audio/AV aggregate results are in summary.json; source recordings/model weights are not distributed. Failed setup/compatibility attempts and the combined AV wrong answer are described in ../../docs/EIDER_RELEASE_VALIDATION.md. This is not human-gold certification.

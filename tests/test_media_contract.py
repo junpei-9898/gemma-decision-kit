@@ -44,6 +44,6 @@ class MediaContractTests(unittest.TestCase):
         from unittest.mock import patch,MagicMock
         from gemma_decision.cli import main
         request=json.dumps(body());fake=MagicMock();fake.predict.return_value={'ok':True}
-        with patch('sys.argv',['gemma-decision','predict','--media','--model-path','/model']),patch('sys.stdin',__import__('io').StringIO(request)),patch('sys.stdout',__import__('io').StringIO()),patch('gemma_decision.cli.DecisionEngine',return_value=fake) as init:
+        with patch('sys.argv',['gemma-decision','predict','--semantics','legacy','--media','--model-path','/model']),patch('sys.stdin',__import__('io').StringIO(request)),patch('sys.stdout',__import__('io').StringIO()),patch('gemma_decision.cli.DecisionEngine',return_value=fake) as init:
             main()
         init.assert_called_once_with('speed','/model',None,media=True)

@@ -47,12 +47,12 @@ def transcribe(source,model_path,*,python=None,max_seconds=1800,timeout=1800,max
         return result
 
 
-def predict_audio(body,source,model_path,*,engine_factory,transcript_output=None,**options):
+def predict_audio(body,source,model_path,*,engine_factory,transcript_output=None,validator=None,**options):
     from ..core import validate
-    validate(body)
+    (validator or validate)(body)
     if transcript_output is not None and Path(transcript_output).exists():raise AudioError('Transcript output already exists')
     transcript=transcribe(source,model_path,**options)
-    prepared=add_evidence(body,transcript)
+    prepared=add_evidence(body,transcript,validator=validator)
     if transcript_output is not None:write_private_json(transcript_output,transcript)
     # MOSS has exited before this factory starts Gemma and allocates its model/KV memory.
     engine=engine_factory()

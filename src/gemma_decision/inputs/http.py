@@ -38,7 +38,10 @@ def make_server(port, worker_options):
                 if len(raw)!=length: raise ValueError()
                 body=parse_json(raw.decode('utf-8'))
                 if not isinstance(body,dict) or set(body)!={'request','source'}: raise ValueError()
-                split_request(body['request'])
+                from ..eider_engine import validate as eider_validate
+                from ..core import validate as legacy_validate
+                semantics=worker_options[worker_options.index('--semantics')+1] if '--semantics' in worker_options else 'legacy'
+                split_request(body['request'], eider_validate if semantics=='eider' else legacy_validate)
                 source=body['source']
                 if not isinstance(source,dict) or set(source)!={'extension','base64'}: raise ValueError()
                 if source['extension'] not in {'.txt','.md','.png','.jpg','.jpeg','.wav','.flac','.mp3','.m4a','.aac','.ogg','.opus','.mp4','.mov','.mkv','.webm'}: raise ValueError()

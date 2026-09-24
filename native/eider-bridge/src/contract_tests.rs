@@ -4,6 +4,7 @@ fn ffi(v:Value)->Value {
  unsafe {let ptr=eider_call(input.as_ptr());let result=serde_json::from_slice(CStr::from_ptr(ptr).to_bytes()).unwrap();eider_free(ptr);result}
 }
 #[test]
+#[ignore = "requires EIDER_TEST_MODEL and frozen EIDER_TEST_CASES; run explicitly on validation host"]
 fn direct_upstream_equals_ffi() {
  let dir=std::env::var("EIDER_TEST_MODEL").expect("local model required");
  let cases:Vec<Value>=serde_json::from_slice(&std::fs::read(std::env::var("EIDER_TEST_CASES").unwrap()).unwrap()).unwrap();

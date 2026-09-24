@@ -1,11 +1,11 @@
 # License and provenance audit
 
-Pinned-source audit 2026-09-23, distribution updated 2026-09-24. This project distributes adapter code, documentation, synthetic examples and aggregate measurements. It does **not** distribute model weights, CUDA binaries, the runtime container, or Eider's Rust code.
+Pinned-source audit 2026-09-23, distribution updated 2026-09-25. This project distributes adapter code, documentation, synthetic examples and aggregate measurements. It does **not** distribute model weights, CUDA binaries, the runtime container. Pinned Eider CPU Rust modules are included under native/eider-bridge/vendor.
 
 | Component | Examined version/source | License / handling |
 |---|---|---|
 | Project code | this repository | Apache-2.0; root LICENSE |
-| Eider interface inspiration | [bf42ac73](https://github.com/rdaum/eider/tree/bf42ac73bcc0718d9b86cb48cd590e332efd14af) | Apache-2.0; included reference license, no Eider runtime vendored |
+| Eider CPU decision/chat/API source | [bf42ac73](https://github.com/rdaum/eider/tree/bf42ac73bcc0718d9b86cb48cd590e332efd14af) | Apache-2.0; retained license/notices and provenance; thin ABI/media adapters and reduced build manifests identified as modifications |
 | vLLM runtime adaptations | [f2654939e](https://github.com/vllm-project/vllm/tree/f2654939e), packaged version0.26.1.dev0+gf2654939e.d20260726 | Apache-2.0; modifications identified in source/NOTICE; license retained |
 | NVFP4 checkpoint | [NVIDIA pinned card](https://huggingface.co/nvidia/Gemma-4-26B-A4B-NVFP4/tree/a19cfe00be84568a6867111c9a68c9c44fdcffe6) | card metadata Apache-2.0; downloaded separately |
 

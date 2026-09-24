@@ -1,3 +1,5 @@
+> Historical prototype notes (WI-072). The released API and media migration are documented in [EIDER.md](EIDER.md).
+
 # Experimental direct Eider decision bridge
 
 This branch is an evaluation candidate, not the default API or a quality-certified release.

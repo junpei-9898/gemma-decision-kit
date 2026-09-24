@@ -1,0 +1,404 @@
+[
+  {
+    "id": "red",
+    "repeat": 0,
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "color": {
+          "type": "choice",
+          "choice": "red",
+          "probabilities": {
+            "red": 0.99999976,
+            "blue": 7.73442e-08,
+            "green": 1.2751903e-07
+          },
+          "confidence": 0.9999968
+        },
+        "red": {
+          "type": "noul",
+          "noul": 0.99999976
+        },
+        "count": {
+          "type": "score",
+          "score": 1.0000004,
+          "legend": {
+            "0": "0個",
+            "1": "1個",
+            "2": "2個"
+          },
+          "probabilities": {
+            "0": 9.237448e-09,
+            "1": 0.99999976,
+            "2": 2.8736858e-07
+          },
+          "confidence": 0.9999957
+        }
+      },
+      "usage": {
+        "input_tokens": 1086,
+        "output_tokens": 3,
+        "logical_input_tokens": 250,
+        "physical_input_tokens": 1086,
+        "logical_tokens_exclude_media": true
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1",
+      "media": {
+        "type": "image",
+        "width": 224,
+        "height": 224,
+        "token_counts_by_question": {
+          "color": {
+            "image": 256,
+            "video": 0
+          },
+          "red": {
+            "image": 256,
+            "video": 0
+          },
+          "count": {
+            "image": 256,
+            "video": 0
+          }
+        }
+      }
+    },
+    "seconds": 16.879946699016728
+  },
+  {
+    "id": "red",
+    "repeat": 1,
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "color": {
+          "type": "choice",
+          "choice": "red",
+          "probabilities": {
+            "red": 0.9999999,
+            "blue": 6.214782e-08,
+            "green": 4.1399375e-08
+          },
+          "confidence": 0.99999833
+        },
+        "red": {
+          "type": "noul",
+          "noul": 0.9999999
+        },
+        "count": {
+          "type": "score",
+          "score": 1.0000001,
+          "legend": {
+            "0": "0個",
+            "1": "1個",
+            "2": "2個"
+          },
+          "probabilities": {
+            "0": 3.7322665e-09,
+            "1": 0.9999999,
+            "2": 1.05717e-07
+          },
+          "confidence": 0.9999983
+        }
+      },
+      "usage": {
+        "input_tokens": 1086,
+        "output_tokens": 3,
+        "logical_input_tokens": 250,
+        "physical_input_tokens": 1086,
+        "logical_tokens_exclude_media": true
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1",
+      "media": {
+        "type": "image",
+        "width": 224,
+        "height": 224,
+        "token_counts_by_question": {
+          "color": {
+            "image": 256,
+            "video": 0
+          },
+          "red": {
+            "image": 256,
+            "video": 0
+          },
+          "count": {
+            "image": 256,
+            "video": 0
+          }
+        }
+      }
+    },
+    "seconds": 1.6069665339891799
+  },
+  {
+    "id": "blue",
+    "repeat": 0,
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "color": {
+          "type": "choice",
+          "choice": "blue",
+          "probabilities": {
+            "red": 3.6381523e-10,
+            "blue": 1.0,
+            "green": 9.833214e-09
+          },
+          "confidence": 0.9999998
+        },
+        "red": {
+          "type": "noul",
+          "noul": 8.15202e-09
+        },
+        "count": {
+          "type": "score",
+          "score": 1.0000005,
+          "legend": {
+            "0": "0個",
+            "1": "1個",
+            "2": "2個"
+          },
+          "probabilities": {
+            "0": 8.6777785e-09,
+            "1": 0.99999964,
+            "2": 3.927862e-07
+          },
+          "confidence": 0.9999943
+        }
+      },
+      "usage": {
+        "input_tokens": 1086,
+        "output_tokens": 3,
+        "logical_input_tokens": 250,
+        "physical_input_tokens": 1086,
+        "logical_tokens_exclude_media": true
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1",
+      "media": {
+        "type": "image",
+        "width": 224,
+        "height": 224,
+        "token_counts_by_question": {
+          "color": {
+            "image": 256,
+            "video": 0
+          },
+          "red": {
+            "image": 256,
+            "video": 0
+          },
+          "count": {
+            "image": 256,
+            "video": 0
+          }
+        }
+      }
+    },
+    "seconds": 0.46175218594726175
+  },
+  {
+    "id": "blue",
+    "repeat": 1,
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "color": {
+          "type": "choice",
+          "choice": "blue",
+          "probabilities": {
+            "red": 1.6144203e-10,
+            "blue": 1.0,
+            "green": 7.194133e-09
+          },
+          "confidence": 0.9999999
+        },
+        "red": {
+          "type": "noul",
+          "noul": 3.850742e-09
+        },
+        "count": {
+          "type": "score",
+          "score": 1.0000002,
+          "legend": {
+            "0": "0個",
+            "1": "1個",
+            "2": "2個"
+          },
+          "probabilities": {
+            "0": 6.348799e-09,
+            "1": 0.99999976,
+            "2": 2.2380286e-07
+          },
+          "confidence": 0.99999654
+        }
+      },
+      "usage": {
+        "input_tokens": 1086,
+        "output_tokens": 3,
+        "logical_input_tokens": 247,
+        "physical_input_tokens": 1086,
+        "logical_tokens_exclude_media": true
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1",
+      "media": {
+        "type": "image",
+        "width": 224,
+        "height": 224,
+        "token_counts_by_question": {
+          "color": {
+            "image": 256,
+            "video": 0
+          },
+          "red": {
+            "image": 256,
+            "video": 0
+          },
+          "count": {
+            "image": 256,
+            "video": 0
+          }
+        }
+      }
+    },
+    "seconds": 0.1465460719773546
+  },
+  {
+    "id": "green",
+    "repeat": 0,
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "color": {
+          "type": "choice",
+          "choice": "green",
+          "probabilities": {
+            "red": 1.9062554e-09,
+            "blue": 1.0467402e-08,
+            "green": 1.0
+          },
+          "confidence": 0.99999976
+        },
+        "red": {
+          "type": "noul",
+          "noul": 3.9113823e-09
+        },
+        "count": {
+          "type": "score",
+          "score": 1.0000002,
+          "legend": {
+            "0": "0個",
+            "1": "1個",
+            "2": "2個"
+          },
+          "probabilities": {
+            "0": 3.2937133e-09,
+            "1": 0.99999976,
+            "2": 2.3823691e-07
+          },
+          "confidence": 0.9999964
+        }
+      },
+      "usage": {
+        "input_tokens": 1086,
+        "output_tokens": 3,
+        "logical_input_tokens": 249,
+        "physical_input_tokens": 1086,
+        "logical_tokens_exclude_media": true
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1",
+      "media": {
+        "type": "image",
+        "width": 224,
+        "height": 224,
+        "token_counts_by_question": {
+          "color": {
+            "image": 256,
+            "video": 0
+          },
+          "red": {
+            "image": 256,
+            "video": 0
+          },
+          "count": {
+            "image": 256,
+            "video": 0
+          }
+        }
+      }
+    },
+    "seconds": 0.4592697390471585
+  },
+  {
+    "id": "green",
+    "repeat": 1,
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "color": {
+          "type": "choice",
+          "choice": "green",
+          "probabilities": {
+            "red": 1.3730244e-09,
+            "blue": 7.4224995e-09,
+            "green": 1.0
+          },
+          "confidence": 0.9999998
+        },
+        "red": {
+          "type": "noul",
+          "noul": 5.26334e-09
+        },
+        "count": {
+          "type": "score",
+          "score": 1.0000004,
+          "legend": {
+            "0": "0個",
+            "1": "1個",
+            "2": "2個"
+          },
+          "probabilities": {
+            "0": 3.5061396e-09,
+            "1": 0.99999976,
+            "2": 2.8736858e-07
+          },
+          "confidence": 0.99999577
+        }
+      },
+      "usage": {
+        "input_tokens": 1086,
+        "output_tokens": 3,
+        "logical_input_tokens": 248,
+        "physical_input_tokens": 1086,
+        "logical_tokens_exclude_media": true
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1",
+      "media": {
+        "type": "image",
+        "width": 224,
+        "height": 224,
+        "token_counts_by_question": {
+          "color": {
+            "image": 256,
+            "video": 0
+          },
+          "red": {
+            "image": 256,
+            "video": 0
+          },
+          "count": {
+            "image": 256,
+            "video": 0
+          }
+        }
+      }
+    },
+    "seconds": 0.148303363006562
+  }
+]

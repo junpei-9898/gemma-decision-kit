@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "wheel": "gemma_decision_kit-0.6.0-py3-none-any.whl",
+  "source_distribution": "gemma_decision_kit-0.6.0.tar.gz",
+  "http_successes": 4,
+  "http_rejected": 1,
+  "checks": [
+    "typed CLI",
+    "installed tests",
+    "typed text HTTP",
+    "image HTTP",
+    "64 labels HTTP",
+    "spatial diagnostic recorded",
+    "unknown model rejected",
+    "native source in sdist"
+  ]
+}

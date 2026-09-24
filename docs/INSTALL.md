@@ -35,12 +35,17 @@ docker run --name gemma-kit-download --user "$(id -u):$(id -g)" \
 
 The script pins model revisions from `gemma_decision.profiles` and refuses an existing target. Do not point a profile at a different checkpoint and assume equivalent predictions. Keep enough disk space for the model and caches; downloads are not included in the package. Supply credentials through your own local Hugging Face setup if upstream access requires them; never put tokens into this repository.
 
+## Build the Eider bridge
+
+For Eider mode, follow [Eider setup](EIDER.md), pass `GEMMA_EIDER_LIBRARY` into the container, and add `--semantics eider`. The default remains legacy choice3 while combined AV non-regression is unresolved.
+
 ## Predict (offline)
 
 ```sh
 docker run --name gemma-kit-predict --gpus all --network none \
   --user "$(id -u):$(id -g)" --shm-size 4g \
   -e HOME=/state -e PYTHONPATH=/state/package \
+  -e GEMMA_EIDER_LIBRARY=/state/eider-build/release/libeider_decision_bridge.so \
   -e HF_HUB_OFFLINE=1 -e TRANSFORMERS_OFFLINE=1 -e VLLM_NO_USAGE_STATS=1 -e DO_NOT_TRACK=1 \
   -e TORCH_EXTENSIONS_DIR=/state/extensions -e TORCH_CUDA_ARCH_LIST=12.1a \
   -e MAX_JOBS=4 -e OMP_NUM_THREADS=4 -e TOKENIZERS_PARALLELISM=true -e RAYON_NUM_THREADS=4 \

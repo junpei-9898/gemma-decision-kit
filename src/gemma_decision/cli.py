@@ -19,6 +19,8 @@ def parse_json(text):
 def main():
     p=argparse.ArgumentParser(description='Local NVFP4 three-choice decisions')
     p.add_argument('command',choices=['info','validate','predict','serve','transcribe','download-audio','analyze','serve-input'])
+    p.add_argument('--semantics',choices=['eider','legacy'],default='legacy')
+    p.add_argument('--bridge-library',help='Path to pinned Eider Rust bridge library')
     p.add_argument('--profile',choices=PROFILES,default='speed')
     p.add_argument('--model-path')
     p.add_argument('--media',action='store_true',help='Load vision encoder and validated image/video recipe')
@@ -38,6 +40,12 @@ def main():
     p.add_argument('--transcript-output',help='New private transcript JSON file for predict --audio')
     p.add_argument('--output',help='New private JSON output file (predict/transcribe)')
     args=p.parse_args()
+    if args.semantics=='eider':
+        from .eider_engine import EiderEngine, validate as validator
+        engine_factory=lambda media=False:EiderEngine(args.profile,args.model_path,args.max_input_tokens,media=media,bridge_library=args.bridge_library)
+    else:
+        validator=validate
+        engine_factory=lambda media=False:DecisionEngine(args.profile,args.model_path,args.max_input_tokens,media=media)
     from .audio.contracts import AudioError
     from .audio.pipeline import transcribe,predict_audio,write_private_json
     def emit(value):
@@ -68,9 +76,9 @@ def main():
         if args.audio or args.media or args.transcript_output:p.error('Unified input selects its own audio/media route')
         if args.command=='serve-input':
             from .inputs.http import serve
-            options=['--model-path',args.model_path,'--profile',args.profile,
+            options=['--semantics',args.semantics,'--model-path',args.model_path,'--profile',args.profile,
                      '--max-decisions',str(args.max_decisions),'--max-total-tokens',str(args.max_total_tokens)]
-            for flag,value in [('--audio-model-path',args.audio_model_path),('--audio-python',args.audio_python),('--cache-dir',args.cache_dir)]:
+            for flag,value in [('--bridge-library',args.bridge_library),('--audio-model-path',args.audio_model_path),('--audio-python',args.audio_python),('--cache-dir',args.cache_dir)]:
                 if value:options.extend([flag,value])
             if args.max_input_tokens is not None:options.extend(['--max-input-tokens',str(args.max_input_tokens)])
             serve(args.port,options);return
@@ -82,7 +90,7 @@ def main():
                 text=sys.stdin.read(8*1024**2+1) if args.input=='-' else open(args.input,encoding='utf-8').read(8*1024**2+1)
                 if len(text.encode('utf-8'))>8*1024**2:raise ValueError()
                 result=analyze(parse_json(text),args.source,
-                    engine_factory=lambda media:DecisionEngine(args.profile,args.model_path,args.max_input_tokens,media=media),
+                    engine_factory=engine_factory,validator=validator,
                     audio_model_path=args.audio_model_path,audio_python=args.audio_python,cache_dir=args.cache_dir,
                     max_decisions=args.max_decisions,max_total_tokens=args.max_total_tokens)
             emit(result)
@@ -95,7 +103,7 @@ def main():
     if args.command in ['validate','predict']:
         text=sys.stdin.read(8*1024**2+1) if args.input=='-' else open(args.input,encoding='utf-8').read(8*1024**2+1)
         if len(text.encode('utf-8'))>8*1024**2:p.error('Input exceeds 8MiB')
-        try:body=validate(parse_json(text))
+        try:body=validator(parse_json(text))
         except (ValueError,TypeError) as exc:p.error(str(exc))
         if args.command=='validate':print('{"valid":true}');return
     if not args.model_path:p.error('--model-path is required')
@@ -105,7 +113,7 @@ def main():
         try:
             with redirect_stdout(sys.stderr):
                 result=predict_audio(body,args.audio,args.audio_model_path,
-                    engine_factory=lambda:DecisionEngine(args.profile,args.model_path,args.max_input_tokens,media=args.media),
+                    engine_factory=lambda:engine_factory(media=args.media),validator=validator,
                     transcript_output=args.transcript_output,**audio_options)
             emit(result);return
         except AudioError as exc:p.error(str(exc))
@@ -113,7 +121,7 @@ def main():
     # Runtime libraries may print during initialization/inference; stdout is JSON only.
     from contextlib import redirect_stdout
     with redirect_stdout(sys.stderr):
-        engine=DecisionEngine(args.profile,args.model_path,args.max_input_tokens,media=args.media)
+        engine=engine_factory(media=args.media)
         if args.command=='predict':result=engine.predict(body)
     if args.command=='predict':emit(result);return
     from .server import serve

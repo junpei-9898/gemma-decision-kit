@@ -4,3 +4,6 @@ recursive-include docs *.md *.json
 recursive-include scripts *.py
 recursive-include examples *.json *.png *.mp4 *.md
 recursive-include tests *.py
+
+recursive-include native/eider-bridge *.rs *.toml *.lock *.json LICENSE NOTICE
+recursive-include benchmarks/eider-release *.json *.md

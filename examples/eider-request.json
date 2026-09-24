@@ -1,0 +1,8 @@
+{
+  "state": "発送日は金曜日です。荷物は2個です。",
+  "questions": {
+    "friday": {"type": "noul", "instructions": "発送日は金曜日ですか？"},
+    "day": {"type": "choice", "instructions": "発送日は何曜日ですか？", "criteria": {"friday": "金曜日", "monday": "月曜日"}},
+    "count": {"type": "score", "instructions": "荷物は何個ですか？", "criteria": ["0個", "1個", "2個", "3個"]}
+  }
+}

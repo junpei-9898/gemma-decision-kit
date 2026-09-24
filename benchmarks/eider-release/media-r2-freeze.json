@@ -1,0 +1,119 @@
+[
+  {
+    "id": "red",
+    "body": {
+      "state": "添付画像を確認してください。",
+      "media": {
+        "type": "image",
+        "data": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADgCAIAAACVT/22AAAEmklEQVR4nO3Z23LaQBgE4SXl939lcqGUghNMgQ2oZ/7+rnOQZpslKZ/O5/OSqH4d/QDSLQYqNAMVmoEKzUCFZqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKEZqNAMVGgGKjQDFZqBCs1AhWagQjNQoRmo0AxUaAYqNAMVmoEKzUCFZqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKEZqNAMVGgGKjQDFZqBCs1AhWagQjNQoRmo0AxUaB9HP0Cy0+mBX3w+v+w5mhno3R7K8Z7fbrJ3MNCbfhjl/X+4sX7BQK95aZe3/0ZL/cxAL7y/yxvPYKlrLQP9g5DmP7ZHGp/p+ECBaV4an+ngQOFpXhqc6chAg9K8NDLTeT9JCq1zl/78D5p0g9Yc7aSrdMwNWlPnru+NrhlwgxYf5ICrtP0GLa5zV/2O1YFWn9wnvW9a+hXfe2BfKv26b7xBB9a5q3v3ukDrTuhhXQt0Bdp1Nt9XtENRoEWn8gQta7QE2nIez1SxSUWgFSfxEvnLVASqXvmB5l8SrxW+T3ig4eu/SfJKyYEm7/5usVslB6oBYgONvRIOk7lYZqCZWx8vcLfMQDVGYKCB1wBI2nppgabtSxS1YVqgGiYq0KiPPlrOklGBap6cQHM+9BlC9swJVCOFBBrycQ+TsGpIoJoqIdCED3oq/LYJgWowAxUaPlD8d1A89sL4QDWbgQqNHSj726cHeGd2oBrPQIVmoEIDBwr+h1Eh6trgQCUDFZyBCs1AhWagQqMGSv1PZTPk5tRApbWWgQrOQIVmoEIzUKEZqNAMVGgGKjQDFZqBCs1AhWagQjNQoRmo0KiBns9HP8E8yM2pgUprLQMVnIEKzUCFZqBCAweK/E9lLera4EAlAxWcgQqNHSj1H0ZtwDuzA9V4Bio0fKDgb58S7IXxgWo2AxVaQqDs76Bs+G0TAtVgIYHiP+iRElYNCVRT5QSa8HFPErJnTqAaKSrQkA99gJwlowLVPGmB5nz0uaI2TAt0he2Lk7ZeYKCaJDPQtGuAInC3zEBX5NYHy1wsNlDNkBxo5pVwjNitkgNdwbu/VfJK4YGu7PXfIXyf/EBVrSLQ8EvihfKXqQh0NZzE81Vs0hLoKjmPp2lZoyjQ1XMqP1W0Q1egq+psvqlrgbpAV9sJPabu3T+OfoDX2M7pdDr6Od6oLs1N4w26Kz2zK3rftDrQ1Xxyf1W/Y+lX/KXir/vqNDftN+iu7yz73uiaATforuYqnZHmZswNuks/3fTnf9CkG3QXepUOS3MzMtBNUKYj09wMDnQDz3RwmpvxgW6AmY5Pc2OgF/YmDizVLj8z0GveX6pdfsFAb7rs5umxGuUdDPRu//f0ULLm+C0G+gM293rzfpKkKAYqNAMVmoEKzUCFZqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKEZqNAMVGgGKjQDFZqBCs1AhWagQjNQoRmo0AxUaAYqNAMVmoEKzUCFZqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKEZqNAMVGgGKjQDFZqBCs1AhWagQjNQoRmo0H4D4VGu61SE4xEAAAAASUVORK5CYII="
+      },
+      "questions": {
+        "color": {
+          "type": "choice",
+          "instructions": "円の色は何色ですか？",
+          "criteria": {
+            "red": "赤",
+            "blue": "青",
+            "green": "緑"
+          }
+        },
+        "red": {
+          "type": "noul",
+          "instructions": "円は赤色ですか？"
+        },
+        "count": {
+          "type": "score",
+          "instructions": "円は何個ありますか？",
+          "criteria": [
+            "0個",
+            "1個",
+            "2個"
+          ]
+        }
+      }
+    },
+    "gold": {
+      "color": "red",
+      "red": true,
+      "count": 1
+    }
+  },
+  {
+    "id": "blue",
+    "body": {
+      "state": "添付画像を確認してください。",
+      "media": {
+        "type": "image",
+        "data": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADgCAIAAACVT/22AAAEkklEQVR4nO3ZW27bQBQEUSrw/resfBCgBVsW9CSr+9b5zoPsKY0S+HQ+nxeJ6t/RDyDdYqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKEZqNAMVGgGKjQDFZqBCs1AhWagQjNQoRmo0AxUaAYqNAMVmoEKzUCFZqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKEZqNAMVGgGKjQDFZqBCs1AhWagQjNQoRmo0AxUaAYqNAMVmoEKzUCF9nX0AwQ7nR74xefzx56jmoHe66Ec7/ntJnsPA73lxSjv/8ON9S8GesVHu7z9N1rqDwb6bf8ubzyDpa4MdFkYaf6wPpKZTg8UmOYlM50bKDzNS5MznRhoUJqXZmY67idJoXVu0p//UYNu0JqjHXWVTrlBa+rc9L3RVf03aPFBTrhKy2/Q4jo33e/YHGj3yV0qftPOr/jiA/tL69d94Q06sM5N37u3Bdp3Qo8qW6Aq0LKzeVrTDj2BNp3K62rWKAm05jzeqGOThkA7TuITCpZpCFTF4gMtuCQ+Kn2f7EDT199H9ErBgUbvvrPcrYID1QSpgeZeCUcJXSwy0NCtD5e4W2SgmiMv0MRrgCNuvbBA4/YFytowLFBNkxRo1kefLGjJpEA1UEygQR/6CCl7xgSqmTICTfm4Z4lYNSNQjRUQaMQHPRR/24BANZmBCo0eKP87KB18YXqgGs5AhYYOFP7tU4O8MzpQyUCFZqBC4wZK/odRH+za3EClxUAFZ6BCM1ChGajQoIFi/1NZjLk5NFBpZaBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKEZqNAMVGgGKjRooOfz0U8wD3NzaKDSykCFZqBCM1ChGajQuIEy/1PZCrs2N1BpMVDBGajQ0IFi/2FUhrwzOlDJQIVGD5T87dMBvjA9UA1noEILCBT+HRSNv21AoJosI1D+Bz1RxKoZgWqsmEAjPu5BUvaMCVQzJQWa8qHnC1oyKVANFBZo0EcfK2vDsECXtH1p4tbLC1SjRAYadw1AJO4WGeiSufWxQhdLDVRDBAcaeiUcIner4ECX5N33FL1SdqBL+Po7SN8nPlB1awg0/ZL4nIJlGgJdKk7i7To2KQl0aTmPd6lZoyfQpehUXtS0Q1WgS9fZPKdsgbZAl7oTekjfu38d/QAfsZ7T6XT0c+yoL81V4Q26aT2z34rftDnQpfrkNt3v2PkVf6n46747zVX5DbrpO8u+N7qq/wbd1FylQ9JcTblBN+mnm/78jxp0g25Cr9Jpaa4mBroKynRmmqu5ga7gmU5OczU90BUwU9NcGei3rYkDS7XLHwz0iv1Ltcu/GOgtl928PVajvIeB3ut3Tw8la47PMdDn2dwOxv0kSVkMVGgGKjQDFZqBCs1AhWagQjNQoRmo0AxUaAYqNAMVmoEKzUCFZqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKEZqNAMVGgGKjQDFZqBCs1AhWagQjNQoRmo0AxUaAYqNAMVmoEKzUCFZqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKH9B4teruvNuBZMAAAAAElFTkSuQmCC"
+      },
+      "questions": {
+        "color": {
+          "type": "choice",
+          "instructions": "円の色は何色ですか？",
+          "criteria": {
+            "red": "赤",
+            "blue": "青",
+            "green": "緑"
+          }
+        },
+        "red": {
+          "type": "noul",
+          "instructions": "円は赤色ですか？"
+        },
+        "count": {
+          "type": "score",
+          "instructions": "円は何個ありますか？",
+          "criteria": [
+            "0個",
+            "1個",
+            "2個"
+          ]
+        }
+      }
+    },
+    "gold": {
+      "color": "blue",
+      "red": false,
+      "count": 1
+    }
+  },
+  {
+    "id": "green",
+    "body": {
+      "state": "添付画像を確認してください。",
+      "media": {
+        "type": "image",
+        "data": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADgCAIAAACVT/22AAAEhklEQVR4nO3ZQW7bQBQE0VGQexs5ObMgIAu2bEi2JFb3r7fOQuwpDhPktG3bkqj+HP0DpO8YqNAMVGgGKjQDFZqBCs1AhWagQjNQoRmo0AxUaAYqNAMVmoEKzUCFZqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKEZqNAMVGgGKjQDFZqBCs1AhWagQjNQoRmo0AxUaAYqNAMVmoEKzUCFZqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKH9PfoHBDv9O93+h7e37Xm/pNhp2xzuJnfleAuTvYWBfufhUX7FWL9ioFe8rMvPLPUDA313YJefWerOQNeCpXnJTKcHik3z0uRM5wYakealmZlODDQuzUvTMh33P0nRda7833+vQTdo2dEOuUqn3KBlda7GJ7qq/watP8juq7T8Bq2vc7U/Y3Og3Sd3qfhJOz/xxQf2vb7PfeENOrbO1fjsbYH2ndC9yhaoCrTsbH6saYeeQJtO5fdq1igJtOY8Hqhjk4ZAO07iGQqWaQhUxeIDLbgknip9n+xA09d/jeiVggON3v3FcrcKDlQTpAaaeyUcJXSxyEBDtz5c4m6RgWqOvEATrwGOuPXCAo3bFyhrw7BANU1SoFmvPlnQkkmBaqCYQINe+ggpe8YEqpkyAk153bNErJoRqMYKCDTiRQ/F3zYgUE1moEKjB8r/BqWDL0wPVMMZqNDQgcK/PjXIO6MDlQxUaAYqNG6g5L8Y9cGuzQ1UWgYqOAMVmoEKzUCFBg0U+4/KYszNoYFKOwMVmoEKzUCFZqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKFBA93etqN/wjjMzaGBSjsDFZqBCs1AhWagQuMGyvxHZSvs2txApWWggjNQoaEDxf7FqAx5Z3SgkoEKjR4o+evTAb4wPVANZ6BCCwgU/g2Kxt82IFBNlhEo/0VPFLFqRqAaKybQiNc9SMqeMYFqpqRAU156vqAlkwLVQGGBBr36WFkbhgW60valiVsvL1CNEhlo3DUAkbhbZKArc+tjhS6WGqiGCA409Eo4RO5WwYGu5N1fKXql7EBX+PovkL5PfKDq1hBo+iXxPAXLNAS6Kk7i4To2KQl0tZzHo9Ss0RPoKjqVX2raoSrQ1XU2P1O2QFugq+6E7tL37Kdta3uks9O/09E/4XX60twV3qBnrWf2WfGTNge6qk/urPsZmz/xlyo/991p7spv0LO+s+x7oqum3KBnBVfpkDR3U27Qs/TTTf/99xp3g57FXaXT0tzNDXQXkenMNHfTA91hM52c5s5A36EyNc2dgV5xYKl2+YGBfudlpdrlVwz0Vg+P1ShvYaA/d1ey5vgzBiq0cf+TpCwGKjQDFZqBCs1AhWagQjNQoRmo0AxUaAYqNAMVmoEKzUCFZqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKEZqNAMVGgGKjQDFZqBCs1AhWagQjNQoRmo0AxUaAYqNAMVmoEKzUCFZqBCM1ChGajQDFRoBio0AxWagQrNQIVmoEIzUKEZqND+A68dJHKF0TIlAAAAAElFTkSuQmCC"
+      },
+      "questions": {
+        "color": {
+          "type": "choice",
+          "instructions": "円の色は何色ですか？",
+          "criteria": {
+            "red": "赤",
+            "blue": "青",
+            "green": "緑"
+          }
+        },
+        "red": {
+          "type": "noul",
+          "instructions": "円は赤色ですか？"
+        },
+        "count": {
+          "type": "score",
+          "instructions": "円は何個ありますか？",
+          "criteria": [
+            "0個",
+            "1個",
+            "2個"
+          ]
+        }
+      }
+    },
+    "gold": {
+      "color": "green",
+      "red": false,
+      "count": 1
+    }
+  }
+]

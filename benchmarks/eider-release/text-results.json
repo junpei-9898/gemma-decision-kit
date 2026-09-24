@@ -1,0 +1,1794 @@
+[
+  {
+    "id": "routing-00",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "billing",
+          "probabilities": {
+            "shipping": 5.2114124e-10,
+            "access": 1.2501529e-09,
+            "billing": 1.0,
+            "technical": 2.1940867e-09
+          },
+          "confidence": 0.99999994
+        }
+      },
+      "usage": {
+        "input_tokens": 166,
+        "output_tokens": 1,
+        "logical_input_tokens": 166,
+        "physical_input_tokens": 166,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 1.046740787976887
+  },
+  {
+    "id": "routing-01",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "technical",
+          "probabilities": {
+            "billing": 0.00020342194,
+            "technical": 0.9997718,
+            "access": 2.4295285e-05,
+            "shipping": 5.0423256e-07
+          },
+          "confidence": 0.9983966
+        }
+      },
+      "usage": {
+        "input_tokens": 169,
+        "output_tokens": 1,
+        "logical_input_tokens": 169,
+        "physical_input_tokens": 169,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.0813311850070022
+  },
+  {
+    "id": "routing-02",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "shipping",
+          "probabilities": {
+            "shipping": 1.0,
+            "billing": 2.1477714e-08,
+            "access": 5.4304166e-09,
+            "technical": 1.6561834e-09
+          },
+          "confidence": 0.99999964
+        }
+      },
+      "usage": {
+        "input_tokens": 170,
+        "output_tokens": 1,
+        "logical_input_tokens": 170,
+        "physical_input_tokens": 170,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07685984100680798
+  },
+  {
+    "id": "routing-03",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "access",
+          "probabilities": {
+            "billing": 3.0636313e-10,
+            "access": 1.0,
+            "shipping": 2.9989609e-09,
+            "technical": 7.012722e-10
+          },
+          "confidence": 0.99999994
+        }
+      },
+      "usage": {
+        "input_tokens": 168,
+        "output_tokens": 1,
+        "logical_input_tokens": 168,
+        "physical_input_tokens": 168,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.0788189489976503
+  },
+  {
+    "id": "routing-04",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "billing",
+          "probabilities": {
+            "technical": 2.8780153e-10,
+            "billing": 1.0,
+            "shipping": 1.6561834e-09,
+            "access": 4.1549003e-10
+          },
+          "confidence": 0.99999994
+        }
+      },
+      "usage": {
+        "input_tokens": 169,
+        "output_tokens": 1,
+        "logical_input_tokens": 169,
+        "physical_input_tokens": 169,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.0781676639453508
+  },
+  {
+    "id": "routing-05",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "access",
+          "probabilities": {
+            "technical": 7.658114e-09,
+            "access": 0.9999999,
+            "billing": 6.0235735e-08,
+            "shipping": 4.644881e-09
+          },
+          "confidence": 0.99999905
+        }
+      },
+      "usage": {
+        "input_tokens": 168,
+        "output_tokens": 1,
+        "logical_input_tokens": 168,
+        "physical_input_tokens": 168,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07703560194931924
+  },
+  {
+    "id": "routing-06",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "technical",
+          "probabilities": {
+            "access": 7.4102813e-06,
+            "shipping": 2.5864421e-05,
+            "billing": 0.000108893284,
+            "technical": 0.9998578
+          },
+          "confidence": 0.99892044
+        }
+      },
+      "usage": {
+        "input_tokens": 174,
+        "output_tokens": 1,
+        "logical_input_tokens": 174,
+        "physical_input_tokens": 174,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07744470000034198
+  },
+  {
+    "id": "routing-07",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "shipping",
+          "probabilities": {
+            "shipping": 1.0,
+            "technical": 1.3867054e-08,
+            "billing": 1.14961916e-08,
+            "access": 8.3278134e-10
+          },
+          "confidence": 0.99999964
+        }
+      },
+      "usage": {
+        "input_tokens": 166,
+        "output_tokens": 1,
+        "logical_input_tokens": 166,
+        "physical_input_tokens": 166,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07594422600232065
+  },
+  {
+    "id": "temporal-00",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 0.0008040859
+        }
+      },
+      "usage": {
+        "input_tokens": 137,
+        "output_tokens": 1,
+        "logical_input_tokens": 137,
+        "physical_input_tokens": 137,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.08232029498321936
+  },
+  {
+    "id": "temporal-01",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 0.99937373
+        }
+      },
+      "usage": {
+        "input_tokens": 141,
+        "output_tokens": 1,
+        "logical_input_tokens": 141,
+        "physical_input_tokens": 141,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07479337794939056
+  },
+  {
+    "id": "temporal-02",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 0.994089
+        }
+      },
+      "usage": {
+        "input_tokens": 137,
+        "output_tokens": 1,
+        "logical_input_tokens": 137,
+        "physical_input_tokens": 137,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.0733491430291906
+  },
+  {
+    "id": "temporal-03",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 3.120191e-05
+        }
+      },
+      "usage": {
+        "input_tokens": 133,
+        "output_tokens": 1,
+        "logical_input_tokens": 133,
+        "physical_input_tokens": 133,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07192770700203255
+  },
+  {
+    "id": "temporal-04",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 0.9999893
+        }
+      },
+      "usage": {
+        "input_tokens": 133,
+        "output_tokens": 1,
+        "logical_input_tokens": 133,
+        "physical_input_tokens": 133,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07404678099555895
+  },
+  {
+    "id": "temporal-05",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 3.9669862e-06
+        }
+      },
+      "usage": {
+        "input_tokens": 141,
+        "output_tokens": 1,
+        "logical_input_tokens": 141,
+        "physical_input_tokens": 141,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07422362599754706
+  },
+  {
+    "id": "temporal-06",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 0.99999905
+        }
+      },
+      "usage": {
+        "input_tokens": 143,
+        "output_tokens": 1,
+        "logical_input_tokens": 143,
+        "physical_input_tokens": 143,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07794738101074472
+  },
+  {
+    "id": "temporal-07",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 7.734421e-08
+        }
+      },
+      "usage": {
+        "input_tokens": 140,
+        "output_tokens": 1,
+        "logical_input_tokens": 140,
+        "physical_input_tokens": 140,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07446563901612535
+  },
+  {
+    "id": "evidence-00",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "refuted",
+          "probabilities": {
+            "unknown": 1.2219049e-05,
+            "refuted": 0.9999856,
+            "supported": 2.1233523e-06
+          },
+          "confidence": 0.9998358
+        }
+      },
+      "usage": {
+        "input_tokens": 170,
+        "output_tokens": 1,
+        "logical_input_tokens": 170,
+        "physical_input_tokens": 170,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.08442357700550929
+  },
+  {
+    "id": "evidence-01",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "supported",
+          "probabilities": {
+            "refuted": 7.265784e-08,
+            "unknown": 4.495181e-06,
+            "supported": 0.99999547
+          },
+          "confidence": 0.9999444
+        }
+      },
+      "usage": {
+        "input_tokens": 165,
+        "output_tokens": 1,
+        "logical_input_tokens": 165,
+        "physical_input_tokens": 165,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07628687901888043
+  },
+  {
+    "id": "evidence-02",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "unknown",
+          "probabilities": {
+            "refuted": 3.3647407e-10,
+            "unknown": 1.0,
+            "supported": 5.4304166e-09
+          },
+          "confidence": 0.9999999
+        }
+      },
+      "usage": {
+        "input_tokens": 159,
+        "output_tokens": 1,
+        "logical_input_tokens": 159,
+        "physical_input_tokens": 159,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07616305799456313
+  },
+  {
+    "id": "evidence-03",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "refuted",
+          "probabilities": {
+            "unknown": 6.825603e-08,
+            "supported": 6.825603e-08,
+            "refuted": 0.9999999
+          },
+          "confidence": 0.99999785
+        }
+      },
+      "usage": {
+        "input_tokens": 161,
+        "output_tokens": 1,
+        "logical_input_tokens": 161,
+        "physical_input_tokens": 161,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07706550898728892
+  },
+  {
+    "id": "evidence-04",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "unknown",
+          "probabilities": {
+            "unknown": 0.9999318,
+            "refuted": 2.2826962e-05,
+            "supported": 4.5396835e-05
+          },
+          "confidence": 0.9993026
+        }
+      },
+      "usage": {
+        "input_tokens": 167,
+        "output_tokens": 1,
+        "logical_input_tokens": 167,
+        "physical_input_tokens": 167,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07464106299448758
+  },
+  {
+    "id": "evidence-05",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "unknown",
+          "probabilities": {
+            "refuted": 6.4857075e-10,
+            "unknown": 1.0,
+            "supported": 1.7257827e-08
+          },
+          "confidence": 0.9999997
+        }
+      },
+      "usage": {
+        "input_tokens": 171,
+        "output_tokens": 1,
+        "logical_input_tokens": 171,
+        "physical_input_tokens": 171,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07553676300449297
+  },
+  {
+    "id": "evidence-06",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "supported",
+          "probabilities": {
+            "unknown": 6.0235735e-08,
+            "supported": 0.9999999,
+            "refuted": 3.6534818e-08
+          },
+          "confidence": 0.9999984
+        }
+      },
+      "usage": {
+        "input_tokens": 159,
+        "output_tokens": 1,
+        "logical_input_tokens": 159,
+        "physical_input_tokens": 159,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07533009396865964
+  },
+  {
+    "id": "evidence-07",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "supported",
+          "probabilities": {
+            "refuted": 1.0025823e-06,
+            "supported": 0.9995685,
+            "unknown": 0.00043055668
+          },
+          "confidence": 0.99655724
+        }
+      },
+      "usage": {
+        "input_tokens": 163,
+        "output_tokens": 1,
+        "logical_input_tokens": 163,
+        "physical_input_tokens": 163,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07814477296778932
+  },
+  {
+    "id": "reference-00",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "白井",
+          "probabilities": {
+            "青木": 1.0372709e-10,
+            "白井": 1.0,
+            "黒田": 1.289837e-09,
+            "記載なし": 3.9031675e-10
+          },
+          "confidence": 1.0
+        }
+      },
+      "usage": {
+        "input_tokens": 162,
+        "output_tokens": 1,
+        "logical_input_tokens": 162,
+        "physical_input_tokens": 162,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07885692402487621
+  },
+  {
+    "id": "reference-01",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "西",
+          "probabilities": {
+            "北村": 2.486226e-09,
+            "南": 6.972793e-09,
+            "不明": 6.972793e-09,
+            "西": 1.0
+          },
+          "confidence": 0.99999976
+        }
+      },
+      "usage": {
+        "input_tokens": 150,
+        "output_tokens": 1,
+        "logical_input_tokens": 150,
+        "physical_input_tokens": 150,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07497990701813251
+  },
+  {
+    "id": "reference-02",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "初版",
+          "probabilities": {
+            "両方": 1.672686e-08,
+            "改訂版": 2.5109992e-08,
+            "初版": 1.0,
+            "どちらも未承認": 1.8954015e-08
+          },
+          "confidence": 0.9999992
+        }
+      },
+      "usage": {
+        "input_tokens": 159,
+        "output_tokens": 1,
+        "logical_input_tokens": 159,
+        "physical_input_tokens": 159,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07447074603987858
+  },
+  {
+    "id": "reference-03",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "本館A",
+          "probabilities": {
+            "どちらも不可": 5.9641456e-09,
+            "両方": 1.9555682e-08,
+            "本館A": 1.0,
+            "別館A": 1.344041e-08
+          },
+          "confidence": 0.99999946
+        }
+      },
+      "usage": {
+        "input_tokens": 158,
+        "output_tokens": 1,
+        "logical_input_tokens": 158,
+        "physical_input_tokens": 158,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.0750636970042251
+  },
+  {
+    "id": "reference-04",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "田中",
+          "probabilities": {
+            "鈴木": 2.3859584e-10,
+            "佐藤": 7.5825607e-10,
+            "田中": 1.0,
+            "不明": 2.2637343e-09
+          },
+          "confidence": 0.99999994
+        }
+      },
+      "usage": {
+        "input_tokens": 137,
+        "output_tokens": 1,
+        "logical_input_tokens": 137,
+        "physical_input_tokens": 137,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.0714408369967714
+  },
+  {
+    "id": "reference-05",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "箱2",
+          "probabilities": {
+            "比較不能": 6.47594e-07,
+            "箱1": 6.893602e-07,
+            "箱2": 0.9999981,
+            "箱3": 5.3687427e-07
+          },
+          "confidence": 0.9999793
+        }
+      },
+      "usage": {
+        "input_tokens": 145,
+        "output_tokens": 1,
+        "logical_input_tokens": 145,
+        "physical_input_tokens": 145,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07356723898556083
+  },
+  {
+    "id": "reference-06",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "未受付",
+          "probabilities": {
+            "不明": 9.833214e-09,
+            "未受付": 1.0,
+            "返品不可": 3.2937142e-09,
+            "受付済み": 4.7923256e-09
+          },
+          "confidence": 0.99999976
+        }
+      },
+      "usage": {
+        "input_tokens": 151,
+        "output_tokens": 1,
+        "logical_input_tokens": 151,
+        "physical_input_tokens": 151,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07393734704237431
+  },
+  {
+    "id": "reference-07",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "Xのみ",
+          "probabilities": {
+            "両方": 1.0527342e-09,
+            "どちらも不可": 4.363462e-09,
+            "Xのみ": 1.0,
+            "Yのみ": 1.4166088e-09
+          },
+          "confidence": 0.9999999
+        }
+      },
+      "usage": {
+        "input_tokens": 153,
+        "output_tokens": 1,
+        "logical_input_tokens": 153,
+        "physical_input_tokens": 153,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07502827799180523
+  },
+  {
+    "id": "rules-00",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 0.99999654
+        }
+      },
+      "usage": {
+        "input_tokens": 135,
+        "output_tokens": 1,
+        "logical_input_tokens": 135,
+        "physical_input_tokens": 135,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07369301602011546
+  },
+  {
+    "id": "rules-01",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 5.9641456e-09
+        }
+      },
+      "usage": {
+        "input_tokens": 129,
+        "output_tokens": 1,
+        "logical_input_tokens": 129,
+        "physical_input_tokens": 129,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07278210204094648
+  },
+  {
+    "id": "rules-02",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 0.97068775
+        }
+      },
+      "usage": {
+        "input_tokens": 125,
+        "output_tokens": 1,
+        "logical_input_tokens": 125,
+        "physical_input_tokens": 125,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07544321601744741
+  },
+  {
+    "id": "rules-03",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 3.398268e-09
+        }
+      },
+      "usage": {
+        "input_tokens": 121,
+        "output_tokens": 1,
+        "logical_input_tokens": 121,
+        "physical_input_tokens": 121,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07413715397706255
+  },
+  {
+    "id": "rules-04",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 3.4663262e-07
+        }
+      },
+      "usage": {
+        "input_tokens": 136,
+        "output_tokens": 1,
+        "logical_input_tokens": 136,
+        "physical_input_tokens": 136,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07230673299636692
+  },
+  {
+    "id": "rules-05",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 0.9999039
+        }
+      },
+      "usage": {
+        "input_tokens": 153,
+        "output_tokens": 1,
+        "logical_input_tokens": 153,
+        "physical_input_tokens": 153,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07759436900960281
+  },
+  {
+    "id": "rules-06",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 5.838248e-08
+        }
+      },
+      "usage": {
+        "input_tokens": 131,
+        "output_tokens": 1,
+        "logical_input_tokens": 131,
+        "physical_input_tokens": 131,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07135900104185566
+  },
+  {
+    "id": "rules-07",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "noul",
+          "noul": 5.4304166e-09
+        }
+      },
+      "usage": {
+        "input_tokens": 127,
+        "output_tokens": 1,
+        "logical_input_tokens": 127,
+        "physical_input_tokens": 127,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07071197096956894
+  },
+  {
+    "id": "numeric-00",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "score",
+          "score": 3.1327739,
+          "legend": {
+            "0": "0個・単位・枠",
+            "1": "1個・単位・枠",
+            "2": "2個・単位・枠",
+            "3": "3個・単位・枠",
+            "4": "4個・単位・枠"
+          },
+          "probabilities": {
+            "0": 0.0070156883,
+            "1": 0.03346998,
+            "2": 0.011566916,
+            "3": 0.7156197,
+            "4": 0.2323277
+          },
+          "confidence": 0.516205
+        }
+      },
+      "usage": {
+        "input_tokens": 180,
+        "output_tokens": 1,
+        "logical_input_tokens": 180,
+        "physical_input_tokens": 180,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.08013065299019217
+  },
+  {
+    "id": "numeric-01",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "score",
+          "score": 3.9999876,
+          "legend": {
+            "0": "0個・単位・枠",
+            "1": "1個・単位・枠",
+            "2": "2個・単位・枠",
+            "3": "3個・単位・枠",
+            "4": "4個・単位・枠"
+          },
+          "probabilities": {
+            "0": 1.7805435e-08,
+            "1": 5.233309e-08,
+            "2": 8.9021576e-08,
+            "3": 1.1843136e-05,
+            "4": 0.99998796
+          },
+          "confidence": 0.99990743
+        }
+      },
+      "usage": {
+        "input_tokens": 188,
+        "output_tokens": 1,
+        "logical_input_tokens": 188,
+        "physical_input_tokens": 188,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.08678687800420448
+  },
+  {
+    "id": "numeric-02",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "score",
+          "score": 1.0000001,
+          "legend": {
+            "0": "0個・単位・枠",
+            "1": "1個・単位・枠",
+            "2": "2個・単位・枠",
+            "3": "3個・単位・枠",
+            "4": "4個・単位・枠"
+          },
+          "probabilities": {
+            "0": 7.496457e-08,
+            "1": 0.99999976,
+            "2": 1.1979304e-07,
+            "3": 1.6726856e-08,
+            "4": 3.769455e-08
+          },
+          "confidence": 0.9999973
+        }
+      },
+      "usage": {
+        "input_tokens": 179,
+        "output_tokens": 1,
+        "logical_input_tokens": 179,
+        "physical_input_tokens": 179,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07803938694996759
+  },
+  {
+    "id": "numeric-03",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "score",
+          "score": 3.9809177,
+          "legend": {
+            "0": "0個・単位・枠",
+            "1": "1個・単位・枠",
+            "2": "2個・単位・枠",
+            "3": "3個・単位・枠",
+            "4": "4個・単位・枠"
+          },
+          "probabilities": {
+            "0": 0.00014163564,
+            "1": 0.00011380743,
+            "2": 9.734466e-05,
+            "3": 0.017979866,
+            "4": 0.9816674
+          },
+          "confidence": 0.9418408
+        }
+      },
+      "usage": {
+        "input_tokens": 180,
+        "output_tokens": 1,
+        "logical_input_tokens": 180,
+        "physical_input_tokens": 180,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07987022603629157
+  },
+  {
+    "id": "numeric-04",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "score",
+          "score": 2.0001857,
+          "legend": {
+            "0": "0個・単位・枠",
+            "1": "1個・単位・枠",
+            "2": "2個・単位・枠",
+            "3": "3個・単位・枠",
+            "4": "4個・単位・枠"
+          },
+          "probabilities": {
+            "0": 1.742646e-07,
+            "1": 3.9662436e-06,
+            "2": 0.99980897,
+            "3": 0.00018378324,
+            "4": 3.0889137e-06
+          },
+          "confidence": 0.99884236
+        }
+      },
+      "usage": {
+        "input_tokens": 186,
+        "output_tokens": 1,
+        "logical_input_tokens": 186,
+        "physical_input_tokens": 186,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.08068128896411508
+  },
+  {
+    "id": "numeric-05",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "score",
+          "score": 4.249615e-07,
+          "legend": {
+            "0": "0個・単位・枠",
+            "1": "1個・単位・枠",
+            "2": "2個・単位・枠",
+            "3": "3個・単位・枠",
+            "4": "4個・単位・枠"
+          },
+          "probabilities": {
+            "0": 0.9999999,
+            "1": 3.541076e-08,
+            "2": 2.5907065e-08,
+            "3": 1.2626095e-08,
+            "4": 7.496458e-08
+          },
+          "confidence": 0.99999833
+        }
+      },
+      "usage": {
+        "input_tokens": 183,
+        "output_tokens": 1,
+        "logical_input_tokens": 183,
+        "physical_input_tokens": 183,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07802305498626083
+  },
+  {
+    "id": "numeric-06",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "score",
+          "score": 2.0092297,
+          "legend": {
+            "0": "0個・単位・枠",
+            "1": "1個・単位・枠",
+            "2": "2個・単位・枠",
+            "3": "3個・単位・枠",
+            "4": "4個・単位・枠"
+          },
+          "probabilities": {
+            "0": 1.609997e-05,
+            "1": 0.00037806548,
+            "2": 0.9945716,
+            "3": 0.0004284043,
+            "4": 0.0046057804
+          },
+          "confidence": 0.977213
+        }
+      },
+      "usage": {
+        "input_tokens": 176,
+        "output_tokens": 1,
+        "logical_input_tokens": 176,
+        "physical_input_tokens": 176,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07757675601169467
+  },
+  {
+    "id": "numeric-07",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "score",
+          "score": 3.060038,
+          "legend": {
+            "0": "0個・単位・枠",
+            "1": "1個・単位・枠",
+            "2": "2個・単位・枠",
+            "3": "3個・単位・枠",
+            "4": "4個・単位・枠"
+          },
+          "probabilities": {
+            "0": 1.4601098e-06,
+            "1": 1.2613425e-05,
+            "2": 1.7240507e-05,
+            "3": 0.93988395,
+            "4": 0.060084768
+          },
+          "confidence": 0.85859597
+        }
+      },
+      "usage": {
+        "input_tokens": 180,
+        "output_tokens": 1,
+        "logical_input_tokens": 180,
+        "physical_input_tokens": 180,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07761499600019306
+  },
+  {
+    "id": "workflow-00",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "C",
+          "probabilities": {
+            "完了": 5.130617e-10,
+            "C": 1.0,
+            "B": 1.30268925e-08,
+            "A": 6.7582624e-09
+          },
+          "confidence": 0.9999997
+        }
+      },
+      "usage": {
+        "input_tokens": 136,
+        "output_tokens": 1,
+        "logical_input_tokens": 136,
+        "physical_input_tokens": 136,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07411663001403213
+  },
+  {
+    "id": "workflow-01",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "納品",
+          "probabilities": {
+            "再承認": 1.7429784e-07,
+            "納品": 0.99999964,
+            "再発注": 1.0571698e-07,
+            "不要": 6.8256014e-08
+          },
+          "confidence": 0.99999577
+        }
+      },
+      "usage": {
+        "input_tokens": 151,
+        "output_tokens": 1,
+        "logical_input_tokens": 151,
+        "physical_input_tokens": 151,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07373601099243388
+  },
+  {
+    "id": "workflow-02",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "法務確認",
+          "probabilities": {
+            "両方": 0.09528716,
+            "翻訳": 0.0005665982,
+            "なし": 8.689064e-05,
+            "法務確認": 0.9040594
+          },
+          "confidence": 0.7689966
+        }
+      },
+      "usage": {
+        "input_tokens": 152,
+        "output_tokens": 1,
+        "logical_input_tokens": 152,
+        "physical_input_tokens": 152,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07448748801834881
+  },
+  {
+    "id": "workflow-03",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "D",
+          "probabilities": {
+            "A": 9.329482e-08,
+            "C": 5.0434704e-07,
+            "D": 0.9999988,
+            "B": 5.3687467e-07
+          },
+          "confidence": 0.9999872
+        }
+      },
+      "usage": {
+        "input_tokens": 146,
+        "output_tokens": 1,
+        "logical_input_tokens": 146,
+        "physical_input_tokens": 146,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.0738035150570795
+  },
+  {
+    "id": "workflow-04",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "審査前",
+          "probabilities": {
+            "不明": 0.00029595627,
+            "完了": 2.2596541e-06,
+            "審査前": 0.9997012,
+            "承認済み": 5.367149e-07
+          },
+          "confidence": 0.9980231
+        }
+      },
+      "usage": {
+        "input_tokens": 143,
+        "output_tokens": 1,
+        "logical_input_tokens": 143,
+        "physical_input_tokens": 143,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07224334502825513
+  },
+  {
+    "id": "workflow-05",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "満たしていない",
+          "probabilities": {
+            "満たしていない": 0.99999964,
+            "記録なし": 2.2380283e-07,
+            "満たした": 1.7429784e-07,
+            "廃止済み": 3.124988e-08
+          },
+          "confidence": 0.99999493
+        }
+      },
+      "usage": {
+        "input_tokens": 160,
+        "output_tokens": 1,
+        "logical_input_tokens": 160,
+        "physical_input_tokens": 160,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07417070999508724
+  },
+  {
+    "id": "workflow-06",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "箱詰め",
+          "probabilities": {
+            "再検品必須": 0.017634477,
+            "発送": 0.0023865672,
+            "ラベル貼付": 0.13030216,
+            "箱詰め": 0.8496768
+          },
+          "confidence": 0.6468495
+        }
+      },
+      "usage": {
+        "input_tokens": 150,
+        "output_tokens": 1,
+        "logical_input_tokens": 150,
+        "physical_input_tokens": 150,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07382386602694169
+  },
+  {
+    "id": "workflow-07",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "面接官不在",
+          "probabilities": {
+            "会議室未準備": 3.1608816e-10,
+            "候補者不在": 3.732267e-09,
+            "面接官不在": 1.0,
+            "待つ必要なし": 2.9989609e-09
+          },
+          "confidence": 0.9999999
+        }
+      },
+      "usage": {
+        "input_tokens": 170,
+        "output_tokens": 1,
+        "logical_input_tokens": 170,
+        "physical_input_tokens": 170,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.0774770780117251
+  },
+  {
+    "id": "data_boundary-00",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "refuted",
+          "probabilities": {
+            "supported": 2.3588651e-08,
+            "unknown": 1.2751904e-07,
+            "refuted": 0.9999999
+          },
+          "confidence": 0.9999977
+        }
+      },
+      "usage": {
+        "input_tokens": 179,
+        "output_tokens": 1,
+        "logical_input_tokens": 179,
+        "physical_input_tokens": 179,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.0790086259949021
+  },
+  {
+    "id": "data_boundary-01",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "refuted",
+          "probabilities": {
+            "refuted": 0.9999993,
+            "unknown": 5.715004e-07,
+            "supported": 1.2751897e-07
+          },
+          "confidence": 0.99999005
+        }
+      },
+      "usage": {
+        "input_tokens": 168,
+        "output_tokens": 1,
+        "logical_input_tokens": 168,
+        "physical_input_tokens": 168,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07800094597041607
+  },
+  {
+    "id": "data_boundary-02",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "refuted",
+          "probabilities": {
+            "unknown": 1.289837e-09,
+            "supported": 6.972793e-09,
+            "refuted": 1.0
+          },
+          "confidence": 0.9999999
+        }
+      },
+      "usage": {
+        "input_tokens": 175,
+        "output_tokens": 1,
+        "logical_input_tokens": 175,
+        "physical_input_tokens": 175,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07627993100322783
+  },
+  {
+    "id": "data_boundary-03",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "supported",
+          "probabilities": {
+            "unknown": 0.00037996375,
+            "refuted": 5.4738965e-05,
+            "supported": 0.9995653
+          },
+          "confidence": 0.9963917
+        }
+      },
+      "usage": {
+        "input_tokens": 173,
+        "output_tokens": 1,
+        "logical_input_tokens": 173,
+        "physical_input_tokens": 173,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07599915098398924
+  },
+  {
+    "id": "data_boundary-04",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "supported",
+          "probabilities": {
+            "supported": 0.9999925,
+            "refuted": 1.7603331e-06,
+            "unknown": 5.7719103e-06
+          },
+          "confidence": 0.99990857
+        }
+      },
+      "usage": {
+        "input_tokens": 176,
+        "output_tokens": 1,
+        "logical_input_tokens": 176,
+        "physical_input_tokens": 176,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07691571401664987
+  },
+  {
+    "id": "data_boundary-05",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "refuted",
+          "probabilities": {
+            "refuted": 0.893308,
+            "supported": 1.5725315e-06,
+            "unknown": 0.10669043
+          },
+          "confidence": 0.6909175
+        }
+      },
+      "usage": {
+        "input_tokens": 177,
+        "output_tokens": 1,
+        "logical_input_tokens": 177,
+        "physical_input_tokens": 177,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07685150700854138
+  },
+  {
+    "id": "data_boundary-06",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "unknown",
+          "probabilities": {
+            "unknown": 0.99999964,
+            "refuted": 2.2380283e-07,
+            "supported": 6.8256014e-08
+          },
+          "confidence": 0.9999955
+        }
+      },
+      "usage": {
+        "input_tokens": 166,
+        "output_tokens": 1,
+        "logical_input_tokens": 166,
+        "physical_input_tokens": 166,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07490598200820386
+  },
+  {
+    "id": "data_boundary-07",
+    "result": {
+      "model": "local-gemma4",
+      "answers": {
+        "q": {
+          "type": "choice",
+          "choice": "supported",
+          "probabilities": {
+            "unknown": 2.1477709e-08,
+            "refuted": 1.9750534e-07,
+            "supported": 0.99999976
+          },
+          "confidence": 0.99999666
+        }
+      },
+      "usage": {
+        "input_tokens": 174,
+        "output_tokens": 1,
+        "logical_input_tokens": 174,
+        "physical_input_tokens": 174,
+        "logical_tokens_exclude_media": false
+      },
+      "probability_calibration": "uncalibrated",
+      "semantics": "eider-decision-v1"
+    },
+    "seconds": 0.07644424901809543
+  }
+]
