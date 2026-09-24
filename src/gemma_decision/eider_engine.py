@@ -35,7 +35,7 @@ def validate(body):
 
 
 class EiderEngine(EiderDecision):
-    def __init__(self,profile,model_path,max_input_tokens=None,media=False,bridge_library=None):
+    def __init__(self,profile,model_path,max_input_tokens=None,media=False,bridge_library=None,hardware="auto"):
         if not __debug__:raise RuntimeError("Python -O disables required runtime guards; use normal Python")
         with _LOCK:
             limit,context,kv=context_settings(max_input_tokens,media)
@@ -46,6 +46,6 @@ class EiderEngine(EiderDecision):
             bridge=EiderBridge(library,model_path)
             from .backends import load_backend
             if profile!='speed':raise ValueError('Only speed model profile is distributed')
-            backend=load_backend(profile,model_path,media=media,context=context,kv_bytes=kv,decision_logits=True)
+            backend=load_backend(profile,model_path,media=media,context=context,kv_bytes=kv,decision_logits=True,hardware=hardware)
             super().__init__(bridge,backend,limit+1)
             self.profile=profile

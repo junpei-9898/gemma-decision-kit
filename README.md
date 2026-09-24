@@ -2,6 +2,8 @@
 
 [Current integration validation and known AV failure](docs/EIDER_RELEASE_VALIDATION.md): text61/64 with exact prior-answer parity; image9/9 and short-video3/3 synthetic checks. Combined AV reasoning is experimental and has a recorded error.
 
+v0.6.1 separates [GB10 tuning and the standard GPU policy](docs/HARDWARE.md) with `--hardware auto|gb10|standard`. Other NVIDIA GPU hardware remains unverified.
+
 # Gemma Decision Kit
 
 Local **NVFP4 Gemma 4 decisions for text, images, short videos and audio**: Eider `choice`, `noul` and `score` outputs with **uncalibrated probabilities**, without prose generation. v0.3.0 extends text input to the native256K context (262143input tokens); the default is64K. NVFP4 only; EXL3 remains in historical v0.1.0. [Context setup and measured accuracy](docs/CONTEXT.md).

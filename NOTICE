@@ -7,7 +7,7 @@ This independent project is not an official Jev, Eider, Google, NVIDIA, or ExLla
 vLLM (Apache-2.0): https://github.com/vllm-project/vllm
 Copyright contributors to the vLLM project.
 The NVFP4 gate/up reconciliation follows upstream PR55073 (9ac09fb algorithm).
-nv_runtime.py modifies the pinned GB10 vLLM development build’s attention host launch settings and MoE
+In GB10 mode, nv_runtime.py modifies the pinned GB10 vLLM development build’s attention host launch settings and MoE
 reduction/output alias handling at runtime; nv_head.py adapts its logits path.
 Modifications restrict execution to sequential decision branches; the Eider path selects its own validated label set.
 The optional media recipe retains the vision encoder and query32 attention launch;
@@ -34,3 +34,6 @@ audio/worker.py adapts the official inference_utils.py prompt and preprocessing/
 local predecoded PCM, hash/version checks, bounded complete output, strict parsing,
 content-free failures and structured private results. License: licenses/Apache-2.0-MOSS.txt.
 MOSS model weights are downloaded separately at a pinned revision and are not bundled.
+
+The standard hardware policy omits GB10 performance patches but retains the same
+NVFP4 gate/up scale compatibility correction. Other GPU hardware is unverified.

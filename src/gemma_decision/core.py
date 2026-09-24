@@ -37,14 +37,14 @@ def prompt_text(state, q):
 
 
 class DecisionEngine:
-    def __init__(self, profile, model_path, max_input_tokens=None, media=False):
+    def __init__(self, profile, model_path, max_input_tokens=None, media=False, hardware="auto"):
         if not __debug__:
             raise RuntimeError("Python -O disables required runtime guards; use normal Python")
         limit, context, kv_bytes = context_settings(max_input_tokens, media)
         if profile not in PROFILES:
             raise ValueError('Unsupported profile or token limit')
         from .backends import load_backend
-        self.backend = load_backend(profile, model_path, media=media, context=context, kv_bytes=kv_bytes)
+        self.backend = load_backend(profile, model_path, media=media, context=context, kv_bytes=kv_bytes, hardware=hardware)
         self.profile = profile
         self.limit = limit
         self.lock = threading.Lock()

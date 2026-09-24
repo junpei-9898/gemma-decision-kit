@@ -1,5 +1,7 @@
 # Pinned installation (Linux ARM64 / GB10)
 
+For `--hardware standard` and other hardware boundaries, read [HARDWARE.md](HARDWARE.md). The commands below remain GB10/ARM64-specific.
+
 Prerequisites: Docker with NVIDIA Container Toolkit and a working NVIDIA driver. Installation does not replace host CUDA/Python. The runtime image is third-party software, not built or redistributed here. Review its upstream project and licenses before use.
 
 ```sh

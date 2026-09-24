@@ -1,0 +1,36 @@
+{
+  "standard": {
+    "status": "PASS",
+    "correct": 61,
+    "denominator": 64,
+    "observed": 64,
+    "wrong": [
+      "numeric-01",
+      "numeric-07",
+      "data_boundary-05"
+    ],
+    "answer_changes_from_original": [],
+    "probability_or_score_changes_from_original": [],
+    "median_seconds_excluding_first": 0.08464270597323775,
+    "observed_profile": [
+      "standard"
+    ]
+  },
+  "gb10final": {
+    "status": "PASS",
+    "correct": 61,
+    "denominator": 64,
+    "observed": 64,
+    "wrong": [
+      "numeric-01",
+      "numeric-07",
+      "data_boundary-05"
+    ],
+    "answer_changes_from_original": [],
+    "probability_or_score_changes_from_original": [],
+    "median_seconds_excluding_first": 0.07635559100890532,
+    "observed_profile": [
+      "gb10"
+    ]
+  }
+}

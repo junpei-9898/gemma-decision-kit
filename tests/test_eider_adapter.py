@@ -54,5 +54,5 @@ class EiderTests(unittest.TestCase):
         with patch('sys.argv',['gemma-decision','predict','--semantics','eider','--media','--model-path','/model','--bridge-library','/lib']),patch('sys.stdin',io.StringIO(json.dumps(BODY))),patch('sys.stdout',io.StringIO()),patch('gemma_decision.eider_engine.EiderEngine') as init:
             init.return_value.predict.return_value={}
             main()
-        init.assert_called_once_with('speed','/model',None,media=True,bridge_library='/lib')
+        init.assert_called_once_with('speed','/model',None,media=True,bridge_library='/lib',hardware='auto')
 if __name__=='__main__':unittest.main()

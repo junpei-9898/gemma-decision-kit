@@ -20,7 +20,7 @@ class ContextTests(unittest.TestCase):
         with patch('gemma_decision.backends.load_backend') as load:
             e=DecisionEngine('speed','/model',131071)
             self.assertEqual(e.limit,131071)
-            load.assert_called_once_with('speed','/model',media=False,context=131072,kv_bytes=4*1024**3)
+            load.assert_called_once_with('speed','/model',media=False,context=131072,kv_bytes=4*1024**3,hardware="auto")
     def test_exact_limit_and_later_overflow(self):
         e=engine();e.limit=3;e.predict(body());self.assertEqual(e.backend.calls,1)
         e.backend.calls=0;b=body();b['questions']['q2']=copy.deepcopy(b['questions']['q'])
@@ -48,4 +48,4 @@ class ContextTests(unittest.TestCase):
         with patch('gemma_decision.backends.load_backend') as load:
             e=DecisionEngine('speed','/model',media=True)
             self.assertEqual(e.limit,8192)
-            load.assert_called_once_with('speed','/model',media=True,context=16384,kv_bytes=3*1024**3)
+            load.assert_called_once_with('speed','/model',media=True,context=16384,kv_bytes=3*1024**3,hardware="auto")

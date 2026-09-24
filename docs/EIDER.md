@@ -39,3 +39,14 @@ gemma-decision predict --semantics eider --model-path /models/nvfp4 --input exam
 gemma-decision serve --semantics eider --model-path /models/nvfp4 --media --port 8765
 gemma-decision analyze --semantics eider --model-path /models/nvfp4 --source /input/recording.mp4 --input examples/request.json --audio-model-path /models/moss --audio-python /state/moss-env/bin/python
 ```
+
+For the Python unified-input API, pass the Eider envelope validator explicitly (the API default preserves the legacy contract):
+
+```python
+from gemma_decision.eider_engine import EiderEngine, validate
+from gemma_decision.inputs import analyze
+result = analyze(request, source_path,
+    engine_factory=lambda media: EiderEngine("speed", model_dir, media=media),
+    validator=validate,
+    audio_model_path=local_moss_dir, audio_python=isolated_moss_python)
+```

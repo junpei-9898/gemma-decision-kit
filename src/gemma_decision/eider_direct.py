@@ -81,6 +81,7 @@ class EiderDecision:
                 result['usage']['logical_tokens_include_media']=False
                 result['probability_calibration']='uncalibrated'
                 result['semantics']='eider-decision-v1'
+                if isinstance(getattr(self.backend,'hardware',None),str):result['hardware_profile']=self.backend.hardware
                 if media_info is not None:
                     result['media']={**media_info,'token_counts_by_question':{b['question_id']:c for b,_,c in payloads}}
                 return result

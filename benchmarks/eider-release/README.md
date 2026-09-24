@@ -1,3 +1,5 @@
 # WI-076 release evidence
 
 Synthetic media fixtures and all corresponding initial/replay predictions, plus the known64-case text regression set with fixed AI provisional labels. Image/video fixtures are inline data URIs; no copyrighted/private media is fetched. Each media workflow has3questions. Score quality uses argmax of the rubric distribution; the API returns its expectation. Audio/AV aggregate results are in summary.json; source recordings/model weights are not distributed. Failed setup/compatibility attempts and the combined AV wrong answer are described in ../../docs/EIDER_RELEASE_VALIDATION.md. This is not human-gold certification.
+
+The early media trial responses retain prototype logical-token metadata. Packaging subsequently changed media `logical_input_tokens` to null (rather than expose a temporary marker count); physical tokens and predictions are unchanged. The installed HTTP test checks the released null behavior. Hardware-profile metadata was added later in v0.6.1. These files are immutable observations of their named trials, not rewritten responses from the final version.

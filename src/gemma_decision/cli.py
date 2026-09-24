@@ -20,6 +20,7 @@ def main():
     p=argparse.ArgumentParser(description='Local NVFP4 three-choice decisions')
     p.add_argument('command',choices=['info','validate','predict','serve','transcribe','download-audio','analyze','serve-input'])
     p.add_argument('--semantics',choices=['eider','legacy'],default='legacy')
+    p.add_argument('--hardware',choices=['auto','gb10','standard'],default='auto',help='GB10 tuning or unpatched standard kernels; other GPU hardware remains unverified')
     p.add_argument('--bridge-library',help='Path to pinned Eider Rust bridge library')
     p.add_argument('--profile',choices=PROFILES,default='speed')
     p.add_argument('--model-path')
@@ -42,10 +43,10 @@ def main():
     args=p.parse_args()
     if args.semantics=='eider':
         from .eider_engine import EiderEngine, validate as validator
-        engine_factory=lambda media=False:EiderEngine(args.profile,args.model_path,args.max_input_tokens,media=media,bridge_library=args.bridge_library)
+        engine_factory=lambda media=False:EiderEngine(args.profile,args.model_path,args.max_input_tokens,media=media,bridge_library=args.bridge_library,hardware=args.hardware)
     else:
         validator=validate
-        engine_factory=lambda media=False:DecisionEngine(args.profile,args.model_path,args.max_input_tokens,media=media)
+        engine_factory=lambda media=False:DecisionEngine(args.profile,args.model_path,args.max_input_tokens,media=media,hardware=args.hardware)
     from .audio.contracts import AudioError
     from .audio.pipeline import transcribe,predict_audio,write_private_json
     def emit(value):
@@ -76,7 +77,7 @@ def main():
         if args.audio or args.media or args.transcript_output:p.error('Unified input selects its own audio/media route')
         if args.command=='serve-input':
             from .inputs.http import serve
-            options=['--semantics',args.semantics,'--model-path',args.model_path,'--profile',args.profile,
+            options=['--hardware',args.hardware,'--semantics',args.semantics,'--model-path',args.model_path,'--profile',args.profile,
                      '--max-decisions',str(args.max_decisions),'--max-total-tokens',str(args.max_total_tokens)]
             for flag,value in [('--bridge-library',args.bridge_library),('--audio-model-path',args.audio_model_path),('--audio-python',args.audio_python),('--cache-dir',args.cache_dir)]:
                 if value:options.extend([flag,value])
