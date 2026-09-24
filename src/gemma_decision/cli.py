@@ -18,14 +18,46 @@ def parse_json(text):
 
 def main():
     p=argparse.ArgumentParser(description='Local NVFP4 three-choice decisions')
-    p.add_argument('command',choices=['info','validate','predict','serve'])
+    p.add_argument('command',choices=['info','validate','predict','serve','transcribe','download-audio'])
     p.add_argument('--profile',choices=PROFILES,default='speed')
     p.add_argument('--model-path')
     p.add_argument('--media',action='store_true',help='Load vision encoder and validated image/video recipe')
     p.add_argument('--input',default='-',help='JSON path or stdin')
     p.add_argument('--port',type=int,default=8765)
     p.add_argument('--max-input-tokens',type=int,default=None,help='Text default 65535, maximum 262143; media default/maximum 8192; includes prompt framing')
+    p.add_argument('--audio',help='Local audio/video file; offline MOSS preprocessing')
+    p.add_argument('--audio-model-path',help='Pinned local MOSS checkpoint')
+    p.add_argument('--audio-python',help='Python executable in the isolated MOSS environment')
+    p.add_argument('--audio-max-seconds',type=float,default=1800)
+    p.add_argument('--audio-timeout',type=float,default=1800)
+    p.add_argument('--audio-max-new-tokens',type=int,default=16384)
+    p.add_argument('--transcript-output',help='New private transcript JSON file for predict --audio')
+    p.add_argument('--output',help='New private JSON output file (predict/transcribe)')
     args=p.parse_args()
+    from .audio.contracts import AudioError
+    from .audio.pipeline import transcribe,predict_audio,write_private_json
+    def emit(value):
+        if args.output:write_private_json(args.output,value)
+        else:print(json.dumps(value,ensure_ascii=False))
+    if args.audio and args.command not in ['transcribe','predict']:p.error('--audio supports transcribe/predict only; HTTP audio is not supported')
+    if args.output and args.command not in ['transcribe','predict']:p.error('--output supports transcribe/predict only')
+    if args.transcript_output and not (args.command=='predict' and args.audio):p.error('--transcript-output requires predict --audio')
+    if args.output:
+        from pathlib import Path
+        if Path(args.output).exists():p.error('Output already exists')
+    audio_options=dict(python=args.audio_python,max_seconds=args.audio_max_seconds,timeout=args.audio_timeout,max_new_tokens=args.audio_max_new_tokens)
+    if args.command in ['transcribe','download-audio']:
+        if not args.audio_model_path:p.error('--audio-model-path is required')
+        if args.command=='transcribe' and not args.audio:p.error('--audio is required')
+        try:
+            if args.command=='download-audio':
+                from .audio.model import download_model
+                from contextlib import redirect_stdout
+                with redirect_stdout(sys.stderr):value=download_model(args.audio_model_path)
+                print(json.dumps(value));return
+            emit(transcribe(args.audio,args.audio_model_path,**audio_options));return
+        except AudioError as exc:p.error(str(exc))
+        except Exception:p.error('Audio setup or runtime failed; input details suppressed')
     if args.command=='info':
         print(json.dumps(PROFILES,indent=2));return
     if args.command in ['validate','predict']:
@@ -35,12 +67,23 @@ def main():
         except (ValueError,TypeError) as exc:p.error(str(exc))
         if args.command=='validate':print('{"valid":true}');return
     if not args.model_path:p.error('--model-path is required')
+    if args.command=='predict' and args.audio:
+        if not args.audio_model_path:p.error('--audio-model-path is required')
+        from contextlib import redirect_stdout
+        try:
+            with redirect_stdout(sys.stderr):
+                result=predict_audio(body,args.audio,args.audio_model_path,
+                    engine_factory=lambda:DecisionEngine(args.profile,args.model_path,args.max_input_tokens,media=args.media),
+                    transcript_output=args.transcript_output,**audio_options)
+            emit(result);return
+        except AudioError as exc:p.error(str(exc))
+        except Exception:p.error('Audio decision failed; input details suppressed')
     # Runtime libraries may print during initialization/inference; stdout is JSON only.
     from contextlib import redirect_stdout
     with redirect_stdout(sys.stderr):
         engine=DecisionEngine(args.profile,args.model_path,args.max_input_tokens,media=args.media)
         if args.command=='predict':result=engine.predict(body)
-    if args.command=='predict':print(json.dumps(result,ensure_ascii=False));return
+    if args.command=='predict':emit(result);return
     from .server import serve
     serve(engine,args.port)
 

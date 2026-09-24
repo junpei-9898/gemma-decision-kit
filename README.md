@@ -106,3 +106,10 @@ Code and project-authored examples: Apache-2.0. See [NOTICE](NOTICE), [license a
 Larger supported input is **not a promise of constant accuracy**. The blue series measures the same9synthetic cases at each length with varied background records; the orange series retains the earlier7repeated-negative stress cases. These are frozen AI-provisional labels, separate from the93.3% (112/120) historical comparison. All errors remain in the results. Long-context evidence retrieval, instruction robustness and label auditing are **future accuracy work**; no accuracy fix is claimed in this release. See [counts, methods, limitations and raw data](docs/CONTEXT.md).
 
 Observed on the9paired cases: short**7/9 (77.8%)**, near256K**7/9 (77.8%)**. This is a small provisional-label study; one label has interpretive ambiguity pending independent review. Do not infer a universal or monotonic accuracy curve.64K/128K/256K allocate3/4/8GiB KV; see [total measured memory](docs/CONTEXT.md#runtime-and-memory).
+
+
+## Local audio (v0.4.0)
+
+MOSS provides text, anonymous speakers and utterance timestamps. Use `transcribe` alone or `predict --audio` to feed Gemma4. MOSS exits before Gemma loads. HTTP audio is not supported. Adapters, a pinned manifest and notices are bundled; weights and meeting material are not.
+
+[Audio setup, commands, limits and privacy](docs/AUDIO.md).

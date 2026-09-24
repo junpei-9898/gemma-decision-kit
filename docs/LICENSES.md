@@ -20,3 +20,7 @@ v0.2.0 removes ExLlamaV3 code, installer, patch snippets and model profile from 
 ## v0.3.0 context extension
 
 Context configuration, contract tests and the synthetic benchmark/plot scripts are project-authored Apache-2.0 additions. The benchmark facts and background records are fictional project-created examples. No model weights, new upstream code, runtime dependency, model revision or model-license terms are added or changed. Existing LICENSE, NOTICE and upstream obligations remain in force.
+
+## v0.4.0 MOSS audio
+
+The optional MOSS worker adapts the prompt/processing flow and vendors the transcript parser from [OpenMOSS commit61bc29cd](https://github.com/OpenMOSS/MOSS-Transcribe-Diarize/tree/61bc29cd4120be7b5d3b761b64cd5dff57263642), Apache-2.0. Its license is included as licenses/Apache-2.0-MOSS.txt, provenance/modifications are recorded in source and NOTICE. Model weights are separately downloaded at704aa4a9c304e8520be88901e0d1960158ef5b15. Fixed hashes in audio/model.json verify the checkpoint including its executable Python files. ffmpeg/PyTorch/CUDA/Transformers remain separately installed dependencies, not bundled binaries. Private meeting materials and locally synthesized validation audio are not distributed.

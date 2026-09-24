@@ -22,3 +22,12 @@ included for reference, not a claim of official compatibility or endorsement.
 
 Model weights and runtime images are not distributed by this repository.
 Their respective upstream licenses and notices apply separately; see docs/LICENSES.md.
+
+MOSS-Transcribe-Diarize (Apache-2.0): https://github.com/OpenMOSS/MOSS-Transcribe-Diarize
+Copyright OpenMOSS contributors.
+audio/moss_parser.py vendors transcript_parser.py from commit
+61bc29cd4120be7b5d3b761b64cd5dff57263642, with provenance comments added.
+audio/worker.py adapts the official inference_utils.py prompt and preprocessing/generation flow:
+local predecoded PCM, hash/version checks, bounded complete output, strict parsing,
+content-free failures and structured private results. License: licenses/Apache-2.0-MOSS.txt.
+MOSS model weights are downloaded separately at a pinned revision and are not bundled.

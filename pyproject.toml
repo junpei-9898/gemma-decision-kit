@@ -3,8 +3,8 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "gemma-decision-kit"
-version = "0.3.0"
-description = "NVFP4 Gemma three-choice decisions for text, images and short video"
+version = "0.4.0"
+description = "NVFP4 Gemma three-choice decisions for text, images, short video and local MOSS audio"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
 readme = "README.md"
@@ -17,3 +17,9 @@ where = ["src"]
 
 [tool.setuptools]
 license-files = ["LICENSE", "NOTICE", "licenses/*.txt"]
+
+[project.optional-dependencies]
+audio = ["transformers==5.8.1", "accelerate==1.14.0", "soundfile==0.13.1", "librosa==0.11.0"]
+
+[tool.setuptools.package-data]
+"gemma_decision.audio" = ["model.json"]
