@@ -56,3 +56,11 @@ Add `--media` to predict images/videos, and choose `examples/image-request.json`
 Use the same runtime arguments, change `predict` to `serve --profile speed --model-path /state/model-nvfp4 --port 8765`, and omit `--input`. On Linux use `--network host` instead of `--network none`; the application **still binds only 127.0.0.1**. Docker `-p` alone cannot reach a loopback-only service inside an ordinary bridge network. Use an SSH tunnel for authenticated remote access; no unauthenticated LAN listener is provided.
 
 `GET /health`; `POST /v1/decisions` with `Content-Type: application/json`. Stop this owned container normally with `docker stop gemma-kit-serve` (give it a sufficient timeout for an active request); do not kill other workloads. Start with `--media` to accept images/videos. Restart to change media mode. There is no automatic simultaneous model residency.
+
+## Text context configuration (v0.3.0)
+
+Text defaults to65535input tokens per question. Use `--max-input-tokens 131071` for128K total context, or `--max-input-tokens 262143` for256K total. One generated decision token is reserved. Restart to change the limit. The fixed KV allocations are3/4/8GiB respectively; these are part of, not the entire, model memory footprint. Smaller explicit limits still work.1M is unsupported. [Measured quality, latency and memory](CONTEXT.md).
+
+`--media` retains8192expanded input tokens,16384internal context and3GiB KV, including text-only requests sent to that process. Text state allows2,000,000characters; media state200,000. CLI/HTTP JSON remains limited to8MiB of UTF-8 bytes. All questions together must fit524288prepared tokens; each question repeats the state and runs sequentially. All inputs are checked before inference and over-limit requests fail without truncation or partial GPU judgments. `validate` checks schema only; actual tokenizer limits are checked by `predict`/`serve`.
+
+Long full-prefill requests can take minutes. Set client timeouts accordingly. A disconnected client does not cancel an active GPU request; do not retry it blindly. Text prefix caching remains disabled.

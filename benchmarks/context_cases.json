@@ -1,0 +1,11 @@
+[
+ {"id":"date_supported","position":"begin","claim":"計画コバルトの開催日は10月12日です。","evidence":"計画コバルトについて、開催日を10月12日と決定した。開始時刻は午前9時である。","expected":"supported","reason":"開催日の明示的な記載と一致。"},
+ {"id":"delivery_refuted","position":"middle","claim":"荷物セージは受取人に配達済みです。","evidence":"荷物セージの追跡結果：まだ発送されておらず、差出人の倉庫で保管中である。受取人への配達は未完了である。","expected":"refuted","reason":"未発送・未配達と明記されている。"},
+ {"id":"budget_insufficient","position":"end","claim":"企画トパーズの予算は120万円です。","evidence":"企画トパーズの担当部署は広報課であり、主な内容は展示会の開催である。","expected":"insufficient","reason":"予算額の記載がない。"},
+ {"id":"rule_supported","position":"middle","claim":"申請ラベンダーは受付条件を満たします。","evidence":"申請受付の条件は、提出時刻が17時以前であり、必要書類がすべて揃っていることである。申請ラベンダーは16時に提出され、必要書類はすべて揃っていた。","expected":"supported","reason":"時刻と書類の二条件をともに満たす。"},
+ {"id":"arithmetic_refuted","position":"end","claim":"注文ミントの商品代金の合計は1080円です。","evidence":"注文ミントは単価120円の商品8個のみで構成される。商品代金は単価と個数の積で計算し、割引はない。","expected":"refuted","reason":"120×8=960円で、1080円ではない。"},
+ {"id":"draft_insufficient","position":"begin","claim":"計画アンバーの正式な開始日は11月1日です。","evidence":"計画アンバーの検討会では、11月1日と11月8日が開始日の候補に挙がった。正式な開始日は検討会時点では未決定である。","expected":"insufficient","reason":"候補だけで正式な日付は確定していない。"},
+ {"id":"privacy_supported","position":"end","claim":"システムオニキスを外部へ公開しないことが決定しています。","evidence":"システムオニキスの運用方針として、利用者は社内に限定し、外部へ公開しないことが正式に決定された。","expected":"supported","reason":"外部公開しない方針が明示されている。"},
+ {"id":"revision_refuted","position":"begin","claim":"会議アイリスの現在の会場は西館です。","evidence":"会議アイリスの会場は、旧案では西館だったが、承認済みの最新版では東館へ変更された。最新版が旧案に優先し、その後の変更はない。","expected":"refuted","reason":"有効な最新版の会場は東館。"},
+ {"id":"approver_insufficient","position":"middle","claim":"案件アズールの承認者は佐藤です。","evidence":"案件アズールの会議には佐藤と田中が出席した。議事録の作成者は田中である。","expected":"insufficient","reason":"出席者・作成者から承認者は特定できない。"}
+]

@@ -2,6 +2,7 @@
 import math
 import threading
 from .profiles import PROFILES
+from .context import context_settings, MAX_REQUEST_TOKENS
 
 
 def validate(body):
@@ -10,8 +11,9 @@ def validate(body):
     if 'media' in body:
         from .media import validate_media
         validate_media(body['media'])
-    if not isinstance(body['state'], str) or not body['state'] or len(body['state']) > 200000:
-        raise ValueError('state must be nonempty text, at most 200000 characters')
+    max_chars = 200000 if 'media' in body else 2000000
+    if not isinstance(body['state'], str) or not body['state'] or len(body['state']) > max_chars:
+        raise ValueError(f'state must be nonempty text, at most {max_chars} characters')
     questions = body['questions']
     if not isinstance(questions, dict) or not 1 <= len(questions) <= 64:
         raise ValueError('questions must contain 1..64 named questions')
@@ -35,15 +37,16 @@ def prompt_text(state, q):
 
 
 class DecisionEngine:
-    def __init__(self, profile, model_path, max_input_tokens=8192, media=False):
+    def __init__(self, profile, model_path, max_input_tokens=None, media=False):
         if not __debug__:
             raise RuntimeError("Python -O disables required runtime guards; use normal Python")
-        if profile not in PROFILES or not 1 <= max_input_tokens <= 8192:
+        limit, context, kv_bytes = context_settings(max_input_tokens, media)
+        if profile not in PROFILES:
             raise ValueError('Unsupported profile or token limit')
         from .backends import load_backend
-        self.backend = load_backend(profile, model_path, media=media)
+        self.backend = load_backend(profile, model_path, media=media, context=context, kv_bytes=kv_bytes)
         self.profile = profile
-        self.limit = max_input_tokens
+        self.limit = limit
         self.lock = threading.Lock()
 
     def predict(self, body):
@@ -51,6 +54,7 @@ class DecisionEngine:
         # All questions validated/tokenized before any inference; no truncation.
         with self.lock:
             prepared=[]
+            total_tokens=0
             media_info=None
             if 'media' in body:
                 if not getattr(self.backend,'media',False):raise ValueError('Restart with --media for image/video inputs')
@@ -64,6 +68,9 @@ class DecisionEngine:
                     if not isinstance(ids,list):ids=ids['input_ids']
                     payload=ids;counts=None
                 if len(ids)>self.limit:raise ValueError(f'Question {key} exceeds token limit; input was not truncated')
+                total_tokens += len(ids)
+                if total_tokens > MAX_REQUEST_TOKENS:
+                    raise ValueError(f'Request exceeds aggregate {MAX_REQUEST_TOKENS} input tokens; no inference performed')
                 prepared.append((key,q,ids,payload,counts))
             answers={}
             for key,q,ids,payload,counts in prepared:

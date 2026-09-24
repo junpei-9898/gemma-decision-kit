@@ -49,3 +49,11 @@ python3 scripts/benchmark.py --profile speed --media --model-path /models/nvfp4 
 The script reports warm request latency including validation/preprocessing and answer extraction, after one warmup request. In media mode this is repeated identical input with prefix/processor caches enabled. It does not include HTTP/model load, invent labels, or estimate accuracy. Report hardware, immutable runtime/model version, mode, input tokens, media dimensions/frame sampling, question count, repetitions and cache state with comparisons.
 
 Final distributed wheel: clean install and17CPU tests PASS; PNG/JPEG/MP4 examples and text-in-media-mode smoke PASS; four corrupt/over-limit media inputs rejected both by the decoder check and HTTP400; expanded-token overflow rejected. A fresh process still incurs first-use compilation: image example took 19.53seconds after model load (not127ms). The subsequent video example took 0.30seconds. Warm table values are not first-request guarantees.
+
+## v0.3.0 native context extension
+
+[Context-length graph, all 54 paired outcomes and methodology](CONTEXT.md) · [Release verification](release-validation-context.json). Text now defaults to 65,535 input tokens with opt-in 131,071 / 262,143 limits. Media retains its prior contract.
+
+The same 231 legacy choices **and probabilities matched exactly** in each of the 64K and 256K context configurations. All 54 frozen paired inputs were processed without truncation. Agreement was 7/9 for short inputs, 8/9 near 8K, and 7/9 near 32K, 64K, 128K and 256K; equal totals hide some different errors. These are provisional synthetic labels, not a general accuracy guarantee. The earlier stress-test failures remain in the graph. Long-context quality is future work.
+
+The final wheel was built and installed into a clean target in the pinned GB10 image, passed 26 CPU tests and one real loopback HTTP request, and matched the frozen runtime source hashes. The 256K stage resumed in a separate process with concurrency explicitly permitted and observed; its timing is reference-only. Historical interruption evidence and conservative in-flight budget remain recorded. No multimodal long-context extension or new media-quality claim is made.

@@ -16,3 +16,7 @@ Apache-2.0 is not a requirement that every combined application use the same lic
 The pinned [third-party GB10 image](https://github.com/MiaAI-Lab/Unsloth-Qwen3.6-35b-NVFP4-DGX-Spark) contains separately licensed runtime dependencies (including NVIDIA components). Its image label is not a blanket license for every bundled component. We reference its immutable digest, do not rehost the image, and do not represent its contents as all Apache-2.0. PyTorch, Transformers, Triton, CUDA, Pillow, OpenCV and other installed dependencies retain their own notices/licenses in their distributions. The installation guide avoids copying those binaries into this repository.
 
 v0.2.0 removes ExLlamaV3 code, installer, patch snippets and model profile from the active distribution. v0.1.0 remains a historical tagged release with its original MIT notices. This does not remove or change upstream licensing obligations in that old release. No new upstream license/version is introduced by v0.2.0.
+
+## v0.3.0 context extension
+
+Context configuration, contract tests and the synthetic benchmark/plot scripts are project-authored Apache-2.0 additions. The benchmark facts and background records are fictional project-created examples. No model weights, new upstream code, runtime dependency, model revision or model-license terms are added or changed. Existing LICENSE, NOTICE and upstream obligations remain in force.

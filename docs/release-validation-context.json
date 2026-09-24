@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "frozen_inputs_verified": 54,
+  "scored_outputs": 54,
+  "legacy_decisions_exact_each_configuration": 231,
+  "legacy_configurations": [
+    "64K",
+    "256K"
+  ],
+  "capacity_parity_cases_each_tier": 3,
+  "runtime_hashes_verified": 10,
+  "wheel_sha256": "119dcb51dd4dc859259e49df590a74637286b2b2e3f1fb5a3f56bd0227e224a3",
+  "interrupted_trial_preserved": true,
+  "human_gold": "UNVERIFIED",
+  "wheel_validation": {
+    "status": "PASS",
+    "wheel": "gemma_decision_kit-0.3.0-py3-none-any.whl",
+    "sha256": "119dcb51dd4dc859259e49df590a74637286b2b2e3f1fb5a3f56bd0227e224a3",
+    "tests": 26,
+    "response": {
+      "profile": "speed",
+      "model": "nvidia/Gemma-4-26B-A4B-NVFP4",
+      "answers": {
+        "return_window": {
+          "type": "choice",
+          "choice": "supported",
+          "probabilities": {
+            "supported": 1.0,
+            "refuted": 4.40562520439657e-10,
+            "insufficient": 4.800978157380017e-10
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 91
+      },
+      "probability_calibration": "uncalibrated"
+    },
+    "seconds": 1.029833015985787,
+    "sequences": 1,
+    "tokens": 91,
+    "http_requests": 1
+  }
+}

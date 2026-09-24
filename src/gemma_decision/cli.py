@@ -24,13 +24,13 @@ def main():
     p.add_argument('--media',action='store_true',help='Load vision encoder and validated image/video recipe')
     p.add_argument('--input',default='-',help='JSON path or stdin')
     p.add_argument('--port',type=int,default=8765)
-    p.add_argument('--max-input-tokens',type=int,default=8192)
+    p.add_argument('--max-input-tokens',type=int,default=None,help='Text default 65535, maximum 262143; media default/maximum 8192; includes prompt framing')
     args=p.parse_args()
     if args.command=='info':
         print(json.dumps(PROFILES,indent=2));return
     if args.command in ['validate','predict']:
         text=sys.stdin.read(8*1024**2+1) if args.input=='-' else open(args.input,encoding='utf-8').read(8*1024**2+1)
-        if len(text)>8*1024**2:p.error('Input exceeds 8MiB')
+        if len(text.encode('utf-8'))>8*1024**2:p.error('Input exceeds 8MiB')
         try:body=validate(parse_json(text))
         except (ValueError,TypeError) as exc:p.error(str(exc))
         if args.command=='validate':print('{"valid":true}');return

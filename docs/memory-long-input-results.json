@@ -97,7 +97,7 @@
       "repeats": 3
     }
   ],
-  "scope": "Historical native long-input runner; current public API max8192tokens; no new inference or measured minimum VRAM",
+  "scope": "Historical native long-input runner and v0.2.0 memory measurements; v0.2.0 public API capped8192tokens. See context-accuracy-results.json for v0.3.0 extension; no measured minimum discrete VRAM.",
   "source_hashes": {
     "reports/deep-runtime-fix-20260921/RESULTS.md": "7dcaa0227f6b5ee067b13c0c79bfbb97c30c1d5b5f35e5b7e10cc6d081a2734e",
     "reports/decision-path-trial-20260923/RESULTS.md": "94d69e6a4cddfc7d633678006d01732838e5dc1b777bd8b0c682c3d4f1ec135d",

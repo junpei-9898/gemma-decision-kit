@@ -31,7 +31,7 @@ The short measurement is valid for that short input and is not caused by droppin
 
 ### Long-input optimization history
 
-**Historical native-runner measurements, not the public API's input limit.** The released API currently caps each question at8192tokens and rejects the30k/50k-character fixtures below. The research runner allowed65536tokens; long-input public API support has not been released.
+**Historical native-runner measurements.** The research runner used65536internal context. Public text context was extended separately in v0.3.0; see [new limits, measurements and quality caveats](CONTEXT.md).
 
 | State characters / prompt tokens | Stabilized baseline | Final recipe | Time reduction |
 |---|---:|---:|---:|
@@ -59,6 +59,6 @@ Quality evidence: WI034 kept all88reference probabilities identical to the stabi
 
 The50k result is full-prefill latency, **not** the separate historical ~0.17s cached-prefix experiment. Prefix reuse requires prior document processing and storage, and uses different fixtures. Those cache-hit numbers are excluded from this speedup table.
 
-[Machine-readable evidence](memory-long-input-results.json) contains byte-derived memory values, original coverage counts, computed speedup ratios and hashes of internal source reports. The full private corpus remains undistributed. No new inference was run for this documentation update. Public long-input acceptance above8192tokens would require a separate API/configuration change and release validation.
+[Machine-readable evidence](memory-long-input-results.json) contains byte-derived memory values, original coverage counts, computed speedup ratios and hashes of internal source reports. The full private corpus remains undistributed. No new inference was run to reconstruct the historical figures on this page. The subsequent v0.3.0 release provides separately tested text context tiers; consult CONTEXT.md for their quality limitations.
 
-A subsequent context-extension trial is documented [separately](CONTEXT.md). Near64K technical execution succeeded, but the quality gate failed; the public8192input limit remains unchanged.
+The initial WI056 trial and its failed stress gate are preserved [historically](CONTEXT_TRIAL_WI056.md). Under the subsequent user-approved WI057 scope, mechanical context support and measured quality are reported separately; the current release is documented in [CONTEXT.md](CONTEXT.md).

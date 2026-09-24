@@ -1,6 +1,6 @@
 # Gemma Decision Kit
 
-Local **NVFP4 Gemma 4 decisions for text, images and short videos**: three named choices with an **uncalibrated probability distribution**, without prose generation. v0.2.0 removes the EXL3 backend from the active distribution; historical v0.1.0 remains available.
+Local **NVFP4 Gemma 4 decisions for text, images and short videos**: three named choices with an **uncalibrated probability distribution**, without prose generation. v0.3.0 extends text input to the native256K context (262143input tokens); the default is64K. NVFP4 only; EXL3 remains in historical v0.1.0. [Context setup and measured accuracy](docs/CONTEXT.md).
 
 Experimental release. Independent implementation inspired by state + typed questions; not an official Jev clone or drop-in Eider API. No new model training, no bundled weights. [日本語](README.ja.md).
 
@@ -49,7 +49,7 @@ Laya and NanoJev are faster on this short input but have lower label agreement o
 
 ### Long-input optimization history
 
-**Historical native-runner measurements, not the public API's input limit.** The released API currently caps each question at8192tokens and rejects the30k/50k-character fixtures below. The research runner allowed65536tokens; long-input public API support has not been released. A subsequent near64K public-API candidate processed full input in20.843s but failed its synthetic quality gate; the8192limit is retained. [Trial results and native model limits](docs/CONTEXT.md).
+**Historical native-runner measurements.** These fixtures used65536internal context. v0.3.0 separately validates the public API up to262143input tokens; see [new HTTP measurements and accuracy by length](docs/CONTEXT.md). Do not treat the historical timings below as identical public-server timings.
 
 | State characters / prompt tokens | Stabilized baseline | Final recipe | Time reduction |
 |---|---:|---:|---:|
@@ -89,7 +89,7 @@ curl http://127.0.0.1:8765/v1/decisions \
 
 `--profile speed` is retained for compatibility and is the only profile. `--media` selects the separately validated vision recipe at startup. It does not simultaneously load a second model. Restart to switch modes. Text-only mode retains the original performance recipe; its speed/precision figures do not automatically apply to text served in media mode.
 
-Input: text `state`, 1–64 named `questions` (`type: "choice"`, `instructions`, exactly three ordered `criteria`), and optionally one `media` object. Choices map to A/B/C in insertion order. [Media contract and limits](docs/MEDIA.md). All questions run sequentially. Inputs over the expanded token limit (default8192 per question) are rejected without truncation. Output includes choice, probability distribution, token usage and media metadata when present. Probabilities are not calibrated correctness guarantees.
+Input: text `state`, 1–64 named `questions` (`type: "choice"`, `instructions`, exactly three ordered `criteria`), and optionally one `media` object. Choices map to A/B/C in insertion order. [Media contract and limits](docs/MEDIA.md). All questions run sequentially. Text defaults to65535input tokens per question, with opt-in131071/262143limits; media mode remains8192. The limit includes the state, question, choices and chat template. Requests exceeding the configured limit or524288aggregate input tokens fail before inference, without truncation. Output includes choice, probability distribution, token usage and media metadata when present. Probabilities are not calibrated correctness guarantees.
 
 HTTP binds only127.0.0.1. Use an authenticated tunnel for remote use. This is a small local serialized API, not an Internet production gateway. No audio, free-text generation, Boolean/score types, arbitrary choice counts, dynamic GPU batching, tensor parallelism or LoRA. Video is sampled-frame visual analysis; its audio track is not processed.
 
@@ -98,3 +98,11 @@ HTTP binds only127.0.0.1. Use an authenticated tunnel for remote use. This is a 
 [Benchmarks and validation](docs/BENCHMARKS.md) separate native historical speed from packaged API timings. Small synthetic media fixtures do not certify real-world OCR or arbitrary video accuracy.
 
 Code and project-authored examples: Apache-2.0. See [NOTICE](NOTICE), [license audit](docs/LICENSES.md), [LICENSE](LICENSE). Model weights and runtime/container dependencies are obtained separately under their own licenses.
+
+## Context length and accuracy (v0.3.0)
+
+![Measured accuracy and latency across context lengths](docs/assets/context-accuracy.png)
+
+Larger supported input is **not a promise of constant accuracy**. The blue series measures the same9synthetic cases at each length with varied background records; the orange series retains the earlier7repeated-negative stress cases. These are frozen AI-provisional labels, separate from the93.3% (112/120) historical comparison. All errors remain in the results. Long-context evidence retrieval, instruction robustness and label auditing are **future accuracy work**; no accuracy fix is claimed in this release. See [counts, methods, limitations and raw data](docs/CONTEXT.md).
+
+Observed on the9paired cases: short**7/9 (77.8%)**, near256K**7/9 (77.8%)**. This is a small provisional-label study; one label has interpretive ambiguity pending independent review. Do not infer a universal or monotonic accuracy curve.64K/128K/256K allocate3/4/8GiB KV; see [total measured memory](docs/CONTEXT.md#runtime-and-memory).

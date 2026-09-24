@@ -1,0 +1,542 @@
+[
+  {
+    "case": "date_supported",
+    "level": "short",
+    "file": "short-date_supported.json",
+    "tokens": 129,
+    "characters": 41,
+    "position": "begin",
+    "sha256": "305033f710a43c87db58e5cee36f67c32a9e964687483e85721bd8beed3ed0e5",
+    "token_sha256": "c7e54470a8a8213f5f150ee24659c5c75b960f01e6e4e409c8c3c252f8941428"
+  },
+  {
+    "case": "delivery_refuted",
+    "level": "short",
+    "file": "short-delivery_refuted.json",
+    "tokens": 133,
+    "characters": 52,
+    "position": "middle",
+    "sha256": "f306e82f280cd7a559d7889197784bd121d2a70848a4d3a717244515cce0ee82",
+    "token_sha256": "d3a3265a7bfbf275f3b6783f67fe2a850a360b7f1400f8cb72965996b51e2bdb"
+  },
+  {
+    "case": "budget_insufficient",
+    "level": "short",
+    "file": "short-budget_insufficient.json",
+    "tokens": 120,
+    "characters": 35,
+    "position": "end",
+    "sha256": "afdf3855cff0969bf5a780d2ca92070ed1182a74b8665c05e2d11adaec1320ed",
+    "token_sha256": "e7ee32fa0591ba23941294aaaa750a95337aadbb6b33c4adffe8d43c7b2e700a"
+  },
+  {
+    "case": "rule_supported",
+    "level": "short",
+    "file": "short-rule_supported.json",
+    "tokens": 140,
+    "characters": 74,
+    "position": "middle",
+    "sha256": "5017713d1e18c69348e30ae89fe40e6567f3bf3485e346ee0062c028a6decc7d",
+    "token_sha256": "8bf022fe7267f7b447ef746f09278149e44e56cbf7ef19c69fd817f317e9cdf4"
+  },
+  {
+    "case": "arithmetic_refuted",
+    "level": "short",
+    "file": "short-arithmetic_refuted.json",
+    "tokens": 137,
+    "characters": 50,
+    "position": "end",
+    "sha256": "ace6efd68a2b52eeb626e9884ec52b96c21cf1eef1a8a803e09f5f104022838b",
+    "token_sha256": "4060b064d8bac2e1bd703389dec4b67a5901b6861a7ecca84d92efe730921d4f"
+  },
+  {
+    "case": "draft_insufficient",
+    "level": "short",
+    "file": "short-draft_insufficient.json",
+    "tokens": 141,
+    "characters": 59,
+    "position": "begin",
+    "sha256": "e47eb5a70a46d8a375936bbbc94ba07fec6bbd756548e4258a27148fbf909898",
+    "token_sha256": "70833ff8182d0266b79275f766cb38911484cac70a0eb5aa5ba17f3dee66e923"
+  },
+  {
+    "case": "privacy_supported",
+    "level": "short",
+    "file": "short-privacy_supported.json",
+    "tokens": 126,
+    "characters": 49,
+    "position": "end",
+    "sha256": "b9110507cbe144fadfb4cbb885369904e67d3b7de7f05a4d7a63dc58686b80b9",
+    "token_sha256": "d3aa1459caccc47b9b92a404cdc5d1380f88f832487b4412f44f56d339afdc7a"
+  },
+  {
+    "case": "revision_refuted",
+    "level": "short",
+    "file": "short-revision_refuted.json",
+    "tokens": 139,
+    "characters": 63,
+    "position": "begin",
+    "sha256": "939aeebc8f78aa3ed989e928595631b942db337d1a0a69d89f3068566da0843e",
+    "token_sha256": "629c08fa608d2331df9af20df20467189883486b10d3a04ec86d40634a5a9175"
+  },
+  {
+    "case": "approver_insufficient",
+    "level": "short",
+    "file": "short-approver_insufficient.json",
+    "tokens": 118,
+    "characters": 37,
+    "position": "middle",
+    "sha256": "bda9a84715fff0692efa1d3ce402f40d8d838bfd175370dd8d792812286c2515",
+    "token_sha256": "26357e00fcb3756e195e7d25730bcce53f947e8739e3390af49d06df975a1e0a"
+  },
+  {
+    "case": "date_supported",
+    "level": "8k",
+    "file": "8k-date_supported.json",
+    "tokens": 8160,
+    "characters": 11217,
+    "position": "begin",
+    "sha256": "c1467047520ba6c63d4819a2440b03cd3c13c19c17d1c1e52837ed28df6a48a4",
+    "token_sha256": "318a88b3660c7436d5aee47dab0343926393d40ccc7e445f948135d325661b71"
+  },
+  {
+    "case": "delivery_refuted",
+    "level": "8k",
+    "file": "8k-delivery_refuted.json",
+    "tokens": 8164,
+    "characters": 11228,
+    "position": "middle",
+    "sha256": "6de9f2deccd698dc6b56f1ef7c43a706c91d58ecc71aef2ae383c09813b3d2ab",
+    "token_sha256": "500acff7b93808e7f84a69c8aa004145c2a19e86974079778a6b80ffa1fe1dd3"
+  },
+  {
+    "case": "budget_insufficient",
+    "level": "8k",
+    "file": "8k-budget_insufficient.json",
+    "tokens": 8151,
+    "characters": 11211,
+    "position": "end",
+    "sha256": "6d73b6ef108430adb5c23b0cd32078e86e3e682d3c7c8c64c72da9ae72f8db1d",
+    "token_sha256": "a8a484bad7cb3a3318ecb32828b31b54f1a03be04ff95fca7294dc2e1cce0d19"
+  },
+  {
+    "case": "rule_supported",
+    "level": "8k",
+    "file": "8k-rule_supported.json",
+    "tokens": 8171,
+    "characters": 11250,
+    "position": "middle",
+    "sha256": "d2f3754bf55d46538b1a674f2b4d3db07b056af25a9e9ba6816bbd03834692c2",
+    "token_sha256": "be0e864b9f3e4ec26af4f189db764766152b4e8c728ba0edbdefccee5cc5c065"
+  },
+  {
+    "case": "arithmetic_refuted",
+    "level": "8k",
+    "file": "8k-arithmetic_refuted.json",
+    "tokens": 8168,
+    "characters": 11226,
+    "position": "end",
+    "sha256": "4cee06471d0f622d4a964e9148d3d038ea2552c4c8a18b59b090bdfebd359ab8",
+    "token_sha256": "6a82b9b98b46e5d5c8890dc0d834b48bd21d9b9647471764d1070878245a3473"
+  },
+  {
+    "case": "draft_insufficient",
+    "level": "8k",
+    "file": "8k-draft_insufficient.json",
+    "tokens": 8172,
+    "characters": 11235,
+    "position": "begin",
+    "sha256": "e4caaf7923af10870af9e2e45d507511f6088fee1a6e2af375275e197135a94e",
+    "token_sha256": "7ce19e57d2daa76118d320157316848219afc30daa519eff4a4f03ada973265c"
+  },
+  {
+    "case": "privacy_supported",
+    "level": "8k",
+    "file": "8k-privacy_supported.json",
+    "tokens": 8157,
+    "characters": 11225,
+    "position": "end",
+    "sha256": "2f71f99b2ee2317630da24d4d5a2113bf28f3294d251dd7822449202443e6d0c",
+    "token_sha256": "5559083062e8a23e92b97043ec5e62ecfd2747e8c30440f3b23e3d98b191f3ef"
+  },
+  {
+    "case": "revision_refuted",
+    "level": "8k",
+    "file": "8k-revision_refuted.json",
+    "tokens": 8170,
+    "characters": 11239,
+    "position": "begin",
+    "sha256": "45f9b89b543556a54de20150457bc4947fcbc3ff786a48121edc45199606e3ec",
+    "token_sha256": "c5a76fc990331449ee7c59fe4544c48778cfb57a9e9d50307356c822eb665f58"
+  },
+  {
+    "case": "approver_insufficient",
+    "level": "8k",
+    "file": "8k-approver_insufficient.json",
+    "tokens": 8191,
+    "characters": 11270,
+    "position": "middle",
+    "sha256": "67f1644f955384994899d90dd8589b2c1f051117a8b273431fbebc53f184165c",
+    "token_sha256": "8398da3e4b2a2ce0560a67a2d87a86046ddf27dff67d9a9f34e9e9a16d0399c9"
+  },
+  {
+    "case": "date_supported",
+    "level": "32k",
+    "file": "32k-date_supported.json",
+    "tokens": 32759,
+    "characters": 45585,
+    "position": "begin",
+    "sha256": "e5888f5256bc650ff433ad79cb5e59b9f91518e946a9a0dae2fb0ae1082f4493",
+    "token_sha256": "3e951b5b67597cd8eb32c57e3abaad212f26a3695877a83c3c9b4dfa598d56c1"
+  },
+  {
+    "case": "delivery_refuted",
+    "level": "32k",
+    "file": "32k-delivery_refuted.json",
+    "tokens": 32763,
+    "characters": 45596,
+    "position": "middle",
+    "sha256": "489638ff58f60c7900748b4d1c9d4f80db88422c43b3acac2d9e18ae8a2b5786",
+    "token_sha256": "b9175031d5844f740c1a30e4ae2d7ef3731eee0a95f3bd98f1de9d824486b5a7"
+  },
+  {
+    "case": "budget_insufficient",
+    "level": "32k",
+    "file": "32k-budget_insufficient.json",
+    "tokens": 32750,
+    "characters": 45579,
+    "position": "end",
+    "sha256": "7b58c803af57ac0bd507bb94a8d0872e6ab1376b3c590a9b914f46fbdde5af35",
+    "token_sha256": "483bf9b6d1883cc2112cc291327a3d47565565b4310d22b0e7cd1e8022d2bdf6"
+  },
+  {
+    "case": "rule_supported",
+    "level": "32k",
+    "file": "32k-rule_supported.json",
+    "tokens": 32732,
+    "characters": 45563,
+    "position": "middle",
+    "sha256": "0ae35d4902166bb279b25f219600ac452abada09a1a7e769490c6e308d82d0c3",
+    "token_sha256": "295fbdf42ccdd95e8791189c65fba44904b1aa96818f4e8f33d3bbfc91b1bef1"
+  },
+  {
+    "case": "arithmetic_refuted",
+    "level": "32k",
+    "file": "32k-arithmetic_refuted.json",
+    "tokens": 32767,
+    "characters": 45594,
+    "position": "end",
+    "sha256": "47883a9f599549fe85925caa89b7214019f6316af31acdeb7900021527c81c21",
+    "token_sha256": "9f428171134600b45e95ff0a79ace30c57c1b16dc7f83dab0d818adf335043ee"
+  },
+  {
+    "case": "draft_insufficient",
+    "level": "32k",
+    "file": "32k-draft_insufficient.json",
+    "tokens": 32733,
+    "characters": 45548,
+    "position": "begin",
+    "sha256": "aa68f7daeedff1340e20985ef1e6d62f92aae2fa89beda44df70f13b9c3749e3",
+    "token_sha256": "4c3173b82e223ada1712c0dae2c7d3858d6448ec8973775408d1887a7729e472"
+  },
+  {
+    "case": "privacy_supported",
+    "level": "32k",
+    "file": "32k-privacy_supported.json",
+    "tokens": 32756,
+    "characters": 45593,
+    "position": "end",
+    "sha256": "e3a9bd1f07e912e557009d54159995ee56ea820ec5100af1c153a129489273ca",
+    "token_sha256": "65016bc8996b06eb1d43a389d83ed9dfe6d382c57624d0b74be36232091a2f82"
+  },
+  {
+    "case": "revision_refuted",
+    "level": "32k",
+    "file": "32k-revision_refuted.json",
+    "tokens": 32731,
+    "characters": 45552,
+    "position": "begin",
+    "sha256": "cec186f9220e47a75309caf6b722de589973f5ac10cc4d13a8f478a36abc51e3",
+    "token_sha256": "2654b5c48fe1bb9c4d50238bf8645a1e5c7fe393ddffae0a7f4721196d7ea079"
+  },
+  {
+    "case": "approver_insufficient",
+    "level": "32k",
+    "file": "32k-approver_insufficient.json",
+    "tokens": 32748,
+    "characters": 45581,
+    "position": "middle",
+    "sha256": "8c14c115d691f17dad2415c9603e3087cf9d22c4010e0904557893bdd2fc11a3",
+    "token_sha256": "3627cd76c9600766787f55d525358bb15396039c625686e34f6f98951ce93be5"
+  },
+  {
+    "case": "date_supported",
+    "level": "64k",
+    "file": "64k-date_supported.json",
+    "tokens": 65510,
+    "characters": 91264,
+    "position": "begin",
+    "sha256": "6975d4fd05d750e5b2c06d8ec881700640c7f573fdfe001808c9902c1470aeb8",
+    "token_sha256": "0734e33dccd88a21d0adfb575071c39a64fb92046f66d48cbb7e214d23ce4777"
+  },
+  {
+    "case": "delivery_refuted",
+    "level": "64k",
+    "file": "64k-delivery_refuted.json",
+    "tokens": 65514,
+    "characters": 91275,
+    "position": "middle",
+    "sha256": "494b46f72ec90b9de1fbcd65c1729cbb2393c40cefb0ec01d86b9281055d8097",
+    "token_sha256": "71b96471e1ebb204afd4d70a174e5b8544a88ba613fbece8b437f7065f1b60da"
+  },
+  {
+    "case": "budget_insufficient",
+    "level": "64k",
+    "file": "64k-budget_insufficient.json",
+    "tokens": 65501,
+    "characters": 91258,
+    "position": "end",
+    "sha256": "06c5c83d974a889de8e085299c87b9b9d9168bc00f569fbb522da56b678a7034",
+    "token_sha256": "0b7765181795bac22c732da4381204d74dd82fda8f1083ed83096fcfaf181d1d"
+  },
+  {
+    "case": "rule_supported",
+    "level": "64k",
+    "file": "64k-rule_supported.json",
+    "tokens": 65521,
+    "characters": 91297,
+    "position": "middle",
+    "sha256": "e6cf92d4473312f013239abf8f7aa44e38ef2a94c541ca922c0c8f76214fd652",
+    "token_sha256": "9f3a1c2970edc5c5abd43a3586e31fad014575797d4059a813c4380ca180c4b0"
+  },
+  {
+    "case": "arithmetic_refuted",
+    "level": "64k",
+    "file": "64k-arithmetic_refuted.json",
+    "tokens": 65518,
+    "characters": 91273,
+    "position": "end",
+    "sha256": "a249830c0386f66dd59387f75cc3dac60785777d74fd622be33934b86c2fd5b3",
+    "token_sha256": "ea14a1c8ebc6ad52aef92b445bd21131331b8e32ea52189189d8a5c190d9be78"
+  },
+  {
+    "case": "draft_insufficient",
+    "level": "64k",
+    "file": "64k-draft_insufficient.json",
+    "tokens": 65522,
+    "characters": 91282,
+    "position": "begin",
+    "sha256": "715debb5bd9fed3b17e3177b625f45de409865c9778fbf46bf26af9bae6ee7cf",
+    "token_sha256": "0fbb6bf6d3a65692bed19afc36016bb649f5a116569d191fdf7d777432a8966a"
+  },
+  {
+    "case": "privacy_supported",
+    "level": "64k",
+    "file": "64k-privacy_supported.json",
+    "tokens": 65507,
+    "characters": 91272,
+    "position": "end",
+    "sha256": "db199dc33dc33562de02a78c82c149bf275923aa1a956143730d5ee91539db50",
+    "token_sha256": "134f9d67c7920828374593e2b7060ee789a2244c92b99fb47c9a8dbc57fe90be"
+  },
+  {
+    "case": "revision_refuted",
+    "level": "64k",
+    "file": "64k-revision_refuted.json",
+    "tokens": 65520,
+    "characters": 91286,
+    "position": "begin",
+    "sha256": "e28b6bbe465e67431a6045dc40c48114ffd232ce72a6a405df39903d7d81eb88",
+    "token_sha256": "7fd6198edb733f07f027189b5f1b05fcc7714542fff9d9e295abb5653fc65de9"
+  },
+  {
+    "case": "approver_insufficient",
+    "level": "64k",
+    "file": "64k-approver_insufficient.json",
+    "tokens": 65499,
+    "characters": 91260,
+    "position": "middle",
+    "sha256": "451834cee94ed05a3b1f60e6d66fcba63e4f2eb8f42453f53823fd55ca5f3ddb",
+    "token_sha256": "33839f56629bc1c9c34313744832307ac845087b08e06975c8dec330d006e24e"
+  },
+  {
+    "case": "date_supported",
+    "level": "128k",
+    "file": "128k-date_supported.json",
+    "tokens": 131058,
+    "characters": 182712,
+    "position": "begin",
+    "sha256": "53613195371a070439c9d097424b729ce434fa204830adf59305d821484ef64f",
+    "token_sha256": "b8848c9f2dd6684f2f464aa04bf4e959414df651672f00474ed53f34ab5e7dfa"
+  },
+  {
+    "case": "delivery_refuted",
+    "level": "128k",
+    "file": "128k-delivery_refuted.json",
+    "tokens": 131062,
+    "characters": 182723,
+    "position": "middle",
+    "sha256": "dc84fe13645699d9dab96113d3ddae50690826207f4aa354ddd4149516fae125",
+    "token_sha256": "c93800e671e80ca381be34c83ea1e5e1e998856ac9df7389e0d69bd664b71f3e"
+  },
+  {
+    "case": "budget_insufficient",
+    "level": "128k",
+    "file": "128k-budget_insufficient.json",
+    "tokens": 131049,
+    "characters": 182706,
+    "position": "end",
+    "sha256": "61701eb75a39de81f4fa053e0438bd02d0f939051648572766bb13a11358fd50",
+    "token_sha256": "d88b57a9f0c27120be4b72b155b6322162913b6be7f3ddddaae7b2312904c384"
+  },
+  {
+    "case": "rule_supported",
+    "level": "128k",
+    "file": "128k-rule_supported.json",
+    "tokens": 131069,
+    "characters": 182745,
+    "position": "middle",
+    "sha256": "10ff9747d9d968fb79a534e9b045e3bc125f22dfd22244e2b81212b2f12c001f",
+    "token_sha256": "7953a8a6fb16223c8d89260d48e93e0071fee97ff64726d9a5c71244e544b7f4"
+  },
+  {
+    "case": "arithmetic_refuted",
+    "level": "128k",
+    "file": "128k-arithmetic_refuted.json",
+    "tokens": 131066,
+    "characters": 182721,
+    "position": "end",
+    "sha256": "34f1dcda18ffe6d585ae232850c21b7d99cf5acb79350debcdefa58d2ea08252",
+    "token_sha256": "3beaa3bb04e3a2af8a6cdeccac4f17b5cdf9baee3c38af6bbf1ed8d796dfed0a"
+  },
+  {
+    "case": "draft_insufficient",
+    "level": "128k",
+    "file": "128k-draft_insufficient.json",
+    "tokens": 131070,
+    "characters": 182730,
+    "position": "begin",
+    "sha256": "532c386ceea8798beda6cedb43bd37b6f401bb9b3f725e07e0a5880a07aebbab",
+    "token_sha256": "28139d3c1327d5394cdc626f52e33c82533d22cce51da1128b4186b2f9def729"
+  },
+  {
+    "case": "privacy_supported",
+    "level": "128k",
+    "file": "128k-privacy_supported.json",
+    "tokens": 131055,
+    "characters": 182720,
+    "position": "end",
+    "sha256": "32c28b347eff292d6f52cfb7486a3b491aedff2c58152aed742145a6dc98350f",
+    "token_sha256": "9f33c5ad5710dcbb240b547bcfefd7d84542650df24a4965ef86619f46e16b3a"
+  },
+  {
+    "case": "revision_refuted",
+    "level": "128k",
+    "file": "128k-revision_refuted.json",
+    "tokens": 131068,
+    "characters": 182734,
+    "position": "begin",
+    "sha256": "9f2fa74988ac36742c1a7057ede69db72613d7dad1cac45ed6ffcc4a1766c7b7",
+    "token_sha256": "55fc79b6636bb64b228679f6f8b2f8ccdf7d36ef4abad9e777b34fb29633079d"
+  },
+  {
+    "case": "approver_insufficient",
+    "level": "128k",
+    "file": "128k-approver_insufficient.json",
+    "tokens": 131047,
+    "characters": 182708,
+    "position": "middle",
+    "sha256": "807990e330c52591ef72b68a521b06e80e5b8a32b5f9208146a7adf4e787e56b",
+    "token_sha256": "0c300061c365a5ab852afed8e41940b171a866b92df38c122ab95a94b972b2ad"
+  },
+  {
+    "case": "date_supported",
+    "level": "256k",
+    "file": "256k-date_supported.json",
+    "tokens": 262137,
+    "characters": 365781,
+    "position": "begin",
+    "sha256": "75b60551c727257a932997f273295619d0bcd8d7960b79e5a96487b3b9ef404e",
+    "token_sha256": "87a174f76727dffbc5393ef5ebbf1d21061f4ff2fd93c88f37860782b2913f06"
+  },
+  {
+    "case": "delivery_refuted",
+    "level": "256k",
+    "file": "256k-delivery_refuted.json",
+    "tokens": 262141,
+    "characters": 365792,
+    "position": "middle",
+    "sha256": "c7af6ae00f29a94dd4f7bf768cbd7e9e359524036d6168e178bdbb7e0b9f2f46",
+    "token_sha256": "e077a9091412019394748d80a8c4579c0cf0520c1603993486f60b5778779b91"
+  },
+  {
+    "case": "budget_insufficient",
+    "level": "256k",
+    "file": "256k-budget_insufficient.json",
+    "tokens": 262128,
+    "characters": 365775,
+    "position": "end",
+    "sha256": "e9e833ef90ccfe6cd3ffd8e1e29e46d8cfc332d0f7e809585affead9c5d3293a",
+    "token_sha256": "0a6e99e8a425c0afdab087d1efc4384bf2d104cbc2f2cb95941c2d6f969d01ba"
+  },
+  {
+    "case": "rule_supported",
+    "level": "256k",
+    "file": "256k-rule_supported.json",
+    "tokens": 262107,
+    "characters": 365757,
+    "position": "middle",
+    "sha256": "17466344770391d1d89b4af2415ccdade3142cfc78b355aff93dc043c3dac03a",
+    "token_sha256": "f092354df11b4a7352988aa416fadf47daa55a1c3dfbe69edd57540fc236ce2b"
+  },
+  {
+    "case": "arithmetic_refuted",
+    "level": "256k",
+    "file": "256k-arithmetic_refuted.json",
+    "tokens": 262104,
+    "characters": 365733,
+    "position": "end",
+    "sha256": "cd15ffe9acf37986b72337679234113c823dc0527532299104078141c20d51f4",
+    "token_sha256": "d8247d81a6d163ac91aac2c1a4a9e251c4019ac32abb7c33cd15b2fb400a2e7b"
+  },
+  {
+    "case": "draft_insufficient",
+    "level": "256k",
+    "file": "256k-draft_insufficient.json",
+    "tokens": 262108,
+    "characters": 365742,
+    "position": "begin",
+    "sha256": "5e7dee9c1d2fb6d09832f40672bd2decac597604d03481a7f34d0715455781c1",
+    "token_sha256": "3fa4ab6ee30b0fc28e2a4813df8d55e4ca9e717ac2f2c3c19b4292e6efa24233"
+  },
+  {
+    "case": "privacy_supported",
+    "level": "256k",
+    "file": "256k-privacy_supported.json",
+    "tokens": 262134,
+    "characters": 365789,
+    "position": "end",
+    "sha256": "98b50438ff6f306cdaa5904c5b6de19b7732bb224f40aba954c394b6112bea9a",
+    "token_sha256": "82c3ada897e0e3a54a80317d8f159eca7b81bb92ac555706e54b86936cc5115e"
+  },
+  {
+    "case": "revision_refuted",
+    "level": "256k",
+    "file": "256k-revision_refuted.json",
+    "tokens": 262106,
+    "characters": 365746,
+    "position": "begin",
+    "sha256": "ccb24ee896129d603e986932b91320b0518b2cc1a5e8804115ac5f3839329e2c",
+    "token_sha256": "622e38d7b6eba5c446f8715039748c8a7bb4e63d5e44034ebbc0a353c128ab0b"
+  },
+  {
+    "case": "approver_insufficient",
+    "level": "256k",
+    "file": "256k-approver_insufficient.json",
+    "tokens": 262126,
+    "characters": 365777,
+    "position": "middle",
+    "sha256": "e86667684dc679ca123dfff58de1d71845d43faf735c14fff12ff489f3da5735",
+    "token_sha256": "42555666cc4a1ab2c0f565fa6227bccdf71b4e7eedf377fa2159970b63237d8a"
+  }
+]
