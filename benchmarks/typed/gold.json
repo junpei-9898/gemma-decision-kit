@@ -1,0 +1,482 @@
+{
+  "bool-00": {
+    "expected": true,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-00": {
+    "expected": "true",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-01": {
+    "expected": false,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-01": {
+    "expected": "false",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-02": {
+    "expected": true,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-02": {
+    "expected": "true",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-03": {
+    "expected": false,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-03": {
+    "expected": "false",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-04": {
+    "expected": true,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-04": {
+    "expected": "true",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-05": {
+    "expected": false,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-05": {
+    "expected": "false",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-06": {
+    "expected": true,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-06": {
+    "expected": "true",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-07": {
+    "expected": false,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-07": {
+    "expected": "false",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-08": {
+    "expected": true,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-08": {
+    "expected": "true",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-09": {
+    "expected": false,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-09": {
+    "expected": "false",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-10": {
+    "expected": true,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-10": {
+    "expected": "true",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-11": {
+    "expected": false,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-11": {
+    "expected": "false",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-12": {
+    "expected": true,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-12": {
+    "expected": "true",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-13": {
+    "expected": false,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-13": {
+    "expected": "false",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-14": {
+    "expected": true,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-14": {
+    "expected": "true",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-15": {
+    "expected": false,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-15": {
+    "expected": "false",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-16": {
+    "expected": true,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-16": {
+    "expected": "true",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-17": {
+    "expected": false,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-17": {
+    "expected": "false",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-18": {
+    "expected": true,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-18": {
+    "expected": "true",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "bool-19": {
+    "expected": false,
+    "reason": "明記された状態・条件・算術に照らした真偽。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice2-19": {
+    "expected": "false",
+    "reason": "同じ二値命題のchoice形式。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-billing-0": {
+    "expected": "billing",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-billing-1": {
+    "expected": "billing",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-billing-2": {
+    "expected": "billing",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-billing-3": {
+    "expected": "billing",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-billing-4": {
+    "expected": "billing",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-technical-0": {
+    "expected": "technical",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-technical-1": {
+    "expected": "technical",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-technical-2": {
+    "expected": "technical",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-technical-3": {
+    "expected": "technical",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-technical-4": {
+    "expected": "technical",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-sales-0": {
+    "expected": "sales",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-sales-1": {
+    "expected": "sales",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-sales-2": {
+    "expected": "sales",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-sales-3": {
+    "expected": "sales",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-sales-4": {
+    "expected": "sales",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-account-0": {
+    "expected": "account",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-account-1": {
+    "expected": "account",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-account-2": {
+    "expected": "account",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-account-3": {
+    "expected": "account",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice4-account-4": {
+    "expected": "account",
+    "reason": "主目的に対応する部署。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-refund-0": {
+    "expected": "refund",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-refund-1": {
+    "expected": "refund",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-repair-0": {
+    "expected": "repair",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-repair-1": {
+    "expected": "repair",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-quote-0": {
+    "expected": "quote",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-quote-1": {
+    "expected": "quote",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-password-0": {
+    "expected": "password",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-password-1": {
+    "expected": "password",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-cancel-0": {
+    "expected": "cancel",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-cancel-1": {
+    "expected": "cancel",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-shipping-0": {
+    "expected": "shipping",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-shipping-1": {
+    "expected": "shipping",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-address-0": {
+    "expected": "address",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-address-1": {
+    "expected": "address",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-privacy-0": {
+    "expected": "privacy",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "choice8-privacy-1": {
+    "expected": "privacy",
+    "reason": "明示された依頼の主目的。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-checklist-0": {
+    "expected": 0,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-checklist-1": {
+    "expected": 1,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-checklist-2": {
+    "expected": 2,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-checklist-3": {
+    "expected": 3,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-checklist-4": {
+    "expected": 4,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-delay-0": {
+    "expected": 0,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-delay-1": {
+    "expected": 1,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-delay-2": {
+    "expected": 2,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-delay-3": {
+    "expected": 3,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-delay-4": {
+    "expected": 4,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-satisfaction-0": {
+    "expected": 0,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-satisfaction-1": {
+    "expected": 1,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-satisfaction-2": {
+    "expected": 2,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-satisfaction-3": {
+    "expected": 3,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-satisfaction-4": {
+    "expected": 4,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-impact-0": {
+    "expected": 0,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-impact-1": {
+    "expected": 1,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-impact-2": {
+    "expected": 2,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-impact-3": {
+    "expected": 3,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  },
+  "score-impact-4": {
+    "expected": 4,
+    "reason": "事前定義した順序尺度の該当位置。",
+    "status": "AI_PROVISIONAL_NOT_HUMAN_GOLD"
+  }
+}

@@ -24,3 +24,7 @@ Context configuration, contract tests and the synthetic benchmark/plot scripts a
 ## v0.4.0 MOSS audio
 
 The optional MOSS worker adapts the prompt/processing flow and vendors the transcript parser from [OpenMOSS commit61bc29cd](https://github.com/OpenMOSS/MOSS-Transcribe-Diarize/tree/61bc29cd4120be7b5d3b761b64cd5dff57263642), Apache-2.0. Its license is included as licenses/Apache-2.0-MOSS.txt, provenance/modifications are recorded in source and NOTICE. Model weights are separately downloaded at704aa4a9c304e8520be88901e0d1960158ef5b15. Fixed hashes in audio/model.json verify the checkpoint including its executable Python files. ffmpeg/PyTorch/CUDA/Transformers remain separately installed dependencies, not bundled binaries. Private meeting materials and locally synthesized validation audio are not distributed.
+
+## Typed-output evaluation artifacts
+
+The new fictional benchmark cases, evaluation bridges, scoring summaries and recorded outputs are project-created evaluation artifacts under Apache-2.0. They import separately provisioned pinned OSS implementations; no upstream weights, dependencies, private user data or additional runtime binaries are included. Existing upstream license obligations remain unchanged.

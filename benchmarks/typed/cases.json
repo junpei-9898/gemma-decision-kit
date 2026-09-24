@@ -1,0 +1,1830 @@
+[
+  {
+    "id": "bool-00",
+    "group": "binary-0",
+    "body": {
+      "state": "荷物は本日、受取人が受領した。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：荷物は配達済みです。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-00",
+    "group": "binary-0",
+    "body": {
+      "state": "荷物は本日、受取人が受領した。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：荷物は配達済みです。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-01",
+    "group": "binary-0",
+    "body": {
+      "state": "荷物は未発送で倉庫にある。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：荷物は配達済みです。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-01",
+    "group": "binary-0",
+    "body": {
+      "state": "荷物は未発送で倉庫にある。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：荷物は配達済みです。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-02",
+    "group": "binary-1",
+    "body": {
+      "state": "受付は17時まで。申請は16時に到着した。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：申請は締切に間に合いました。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-02",
+    "group": "binary-1",
+    "body": {
+      "state": "受付は17時まで。申請は16時に到着した。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：申請は締切に間に合いました。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-03",
+    "group": "binary-1",
+    "body": {
+      "state": "受付は17時まで。申請は18時に到着した。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：申請は締切に間に合いました。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-03",
+    "group": "binary-1",
+    "body": {
+      "state": "受付は17時まで。申請は18時に到着した。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：申請は締切に間に合いました。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-04",
+    "group": "binary-2",
+    "body": {
+      "state": "旧会場は西館。確定した最新版では東館に変更され、後の変更はない。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：現在の会場は東館です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-04",
+    "group": "binary-2",
+    "body": {
+      "state": "旧会場は西館。確定した最新版では東館に変更され、後の変更はない。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：現在の会場は東館です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-05",
+    "group": "binary-2",
+    "body": {
+      "state": "旧会場は西館。確定した最新版では東館に変更され、後の変更はない。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：現在の会場は西館です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-05",
+    "group": "binary-2",
+    "body": {
+      "state": "旧会場は西館。確定した最新版では東館に変更され、後の変更はない。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：現在の会場は西館です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-06",
+    "group": "binary-3",
+    "body": {
+      "state": "商品は単価120円で8個。合計は単価と個数の積で、追加料金はない。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：合計は960円です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-06",
+    "group": "binary-3",
+    "body": {
+      "state": "商品は単価120円で8個。合計は単価と個数の積で、追加料金はない。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：合計は960円です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-07",
+    "group": "binary-3",
+    "body": {
+      "state": "商品は単価120円で8個。合計は単価と個数の積で、追加料金はない。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：合計は1080円です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-07",
+    "group": "binary-3",
+    "body": {
+      "state": "商品は単価120円で8個。合計は単価と個数の積で、追加料金はない。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：合計は1080円です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-08",
+    "group": "binary-4",
+    "body": {
+      "state": "利用は社内だけに限定し、外部公開を禁止した。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：外部への公開は禁止されています。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-08",
+    "group": "binary-4",
+    "body": {
+      "state": "利用は社内だけに限定し、外部公開を禁止した。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：外部への公開は禁止されています。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-09",
+    "group": "binary-4",
+    "body": {
+      "state": "利用は社内だけに限定し、外部公開を禁止した。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：外部への公開が許可されています。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-09",
+    "group": "binary-4",
+    "body": {
+      "state": "利用は社内だけに限定し、外部公開を禁止した。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：外部への公開が許可されています。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-10",
+    "group": "binary-5",
+    "body": {
+      "state": "受付条件は身分証と申込書の両方。二つとも提出済みである。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：受付条件を満たしています。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-10",
+    "group": "binary-5",
+    "body": {
+      "state": "受付条件は身分証と申込書の両方。二つとも提出済みである。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：受付条件を満たしています。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-11",
+    "group": "binary-5",
+    "body": {
+      "state": "受付条件は身分証と申込書の両方。申込書だけ提出した。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：受付条件を満たしています。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-11",
+    "group": "binary-5",
+    "body": {
+      "state": "受付条件は身分証と申込書の両方。申込書だけ提出した。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：受付条件を満たしています。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-12",
+    "group": "binary-6",
+    "body": {
+      "state": "会議は中止されていない。予定どおり開催すると正式通知された。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：会議は開催予定です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-12",
+    "group": "binary-6",
+    "body": {
+      "state": "会議は中止されていない。予定どおり開催すると正式通知された。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：会議は開催予定です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-13",
+    "group": "binary-6",
+    "body": {
+      "state": "会議は正式に中止された。延期や再開の予定はない。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：会議は開催予定です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-13",
+    "group": "binary-6",
+    "body": {
+      "state": "会議は正式に中止された。延期や再開の予定はない。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：会議は開催予定です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-14",
+    "group": "binary-7",
+    "body": {
+      "state": "担当は田中、承認者は佐藤と記録されている。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：佐藤は承認者です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-14",
+    "group": "binary-7",
+    "body": {
+      "state": "担当は田中、承認者は佐藤と記録されている。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：佐藤は承認者です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-15",
+    "group": "binary-7",
+    "body": {
+      "state": "担当は田中、承認者は佐藤と記録されている。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：田中は承認者です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-15",
+    "group": "binary-7",
+    "body": {
+      "state": "担当は田中、承認者は佐藤と記録されている。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：田中は承認者です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-16",
+    "group": "binary-8",
+    "body": {
+      "state": "在庫は5個。3個出荷し、他の入出庫はない。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：在庫は2個です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-16",
+    "group": "binary-8",
+    "body": {
+      "state": "在庫は5個。3個出荷し、他の入出庫はない。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：在庫は2個です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-17",
+    "group": "binary-8",
+    "body": {
+      "state": "在庫は5個。3個出荷し、他の入出庫はない。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：在庫は3個です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-17",
+    "group": "binary-8",
+    "body": {
+      "state": "在庫は5個。3個出荷し、他の入出庫はない。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：在庫は3個です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-18",
+    "group": "binary-9",
+    "body": {
+      "state": "無償交換の条件は購入後30日以内。今回は購入後20日である。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：今回は無償交換の期間内です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-18",
+    "group": "binary-9",
+    "body": {
+      "state": "無償交換の条件は購入後30日以内。今回は購入後20日である。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：今回は無償交換の期間内です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "bool-19",
+    "group": "binary-9",
+    "body": {
+      "state": "無償交換の条件は購入後30日以内。今回は購入後40日である。",
+      "questions": {
+        "q": {
+          "type": "noul",
+          "instructions": "記録だけで次の主張の真偽を判定：今回は無償交換の期間内です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice2-19",
+    "group": "binary-9",
+    "body": {
+      "state": "無償交換の条件は購入後30日以内。今回は購入後40日である。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "記録だけで次の主張の真偽を判定：今回は無償交換の期間内です。",
+          "criteria": {
+            "true": "主張は正しい",
+            "false": "主張は誤り"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-billing-0",
+    "group": "route4-billing",
+    "body": {
+      "state": "二重請求されたので返金してほしい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-billing-1",
+    "group": "route4-billing",
+    "body": {
+      "state": "支払った金額と請求書の金額が違う。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-billing-2",
+    "group": "route4-billing",
+    "body": {
+      "state": "返品は受理済み。返金の進捗を確認したい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-billing-3",
+    "group": "route4-billing",
+    "body": {
+      "state": "ログインはできるが、請求の内訳に質問がある。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-billing-4",
+    "group": "route4-billing",
+    "body": {
+      "state": "見積は不要で、誤請求の訂正だけを求めている。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-technical-0",
+    "group": "route4-technical",
+    "body": {
+      "state": "機器が起動しない。故障の調査をお願いしたい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-technical-1",
+    "group": "route4-technical",
+    "body": {
+      "state": "画面が突然消える不具合が続いている。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-technical-2",
+    "group": "route4-technical",
+    "body": {
+      "state": "更新後にアプリが必ず異常終了する。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-technical-3",
+    "group": "route4-technical",
+    "body": {
+      "state": "支払いは完了しているが、機器が故障した。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-technical-4",
+    "group": "route4-technical",
+    "body": {
+      "state": "アカウントは正常で、通信機器の不具合を相談したい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-sales-0",
+    "group": "route4-sales",
+    "body": {
+      "state": "新規購入を検討しているので見積がほしい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-sales-1",
+    "group": "route4-sales",
+    "body": {
+      "state": "追加で10台購入する場合の価格を知りたい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-sales-2",
+    "group": "route4-sales",
+    "body": {
+      "state": "導入前に契約プランを相談したい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-sales-3",
+    "group": "route4-sales",
+    "body": {
+      "state": "故障対応ではなく、新しい機種の購入相談である。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-sales-4",
+    "group": "route4-sales",
+    "body": {
+      "state": "請求済みの話ではなく、来月の導入費用を見積もってほしい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-account-0",
+    "group": "route4-account",
+    "body": {
+      "state": "パスワードを忘れてログインできない。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-account-1",
+    "group": "route4-account",
+    "body": {
+      "state": "アカウントを退会したい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-account-2",
+    "group": "route4-account",
+    "body": {
+      "state": "二要素認証の設定を変更したい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-account-3",
+    "group": "route4-account",
+    "body": {
+      "state": "支払いに問題はなく、ログイン名の変更を希望する。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice4-account-4",
+    "group": "route4-account",
+    "body": {
+      "state": "製品は正常だが、登録アカウントを削除したい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "問い合わせの主目的を担当する部署を一つ選ぶ。",
+          "criteria": {
+            "billing": "請求・返金",
+            "technical": "故障・不具合",
+            "sales": "購入・見積",
+            "account": "ログイン・退会"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-refund-0",
+    "group": "route8-refund",
+    "body": {
+      "state": "返金をお願いします。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-refund-1",
+    "group": "route8-refund",
+    "body": {
+      "state": "修理は不要で返金だけを希望します。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-repair-0",
+    "group": "route8-repair",
+    "body": {
+      "state": "修理をお願いします。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-repair-1",
+    "group": "route8-repair",
+    "body": {
+      "state": "返金ではなく修理を希望します。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-quote-0",
+    "group": "route8-quote",
+    "body": {
+      "state": "購入前の見積がほしい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-quote-1",
+    "group": "route8-quote",
+    "body": {
+      "state": "まだ購入しておらず見積だけが必要です。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-password-0",
+    "group": "route8-password",
+    "body": {
+      "state": "パスワードを再設定したい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-password-1",
+    "group": "route8-password",
+    "body": {
+      "state": "契約は続けるがパスワードを忘れました。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-cancel-0",
+    "group": "route8-cancel",
+    "body": {
+      "state": "契約を解約したい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-cancel-1",
+    "group": "route8-cancel",
+    "body": {
+      "state": "パスワード変更ではなく解約を希望します。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-shipping-0",
+    "group": "route8-shipping",
+    "body": {
+      "state": "配送の到着予定を確認したい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-shipping-1",
+    "group": "route8-shipping",
+    "body": {
+      "state": "住所は正しいので配送の遅延状況を教えてください。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-address-0",
+    "group": "route8-address",
+    "body": {
+      "state": "登録住所を変更したい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-address-1",
+    "group": "route8-address",
+    "body": {
+      "state": "配送状況ではなく登録住所の更新をお願いします。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-privacy-0",
+    "group": "route8-privacy",
+    "body": {
+      "state": "保有する私の個人情報を開示してほしい。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "choice8-privacy-1",
+    "group": "route8-privacy",
+    "body": {
+      "state": "住所変更ではなく個人情報の開示を請求します。",
+      "questions": {
+        "q": {
+          "type": "choice",
+          "instructions": "依頼の主目的を一つ選ぶ。",
+          "criteria": {
+            "refund": "返金",
+            "repair": "修理",
+            "quote": "見積",
+            "password": "パスワード",
+            "cancel": "解約",
+            "shipping": "配送",
+            "address": "住所変更",
+            "privacy": "個人情報開示"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "score-checklist-0",
+    "group": "score-checklist",
+    "body": {
+      "state": "A未完了、B未完了、C未完了、D未完了。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "4項目の完了数で評価する。",
+          "criteria": [
+            "完了0項目",
+            "完了1項目",
+            "完了2項目",
+            "完了3項目",
+            "完了4項目"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-checklist-1",
+    "group": "score-checklist",
+    "body": {
+      "state": "A完了、B未完了、C未完了、D未完了。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "4項目の完了数で評価する。",
+          "criteria": [
+            "完了0項目",
+            "完了1項目",
+            "完了2項目",
+            "完了3項目",
+            "完了4項目"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-checklist-2",
+    "group": "score-checklist",
+    "body": {
+      "state": "A完了、B未完了、C完了、D未完了。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "4項目の完了数で評価する。",
+          "criteria": [
+            "完了0項目",
+            "完了1項目",
+            "完了2項目",
+            "完了3項目",
+            "完了4項目"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-checklist-3",
+    "group": "score-checklist",
+    "body": {
+      "state": "A未完了、B完了、C完了、D完了。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "4項目の完了数で評価する。",
+          "criteria": [
+            "完了0項目",
+            "完了1項目",
+            "完了2項目",
+            "完了3項目",
+            "完了4項目"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-checklist-4",
+    "group": "score-checklist",
+    "body": {
+      "state": "A完了、B完了、C完了、D完了。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "4項目の完了数で評価する。",
+          "criteria": [
+            "完了0項目",
+            "完了1項目",
+            "完了2項目",
+            "完了3項目",
+            "完了4項目"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-delay-0",
+    "group": "score-delay",
+    "body": {
+      "state": "予定と実際の到着はいずれも10時。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "同日の予定時刻からの遅延時間で評価する。",
+          "criteria": [
+            "遅延なし",
+            "遅延1時間",
+            "遅延2時間",
+            "遅延3時間",
+            "遅延4時間"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-delay-1",
+    "group": "score-delay",
+    "body": {
+      "state": "予定10時、実際11時に到着。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "同日の予定時刻からの遅延時間で評価する。",
+          "criteria": [
+            "遅延なし",
+            "遅延1時間",
+            "遅延2時間",
+            "遅延3時間",
+            "遅延4時間"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-delay-2",
+    "group": "score-delay",
+    "body": {
+      "state": "予定10時、実際12時に到着。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "同日の予定時刻からの遅延時間で評価する。",
+          "criteria": [
+            "遅延なし",
+            "遅延1時間",
+            "遅延2時間",
+            "遅延3時間",
+            "遅延4時間"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-delay-3",
+    "group": "score-delay",
+    "body": {
+      "state": "予定10時、実際13時に到着。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "同日の予定時刻からの遅延時間で評価する。",
+          "criteria": [
+            "遅延なし",
+            "遅延1時間",
+            "遅延2時間",
+            "遅延3時間",
+            "遅延4時間"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-delay-4",
+    "group": "score-delay",
+    "body": {
+      "state": "予定10時、実際14時に到着。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "同日の予定時刻からの遅延時間で評価する。",
+          "criteria": [
+            "遅延なし",
+            "遅延1時間",
+            "遅延2時間",
+            "遅延3時間",
+            "遅延4時間"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-satisfaction-0",
+    "group": "score-satisfaction",
+    "body": {
+      "state": "非常に不満です。全く期待に届きません。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "書き手が表明した満足度を評価する。",
+          "criteria": [
+            "非常に不満",
+            "やや不満",
+            "中立",
+            "やや満足",
+            "非常に満足"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-satisfaction-1",
+    "group": "score-satisfaction",
+    "body": {
+      "state": "やや不満です。少し改善してほしいです。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "書き手が表明した満足度を評価する。",
+          "criteria": [
+            "非常に不満",
+            "やや不満",
+            "中立",
+            "やや満足",
+            "非常に満足"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-satisfaction-2",
+    "group": "score-satisfaction",
+    "body": {
+      "state": "満足でも不満でもありません。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "書き手が表明した満足度を評価する。",
+          "criteria": [
+            "非常に不満",
+            "やや不満",
+            "中立",
+            "やや満足",
+            "非常に満足"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-satisfaction-3",
+    "group": "score-satisfaction",
+    "body": {
+      "state": "やや満足です。概ね期待どおりです。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "書き手が表明した満足度を評価する。",
+          "criteria": [
+            "非常に不満",
+            "やや不満",
+            "中立",
+            "やや満足",
+            "非常に満足"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-satisfaction-4",
+    "group": "score-satisfaction",
+    "body": {
+      "state": "非常に満足です。期待を大きく上回りました。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "書き手が表明した満足度を評価する。",
+          "criteria": [
+            "非常に不満",
+            "やや不満",
+            "中立",
+            "やや満足",
+            "非常に満足"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-impact-0",
+    "group": "score-impact",
+    "body": {
+      "state": "4人とも正常で、影響はない。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "影響を受けた人数で評価する。",
+          "criteria": [
+            "影響なし",
+            "1人に影響",
+            "2人に影響",
+            "3人に影響",
+            "4人に影響"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-impact-1",
+    "group": "score-impact",
+    "body": {
+      "state": "Aのみ障害、BとCとDは正常。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "影響を受けた人数で評価する。",
+          "criteria": [
+            "影響なし",
+            "1人に影響",
+            "2人に影響",
+            "3人に影響",
+            "4人に影響"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-impact-2",
+    "group": "score-impact",
+    "body": {
+      "state": "AとBに障害、CとDは正常。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "影響を受けた人数で評価する。",
+          "criteria": [
+            "影響なし",
+            "1人に影響",
+            "2人に影響",
+            "3人に影響",
+            "4人に影響"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-impact-3",
+    "group": "score-impact",
+    "body": {
+      "state": "AとBとCに障害、Dは正常。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "影響を受けた人数で評価する。",
+          "criteria": [
+            "影響なし",
+            "1人に影響",
+            "2人に影響",
+            "3人に影響",
+            "4人に影響"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "score-impact-4",
+    "group": "score-impact",
+    "body": {
+      "state": "AとBとCとDの全員に障害。",
+      "questions": {
+        "q": {
+          "type": "score",
+          "instructions": "影響を受けた人数で評価する。",
+          "criteria": [
+            "影響なし",
+            "1人に影響",
+            "2人に影響",
+            "3人に影響",
+            "4人に影響"
+          ]
+        }
+      }
+    }
+  }
+]

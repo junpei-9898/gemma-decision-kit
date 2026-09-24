@@ -113,3 +113,29 @@ Observed on the9paired cases: short**7/9 (77.8%)**, near256K**7/9 (77.8%)**. Thi
 MOSS provides text, anonymous speakers and utterance timestamps. Use `transcribe` alone or `predict --audio` to feed Gemma4. MOSS exits before Gemma loads. HTTP audio is not supported. Adapters, a pinned manifest and notices are bundled; weights and meeting material are not.
 
 [Audio setup, commands, limits and privacy](docs/AUDIO.md).
+
+## Beyond three choices: additional typed-output evaluation
+
+**The Gemma row uses a research adapter; the public API remains three-choice only.** It does not yet expose variable choice counts, noul or score. Eider Qwen/Laya/NanoJev use native typed APIs; SemIf uses a research conversion. DiffusionGemma was blocked during startup and has no new measurements. Counts below are agreement with provisional labels on96short synthetic cases (26correlated groups); score uses the most probable of five levels.
+
+| Configuration | Choice 2 | Choice 4 | Choice 8 | Noul / boolean | Score: top level |
+|---|---:|---:|---:|---:|---:|
+|Gemma4 NVFP4 · research adapter|18/20|20/20|16/16|18/20|16/20|
+|Eider Qwen3.6 NVFP4|18/20|20/20|16/16|18/20|18/20|
+|SemIf + Qwen3.5-4B · adapter|18/20|20/20|16/16|18/20|15/20|
+|Laya multilingual|14/20|17/20|16/16|15/20|7/20|
+|NanoJev root checkpoint|10/20|17/20|13/16|10/20|7/20|
+|DiffusionGemma NVFP4|BLOCKED|—|—|—|—|
+
+Warm median milliseconds: three fixed cases/type ×five repeats; Mixed is the whole eight-question workflow ×five repeats. DiffusionGemma stopped on new global swapout during both startup attempts, before any inference. Same GB10 node, sequential models; Qwen/Diffusion include HTTP while others use Python APIs.
+
+| Configuration | Choice 2 | Choice 4 | Choice 8 | Noul / boolean | Score | Mixed 8 questions |
+|---|---:|---:|---:|---:|---:|---:|
+|Gemma4 NVFP4 · research adapter|59.4|60.4|63.5|60.2|61.0|518.1|
+|Eider Qwen3.6 NVFP4|182.5|178.4|188.2|183.1|187.8|851.3|
+|SemIf + Qwen3.5-4B · adapter|69.4|79.0|83.0|69.6|81.0|655.2|
+|Laya multilingual|6.0|6.0|6.7|6.2|6.7|16.7|
+|NanoJev root checkpoint|18.3|22.1|26.6|15.7|20.8|160.1|
+|DiffusionGemma NVFP4|BLOCKED|—|—|—|—|—|
+
+**Accuracy and speed tradeoffs depend on output type; Gemma is not the highest-accuracy configuration in every format.** These short Laya inputs had no truncation. See [Brier, ordinal MAE, mixed-workflow correctness, numerical caveats and all cases](docs/TYPED_OUTPUTS.md).

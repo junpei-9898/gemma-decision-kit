@@ -97,3 +97,31 @@ gemma-decision serve --media --model-path /models/nvfp4 --port 8765
 MOSSで文字起こし・匿名話者・発話時刻を取得し、`predict --audio`でGemma4へ渡せます。`transcribe`単体にも対応。MOSS終了後にGemmaをロードします。HTTP音声は対象外です。重みや会議素材は同梱せず、adapter・固定manifest・noticeを配布します。
 
 [Audio setup, commands, limits and privacy](docs/AUDIO.md).
+
+## 3択以外の出力形式の比較（追加検証）
+
+**Gemmaの行は評価用アダプターの結果です。公開APIは引き続き3択のみで、noul・score・可変選択肢数が実装済みという意味ではありません。** Eider Qwen・Laya・NanoJevは各OSSの型付きAPI、SemIfは評価用変換を使用しました。DiffusionGemmaは起動時の安全条件で停止し、今回は未測定です。
+
+固定した短文96件（26の相関するグループ）に対するAI暫定ラベル一致数です。Score列は5段階の最頻段階の一致数。汎用精度・長文精度を保証する評価ではありません。
+
+| Configuration | Choice 2 | Choice 4 | Choice 8 | Noul / boolean | Score: top level |
+|---|---:|---:|---:|---:|---:|
+|Gemma4 NVFP4 · research adapter|18/20|20/20|16/16|18/20|16/20|
+|Eider Qwen3.6 NVFP4|18/20|20/20|16/16|18/20|18/20|
+|SemIf + Qwen3.5-4B · adapter|18/20|20/20|16/16|18/20|15/20|
+|Laya multilingual|14/20|17/20|16/16|15/20|7/20|
+|NanoJev root checkpoint|10/20|17/20|13/16|10/20|7/20|
+|DiffusionGemma NVFP4|BLOCKED|—|—|—|—|
+
+速度はミリ秒の中央値。単問は各型3問×5反復、Mixedは同じ文章に対する8問全体×5反復です。DiffusionGemmaはロード中の追加swap検出で2回停止し、今回は判定未実施です。GB10・同一機・逐次測定ですが、Qwen/DiffusionはHTTP、ほかはPython APIのため完全同条件のモデル単体比較ではありません。
+
+| Configuration | Choice 2 | Choice 4 | Choice 8 | Noul / boolean | Score | Mixed 8 questions |
+|---|---:|---:|---:|---:|---:|---:|
+|Gemma4 NVFP4 · research adapter|59.4|60.4|63.5|60.2|61.0|518.1|
+|Eider Qwen3.6 NVFP4|182.5|178.4|188.2|183.1|187.8|851.3|
+|SemIf + Qwen3.5-4B · adapter|69.4|79.0|83.0|69.6|81.0|655.2|
+|Laya multilingual|6.0|6.0|6.7|6.2|6.7|16.7|
+|NanoJev root checkpoint|18.3|22.1|26.6|15.7|20.8|160.1|
+|DiffusionGemma NVFP4|BLOCKED|—|—|—|—|—|
+
+**形式によって精度と速度の優劣が変わります。Gemmaが全形式で最高精度という結果ではありません。** Layaの今回は入力切断0件の短文条件です。真偽確率のBrier、scoreの数値誤差、8問の正解数、数値丸めの制約、全ケースは[詳細レポート](docs/TYPED_OUTPUTS.md)に掲載しています。

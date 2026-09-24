@@ -1,0 +1,10 @@
+{
+  "case_count": 96,
+  "groups": 26,
+  "files": {
+    "cases.json": "a551cd971ed353ab10afa9c441c7af6502b5759074b794e72db9b6babab9ea83",
+    "gold.json": "a0f87f87c7e58eb540a7462295d0da658797a2679321caefe361e286d1ed31dc",
+    "mixed-gold.json": "8b2ffe1fc3736265a1e9b4cf56f82a5c28c17fb7a06e78cd6640af5a94006cb0"
+  },
+  "label_scope": "AI provisional; generated before all model predictions; binary/choice2 share groups; category variants correlated"
+}

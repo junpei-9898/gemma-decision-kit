@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "models_completed": 5,
+  "models_planned": 6,
+  "blocked_models": [
+    "diffusion"
+  ],
+  "experiment_status": "BLOCKED_PARTIAL",
+  "unique_case_ids": 96,
+  "scored_quality_outputs": 480,
+  "requests_completed": 910,
+  "decision_sequences_completed": 1120,
+  "decision_sequences_charged": 1121,
+  "reported_input_tokens_completed": 141244,
+  "input_tokens_charged": 149436,
+  "http_inference_requests": 182,
+  "failed_direct_warmup_requests": 1,
+  "process_wall_seconds": 1174.3819885253906,
+  "actual_gpu_seconds": null,
+  "actual_forward_calls": "See direct candidate completion records; native server/optimized Gemma UNVERIFIED",
+  "historical_failures_preserved": [
+    "gemma tokenizer mapping",
+    "qwen readiness URL",
+    "diffusion global swapout safety stop before inference"
+  ],
+  "safety": {
+    "diffusion-resources.jsonl": {
+      "min_available_gib": 91.03075790405273,
+      "swapout_increment": 1,
+      "foreign_workload_samples": 0
+    },
+    "laya-resources.jsonl": {
+      "min_available_gib": 112.90646743774414,
+      "swapout_increment": 0,
+      "foreign_workload_samples": 0
+    },
+    "gemma-r1-resources.jsonl": {
+      "min_available_gib": 87.21986389160156,
+      "swapout_increment": 0,
+      "foreign_workload_samples": 0
+    },
+    "nanojev-resources.jsonl": {
+      "min_available_gib": 109.7867431640625,
+      "swapout_increment": 0,
+      "foreign_workload_samples": 0
+    },
+    "qwen-r1-resources.jsonl": {
+      "min_available_gib": 88.25050735473633,
+      "swapout_increment": 0,
+      "foreign_workload_samples": 0
+    },
+    "semif-resources.jsonl": {
+      "min_available_gib": 99.86174774169922,
+      "swapout_increment": 0,
+      "foreign_workload_samples": 0
+    },
+    "gemma-resources.jsonl": {
+      "min_available_gib": 87.95410537719727,
+      "swapout_increment": 0,
+      "foreign_workload_samples": 0
+    },
+    "qwen-resources.jsonl": {
+      "min_available_gib": 89.30059432983398,
+      "swapout_increment": 0,
+      "foreign_workload_samples": 0
+    },
+    "diffusion-r1-resources.jsonl": {
+      "min_available_gib": 88.49716186523438,
+      "swapout_increment": 1,
+      "foreign_workload_samples": 0
+    }
+  },
+  "scalar_endpoint_tolerance": 1e-05,
+  "human_gold": "UNVERIFIED"
+}

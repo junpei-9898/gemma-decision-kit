@@ -57,3 +57,7 @@ Final distributed wheel: clean install and17CPU tests PASS; PNG/JPEG/MP4 example
 The same 231 legacy choices **and probabilities matched exactly** in each of the 64K and 256K context configurations. All 54 frozen paired inputs were processed without truncation. Agreement was 7/9 for short inputs, 8/9 near 8K, and 7/9 near 32K, 64K, 128K and 256K; equal totals hide some different errors. These are provisional synthetic labels, not a general accuracy guarantee. The earlier stress-test failures remain in the graph. Long-context quality is future work.
 
 The final wheel was built and installed into a clean target in the pinned GB10 image, passed 26 CPU tests and one real loopback HTTP request, and matched the frozen runtime source hashes. The 256K stage resumed in a separate process with concurrency explicitly permitted and observed; its timing is reference-only. Historical interruption evidence and conservative in-flight budget remain recorded. No multimodal long-context extension or new media-quality claim is made.
+
+## Typed outputs beyond three choices
+
+[New typed-output comparison](TYPED_OUTPUTS.md): five completed configurations,96short synthetic cases/configuration; sixth candidate DiffusionGemma blocked during startup. Reports 2/4/8-choice, binary probability, ordinal score, warm latency and mixed workflows. Gemma and SemIf use research bridges, distinct from the released Gemma3-choice API.
