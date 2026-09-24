@@ -1,0 +1,32 @@
+{
+  "upstream": "https://github.com/rdaum/eider",
+  "commit": "bf42ac73bcc0718d9b86cb48cd590e332efd14af",
+  "source_snapshot": "reports/eider-lowlevel-20260924/source-audit",
+  "files": {
+    "LICENSE": "04aa5e6fb31fd2f52bc36b5c4563a68ace96f2c7e360c6cd2b4af08e0b38b04c",
+    "eider-format/Cargo.toml": "ce08d8708c5c2cabd4deb60825d71d15a8825ab37425dc2641d56c3804ee9d36",
+    "eider-format/src/gguf_quant.rs": "22b3eb586cf7c8a91eed4cb7eb8fc259b809f6e19e7b5f76fd9ec83d4a68d7d9",
+    "eider-format/src/error.rs": "ef221f1613029e86e1a1aba33445f0b3ffa2e8c70fdb61ee0e625090fc1e68f4",
+    "eider-format/src/checkpoint.rs": "31cc1164e2aba1221e8cf3957cd1b4df02035bae513887df6a587cf408be5d71",
+    "eider-format/src/lib.rs": "06959cef4e66689653411f8def56b65bed7b8630c11506bc8178f52ac1c8528e",
+    "eider-format/src/modelopt.rs": "1163c46f96c330155e71048a4cca5e97a8ea8b48244e8b1d4b9e038df2192776",
+    "eider-format/src/nvfp4_artifact.rs": "29ec9d3ac8cb6b7207222d224f0f9a27cdc76f69f7f56baf1d616eb908a77363",
+    "eider-format/src/gguf.rs": "ec2eb6e41574e585690486fce458e0d745bc1ff49b8f8a0afe6605f7bbcb85a5",
+    "eider-format/src/safetensors.rs": "fed94ce433550ff98a7887461725a1d09cf00d262090e9f4d309fc89d24f5f2e",
+    "eider-runtime/Cargo.toml": "529f3e7e96bee1683aacfbdd6f7f7feb067897e90c4d7f48e3f53683793ec9f8",
+    "eider-runtime/src/cache.rs": "84f69d2901020d36a5e7850fa525b1f5b38af4143c20b19d556f4cee775d3d4c",
+    "eider-runtime/src/request.rs": "9415455cfd9343fa0b817d7fa2562ef71b7ef3460243a7a0d6e9b617cda41f89",
+    "eider-runtime/src/decision.rs": "91ae0c75c2c11d952d6aaebc8d363edd11994508b58eebb01eb82a7f335da161",
+    "eider-runtime/src/stop.rs": "8ad6bb5f7b2e07dcd09a8c476b9ddbf1f6b4e1e1d1cf3e3c3016529b5ee76107",
+    "eider-runtime/src/generation.rs": "a42e4eb5e5e389ccd5110ba547e70ae09a76cbfe1a0d3bc83d6d172d29617f86",
+    "eider-runtime/src/lib.rs": "51fb51cd2d6ea10305caea9deac1efec23d95cfc67cf2bbcecd63b5ad9b528c6",
+    "eider-runtime/src/scheduler.rs": "1eb72ba0d600af7bc29af88e9ef0d4b43b180565c3c357919e3e47ebe11c9684",
+    "eider-runtime/src/chat_output.rs": "ab65f323b30745df04792047894c7ae0d20b0ef93949eb2f5843ba13c7064994",
+    "eider-runtime/src/sampling.rs": "ff9001a8bbf52688001ea81417ce6d19ca9798fa76a7942989e000818ac09730",
+    "eider-runtime/src/tool_grammar.rs": "e48a2202e0c662d0d95bf640f0d4dfb4f0ea053e9247e75da58625dfe7061023",
+    "eider-runtime/src/chat.rs": "b79b292c8fb12037c740faf64dc78c8125aba84786c5ac737fb300f721496e57",
+    "eider-runtime/src/engine.rs": "856aeb2b9922800145ee1faaef4b7eb528968cbbe6a8ea2414aa97752be09b70",
+    "api/decisions.rs": "299b94c0eaf041edbe914a31b7e557c3d2e6b4fa2d383ff70fe781c5069f40bc",
+    "api/protocol.rs": "ffcf3643165f77192d92d7e33087ce9828eb92e9db0b333bdc847cecd93ca062"
+  }
+}

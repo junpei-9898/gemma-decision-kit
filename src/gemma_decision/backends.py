@@ -21,7 +21,7 @@ def candidate_ids(tokenizer):
 
 
 class SpeedBackend:
-    def __init__(self,path,media=False,context=65536,kv_bytes=3221225472):
+    def __init__(self,path,media=False,context=65536,kv_bytes=3221225472,decision_logits=False,decision_kv_dtype=None):
         os.environ['VLLM_ENABLE_V1_MULTIPROCESSING']='0'
         import vllm
         if vllm.__version__!='0.26.1.dev0+gf2654939e.d20260726':raise RuntimeError('speed requires the exact documented GB10 image (vLLM 0.26.1.dev0+gf2654939e.d20260726)')
@@ -31,16 +31,35 @@ class SpeedBackend:
         from .nv_head import install_candidates
         install_scale()
         self.media=media
+        self.decision_logits=decision_logits
         if media:
             from .nv_runtime import prepare_attention
             prepare_attention({'query_block':32},{'patches':[]})
         else:install_runtime()
-        self.model=LLM(model=path,trust_remote_code=False,dtype='auto',kv_cache_dtype='auto' if media else 'fp8_e4m3',max_model_len=context,kv_cache_memory_bytes=kv_bytes,gpu_memory_utilization=.25,max_num_seqs=1,max_num_batched_tokens=8192,enable_prefix_caching=media,enforce_eager=True,async_scheduling=False,logprobs_mode='processed_logprobs',limit_mm_per_prompt={'image':int(media),'audio':0,'video':int(media)},mm_processor_cache_gb=.125 if media else 0,seed=0,kernel_config={'moe_backend':'cutlass'})
+        self.model=LLM(model=path,trust_remote_code=False,dtype='auto',kv_cache_dtype=decision_kv_dtype or ('auto' if media else 'fp8_e4m3'),max_model_len=context,kv_cache_memory_bytes=kv_bytes,gpu_memory_utilization=.25,max_num_seqs=1,max_num_batched_tokens=8192,enable_prefix_caching=media,enforce_eager=True,async_scheduling=False,logprobs_mode='raw_logits' if decision_logits else 'processed_logprobs',limit_mm_per_prompt={'image':int(media),'audio':0,'video':int(media)},mm_processor_cache_gb=.125 if media else 0,seed=0,kernel_config={'moe_backend':'cutlass'})
         self.tokenizer=self.model.get_tokenizer();self.ids=candidate_ids(self.tokenizer)
         if not media:self.model.apply_model(lambda m:install_candidates(m,TRIAL,self.ids,None))
         self.params=SamplingParams(temperature=1,top_p=1,top_k=-1,max_tokens=1,allowed_token_ids=self.ids,logprobs=3,seed=0)
 
+    def selected_logits(self, tokens, ids):
+        if not self.decision_logits:raise RuntimeError('Restart with decision_logits=True')
+        if self.media:raise ValueError('Direct Eider media adapter not validated')
+        from .nv_head import install_candidates
+        from .nv_runtime import TRIAL
+        from vllm import SamplingParams
+        import math
+        if self.ids != ids:
+            self.model.apply_model(lambda m:install_candidates(m,TRIAL,ids,None))
+            self.ids=list(ids)
+        params=SamplingParams(temperature=1,top_p=1,top_k=-1,max_tokens=1,allowed_token_ids=ids,logprobs=len(ids),seed=0)
+        r=self.model.generate([{'prompt_token_ids':tokens}],params,use_tqdm=False)[0]
+        if r.prompt_token_ids!=tokens:raise RuntimeError('Backend changed input tokens')
+        values=[r.outputs[0].logprobs[0][i].logprob for i in ids]
+        if not all(math.isfinite(v) for v in values):raise RuntimeError('Nonfinite selected logits')
+        return values
+
     def score(self,tokens):
+        if self.decision_logits:raise RuntimeError('Use selected_logits with the Eider bridge')
         import math
         r=self.model.generate([{'prompt_token_ids':tokens}],self.params,use_tqdm=False)[0]
         if r.prompt_token_ids!=tokens:raise RuntimeError('Backend changed input tokens')
