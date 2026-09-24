@@ -1,6 +1,15 @@
 # Gemma Decision Kit
 
-**NVFP4版Gemma 4で、テキスト・画像・短い動画を3択判定するローカル実行キット**です。文章の回答を生成せず、選択結果と未校正の確率分布を返します。
+**テキスト・画像・短い動画・音声を扱う、NVFP4版Gemma 4のローカル3択判定キット**です。判定は選択結果と未校正の確率分布を返します。音声はMOSSで文字起こし・話者分離・発話時刻の取得を行い、そのテキストをGemmaへ渡します。文字起こし単体でも利用できます。
+
+| 入力 | 処理内容 | 使い方 |
+|---|---|---|
+| テキスト | 本文をGemmaで3択判定 | `predict` / HTTP |
+| 画像 | PNG/JPEG 1枚の視覚情報を判定 | `--media`＋画像JSON / HTTP |
+| 動画 | 最大10秒のMP4 1本からフレームを抽出して判定 | `--media`＋動画JSON / HTTP |
+| 音声・動画の音声トラック | 最大30分の音声をMOSSで文字起こしし、必要に応じてGemmaで判定 | `transcribe` / `predict --audio`（CLI・Pythonのみ） |
+
+音声機能のコードはv0.4.0に同梱しています。MOSS重み・音声用依存環境・FFmpegは別途セットアップが必要です。**MOSS単体の実機動作は確認済みですが、音声→Gemmaの実機通し試験はswap増加による停止で未完了です。** [導入手順](docs/AUDIO.md)・[検証状況](docs/AUDIO-VALIDATION.md)。動画の視覚処理と音声処理は別の入力経路で、動画を指定するだけで両方が自動処理されるわけではありません。
 
 ## 日本語判定の精度と速度
 
@@ -64,8 +73,8 @@ Laya・NanoJevはこの短文ではさらに高速ですが、本タスクの一
 - v0.2.0はNVFP4に一本化。EXL3は現行配布から外し、旧v0.1.0の履歴に保持。
 - 通常起動は従来のテキスト高速構成。`--media`で画像・動画に対応する構成を起動。
 - 同じNVFP4モデルを使いますが、テキスト専用と画像・動画対応ではKV設定や最適化が異なります。
-- 画像はPNG/JPEGを1枚、動画はMP4を1本。動画はフレームを抽出して視覚情報を判定し、音声は処理しません。
-- 3択・複数質問の逐次処理。真偽値型、score型、自由文生成、音声は未対応。
+- 画像はPNG/JPEGを1枚、動画はMP4を1本。`--media`の動画処理はフレームから視覚情報を判定します。音声トラックは別途`--audio`で指定します。
+- 3択・複数質問の逐次処理。真偽値型、score型、Gemmaによる自由文生成は未対応。音声の文字起こしはMOSSで対応。
 - 実機確認環境はEdge Xpert / GB10、Linux ARM64。別GPUでの動作や性能は未認定。
 
 ```sh
@@ -73,6 +82,10 @@ gemma-decision predict --model-path /models/nvfp4 --input examples/request.json
 gemma-decision predict --media --model-path /models/nvfp4 --input examples/image-request.json
 gemma-decision predict --media --model-path /models/nvfp4 --input examples/video-request.json
 gemma-decision serve --media --model-path /models/nvfp4 --port 8765
+# 音声用セットアップ後：音声ファイル、または動画の音声トラックを判定
+gemma-decision predict --model-path /models/nvfp4 --input examples/request.json \
+  --audio /input/recording.mp4 --audio-model-path /models/moss \
+  --audio-python /state/moss-env/bin/python --transcript-output /state/transcript.json
 ```
 
 [導入手順](docs/INSTALL.md)・[画像/動画のAPIと制限](docs/MEDIA.md)・[検証結果](docs/BENCHMARKS.md)。APIは127.0.0.1限定です。
@@ -96,7 +109,7 @@ gemma-decision serve --media --model-path /models/nvfp4 --port 8765
 
 MOSSで文字起こし・匿名話者・発話時刻を取得し、`predict --audio`でGemma4へ渡せます。`transcribe`単体にも対応。MOSS終了後にGemmaをロードします。HTTP音声は対象外です。重みや会議素材は同梱せず、adapter・固定manifest・noticeを配布します。
 
-[Audio setup, commands, limits and privacy](docs/AUDIO.md).
+[音声の導入・コマンド・制限](docs/AUDIO.md)・[実機検証の状況](docs/AUDIO-VALIDATION.md)。
 
 ## 3択以外の出力形式の比較（追加検証）
 

@@ -1,8 +1,23 @@
 # Gemma Decision Kit
 
-Local **NVFP4 Gemma 4 decisions for text, images and short videos**: three named choices with an **uncalibrated probability distribution**, without prose generation. v0.3.0 extends text input to the native256K context (262143input tokens); the default is64K. NVFP4 only; EXL3 remains in historical v0.1.0. [Context setup and measured accuracy](docs/CONTEXT.md).
+Local **NVFP4 Gemma 4 decisions for text, images, short videos and audio**: three named choices with an **uncalibrated probability distribution**, without prose generation. v0.3.0 extends text input to the native256K context (262143input tokens); the default is64K. NVFP4 only; EXL3 remains in historical v0.1.0. [Context setup and measured accuracy](docs/CONTEXT.md).
 
 Experimental release. Independent implementation inspired by state + typed questions; not an official Jev clone or drop-in Eider API. No new model training, no bundled weights. [日本語](README.ja.md).
+
+## Supported inputs
+
+| Input | Processing | Interface |
+|---|---|---|
+| Text | Gemma three-choice decisions | `predict` / HTTP |
+| Image | Visual analysis of one PNG/JPEG | `--media` with image JSON / HTTP |
+| Video | Sampled frames from one MP4, up to10seconds | `--media` with video JSON / HTTP |
+| Audio / video audio track | MOSS transcription, anonymous speakers and utterance times, optionally passed to Gemma; up to30minutes | `transcribe` / `predict --audio` (CLI/Python only) |
+
+v0.4.0 bundles the audio adapter. MOSS weights, audio dependencies and FFmpeg require separate
+setup. MOSS converts speech to text; Gemma does not gain a native audio encoder. Visual video
+input does not automatically process its audio track. **MOSS GPU transcription is verified;
+the audio-to-Gemma GPU trial stopped on new swapout, so end-to-end acceptance is pending.**
+[Audio setup](docs/AUDIO.md) · [Validation status](docs/AUDIO-VALIDATION.md).
 
 ## Accuracy and speed on our Japanese decision task
 
@@ -91,7 +106,7 @@ curl http://127.0.0.1:8765/v1/decisions \
 
 Input: text `state`, 1–64 named `questions` (`type: "choice"`, `instructions`, exactly three ordered `criteria`), and optionally one `media` object. Choices map to A/B/C in insertion order. [Media contract and limits](docs/MEDIA.md). All questions run sequentially. Text defaults to65535input tokens per question, with opt-in131071/262143limits; media mode remains8192. The limit includes the state, question, choices and chat template. Requests exceeding the configured limit or524288aggregate input tokens fail before inference, without truncation. Output includes choice, probability distribution, token usage and media metadata when present. Probabilities are not calibrated correctness guarantees.
 
-HTTP binds only127.0.0.1. Use an authenticated tunnel for remote use. This is a small local serialized API, not an Internet production gateway. No audio, free-text generation, Boolean/score types, arbitrary choice counts, dynamic GPU batching, tensor parallelism or LoRA. Video is sampled-frame visual analysis; its audio track is not processed.
+HTTP binds only127.0.0.1. Use an authenticated tunnel for remote use. This is a small local serialized API, not an Internet production gateway. No HTTP audio, Gemma free-text generation, Boolean/score types, arbitrary choice counts, dynamic GPU batching, tensor parallelism or LoRA. `--media` video uses sampled-frame visual analysis; use the separate `--audio` path for speech.
 
 ## Evidence and license
 
@@ -112,7 +127,15 @@ Observed on the9paired cases: short**7/9 (77.8%)**, near256K**7/9 (77.8%)**. Thi
 
 MOSS provides text, anonymous speakers and utterance timestamps. Use `transcribe` alone or `predict --audio` to feed Gemma4. MOSS exits before Gemma loads. HTTP audio is not supported. Adapters, a pinned manifest and notices are bundled; weights and meeting material are not.
 
-[Audio setup, commands, limits and privacy](docs/AUDIO.md).
+After [audio setup](docs/AUDIO.md), pass a local recording and your existing question JSON:
+
+```sh
+gemma-decision predict --model-path /models/nvfp4 --input examples/request.json \
+  --audio /input/recording.mp4 --audio-model-path /models/moss \
+  --audio-python /state/moss-env/bin/python --transcript-output /state/transcript.json
+```
+
+[Commands, limits and privacy](docs/AUDIO.md) · [GPU acceptance status](docs/AUDIO-VALIDATION.md).
 
 ## Beyond three choices: additional typed-output evaluation
 
