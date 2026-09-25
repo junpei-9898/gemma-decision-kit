@@ -5,7 +5,6 @@ SOURCE_PREFIX='0.26.1.dev0+gf2654939e'
 
 
 def select_hardware(requested, *, capability, name, machine, system):
-    if requested=='gb10':requested='spark'
     if requested not in ('auto','spark','standard'):raise ValueError('Unknown hardware profile')
     if system!='Linux':raise ValueError('This CUDA distribution requires Linux')
     if len(capability)!=2 or capability[0]<10:
@@ -16,7 +15,7 @@ def select_hardware(requested, *, capability, name, machine, system):
 
 
 def validate_runtime(version, hardware):
-    supported=version==PINNED_VLLM if hardware in ('spark','gb10') else (version==SOURCE_PREFIX or version.startswith(SOURCE_PREFIX+'.'))
+    supported=version==PINNED_VLLM if hardware=='spark' else (version==SOURCE_PREFIX or version.startswith(SOURCE_PREFIX+'.'))
     if not supported:raise RuntimeError('Use the pinned vLLM f2654939e runtime; Spark tuning requires the documented exact build. Other versions are unverified.')
 
 

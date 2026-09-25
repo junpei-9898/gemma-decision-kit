@@ -8,7 +8,7 @@ import os
 from pathlib import Path
 import sys
 import tempfile
-from .contracts import AudioError,validate_transcript,add_evidence
+from .contracts import AudioError,validate_transcript
 from .ingest import decode_audio
 from .process import run_owned
 
@@ -45,19 +45,3 @@ def transcribe(source,model_path,*,python=None,max_seconds=1800,timeout=1800,max
         except (ValueError,TypeError,KeyError):raise AudioError('Worker returned an invalid transcript') from None
         if abs(result['duration_seconds']-duration)>1/16000:raise AudioError('Worker changed audio coverage')
         return result
-
-
-def predict_audio(body,source,model_path,*,engine_factory,transcript_output=None,validator=None,**options):
-    from ..core import validate
-    (validator or validate)(body)
-    if transcript_output is not None and Path(transcript_output).exists():raise AudioError('Transcript output already exists')
-    transcript=transcribe(source,model_path,**options)
-    prepared=add_evidence(body,transcript,validator=validator)
-    if transcript_output is not None:write_private_json(transcript_output,transcript)
-    # MOSS has exited before this factory starts Gemma and allocates its model/KV memory.
-    engine=engine_factory()
-    result=engine.predict(prepared)
-    result['audio']={k:transcript[k] for k in ['schema_version','status','model','duration_seconds','sample_rate','warnings','usage']}
-    result['audio']['segment_count']=len(transcript['segments'])
-    result['audio']['speaker_count']=len({s['speaker'] for s in transcript['segments'] if s['speaker']!='S0000'})
-    return result

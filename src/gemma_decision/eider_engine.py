@@ -14,8 +14,8 @@ def validate(body):
     if 'media' in body:
         from .media import validate_media
         validate_media(body['media'])
-    from .profiles import PROFILES
-    if 'model' in body and body['model'] not in ('local-gemma4',PROFILES['speed']['model']):raise ValueError('Requested model is not the served NVFP4 Gemma checkpoint')
+    from .model import MODEL
+    if 'model' in body and body['model'] not in ('local-gemma4',MODEL['model']):raise ValueError('Requested model is not the served NVFP4 Gemma checkpoint')
     qs=body['questions']
     if not isinstance(qs,dict) or not 1<=len(qs)<=64:raise ValueError('Expected 1..64 questions')
     for key,q in qs.items():
@@ -35,7 +35,7 @@ def validate(body):
 
 
 class EiderEngine(EiderDecision):
-    def __init__(self,profile,model_path,max_input_tokens=None,media=False,bridge_library=None,hardware="auto"):
+    def __init__(self,model_path,max_input_tokens=None,media=False,bridge_library=None,hardware="auto"):
         if not __debug__:raise RuntimeError("Python -O disables required runtime guards; use normal Python")
         with _LOCK:
             limit,context,kv=context_settings(max_input_tokens,media)
@@ -45,7 +45,5 @@ class EiderEngine(EiderDecision):
             if _LOADED:raise RuntimeError('One backend/bridge per process; restart to change configuration')
             bridge=EiderBridge(library,model_path)
             from .backends import load_backend
-            if profile!='speed':raise ValueError('Only speed model profile is distributed')
-            backend=load_backend(profile,model_path,media=media,context=context,kv_bytes=kv,decision_logits=True,hardware=hardware)
+            backend=load_backend(model_path,media=media,context=context,kv_bytes=kv,hardware=hardware)
             super().__init__(bridge,backend,limit+1)
-            self.profile=profile

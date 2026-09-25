@@ -1,8 +1,8 @@
 # Hardware profiles
 
-The canonical optimized profile is `spark`: DGX Spark and GB10-based OEM systems such as Edge Xpert share this policy. Selection checks the GB10 GPU and Linux ARM64 architecture, not the chassis brand. Real-machine results here were measured on Edge Xpert; other OEM products have not been independently tested. The old `gb10` input remains a compatibility alias, normalized to `spark`; responses now report `hardware_profile: "spark"`. Historical benchmark files retain their original `gb10` labels.
+The canonical optimized profile is `spark`: DGX Spark and GB10-based OEM systems such as Edge Xpert share this policy. Selection checks the GB10 GPU and Linux ARM64 architecture, not the chassis brand. Real-machine results here were measured on Edge Xpert; other OEM products have not been independently tested. The `gb10` input alias was removed in v0.7; responses report `hardware_profile: "spark"`. Historical benchmark files retain their original `gb10` labels.
 
-Model selection and hardware tuning are separate. `--profile speed` still selects the one pinned NVFP4 Gemma checkpoint. `--hardware auto|spark|standard` selects execution policy; `--semantics legacy|eider` independently selects the decision contract. Eider remains opt-in because the AV quality gate is unresolved.
+One pinned NVFP4 checkpoint and Eider semantics are always used. `--hardware auto|spark|standard` only selects execution policy.
 
 | Policy | Selection / implementation |
 |---|---|
@@ -24,14 +24,14 @@ GB10 requires the exact documented runtime `0.26.1.dev0+gf2654939e.d20260726`. S
 
 ```sh
 # Existing GB10 installation; Eider Rust bridge already configured:
-gemma-decision serve --semantics eider --hardware auto --model-path /models/nvfp4 --media
+gemma-decision serve --hardware auto --model-path /models/nvfp4 --media
 
 # Explicit standard policy in a compatible runtime (other GPU hardware unverified):
-gemma-decision predict --semantics eider --hardware standard \
+gemma-decision predict --hardware standard \
   --model-path /models/nvfp4 --input examples/eider-request.json
 ```
 
-Python: `EiderEngine('speed', model_dir, hardware='auto')`. The Eider response includes the selected `hardware_profile`. CLI `serve-input` forwards the hardware policy to its isolated workers. Changing profiles requires a process restart; it never changes or downloads model weights.
+Python: `EiderEngine(model_dir, hardware='auto')`. The Eider response includes the selected `hardware_profile`. CLI `serve-input` forwards the hardware policy to its isolated workers. Changing profiles requires a process restart; it never changes or downloads model weights.
 
 ## GB10 control measurement
 

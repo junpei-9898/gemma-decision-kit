@@ -8,7 +8,7 @@ import os
 from pathlib import Path
 import tempfile
 from ..audio.contracts import AudioError
-from ..core import validate
+from ..eider_engine import validate
 from .sources import inspect_source, digest, clip, windows
 from .transcripts import obtain
 from .aggregation import split_request,reduce_windows

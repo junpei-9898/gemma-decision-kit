@@ -1,9 +1,9 @@
-include LICENSE NOTICE
+include LICENSE NOTICE README.md README.ja.md
 recursive-include licenses *.txt
-recursive-include docs *.md *.json
+include docs/INSTALL.md docs/EIDER.md docs/HARDWARE.md docs/MIGRATION.md docs/AUDIO.md docs/UNIFIED_INPUT.md docs/MEDIA.md docs/LICENSES.md docs/model-licenses.json
 recursive-include scripts *.py
 recursive-include examples *.json *.png *.mp4 *.md
 recursive-include tests *.py
-
 recursive-include native/eider-bridge *.rs *.toml *.lock *.json LICENSE NOTICE
-recursive-include benchmarks/eider-release *.json *.md
+prune docs/history
+prune benchmarks

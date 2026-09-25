@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "gemma-decision-kit"
-version = "0.6.1"
+version = "0.7.0"
 description = "Eider typed decisions with optimized NVFP4 Gemma and local multimodal inputs"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}

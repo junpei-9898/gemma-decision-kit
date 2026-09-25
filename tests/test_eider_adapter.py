@@ -11,12 +11,12 @@ class Bridge:
     def call(self,**command):
         self.ops.append(command)
         if command['op']=='prepare':return {'prefix_tokens':[1,2], 'branches':[{'question_id':str(i),'suffix_tokens':[3], 'label_token_ids':[10,11]} for i in range(self.branches)]}
-        if command['op']=='finish':return {'usage':{'input_tokens':2+self.branches},'answers':{str(i):{'type':'noul','probability':.5} for i in range(self.branches)}}
+        if command['op']=='finish':return {'usage':{'input_tokens':2+self.branches},'answers':{str(i):{'type':'noul','noul':.5} for i in range(self.branches)}}
         return {}
 class EiderTests(unittest.TestCase):
     def test_optimized_python_refused_before_load(self):
         import subprocess,sys
-        r=subprocess.run([sys.executable,'-O','-c',"from gemma_decision.eider_engine import EiderEngine; EiderEngine('speed','/missing')"],capture_output=True,text=True)
+        r=subprocess.run([sys.executable,'-O','-c',"from gemma_decision.eider_engine import EiderEngine; EiderEngine('/missing')"],capture_output=True,text=True)
         self.assertNotEqual(r.returncode,0);self.assertIn('runtime guards',r.stderr)
     def backend(self):return Mock(decision_logits=True,media=False,selected_logits=Mock(return_value=[0.,0.]))
     def test_all_branches_budget_preflight_and_discard(self):
@@ -51,8 +51,8 @@ class EiderTests(unittest.TestCase):
     def test_cli_eider_media_explicit(self):
         from gemma_decision.cli import main
         import io
-        with patch('sys.argv',['gemma-decision','predict','--semantics','eider','--media','--model-path','/model','--bridge-library','/lib']),patch('sys.stdin',io.StringIO(json.dumps(BODY))),patch('sys.stdout',io.StringIO()),patch('gemma_decision.eider_engine.EiderEngine') as init:
+        with patch('sys.argv',['gemma-decision','predict','--media','--model-path','/model','--bridge-library','/lib']),patch('sys.stdin',io.StringIO(json.dumps(BODY))),patch('sys.stdout',io.StringIO()),patch('gemma_decision.cli.EiderEngine') as init:
             init.return_value.predict.return_value={}
             main()
-        init.assert_called_once_with('speed','/model',None,media=True,bridge_library='/lib',hardware='auto')
+        init.assert_called_once_with('/model',None,media=True,bridge_library='/lib',hardware='auto')
 if __name__=='__main__':unittest.main()

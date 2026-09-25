@@ -2,7 +2,7 @@
 
 Start with `--media`. This loads the NVFP4 checkpoint's vision encoder and the existing validated vision recipe (BF16/auto KV,3GiB KV,16384 internal context, prefix cache enabled,128MiB processor cache, query32). Text mode keeps its FP8 KV and compact decision head/MoE optimizations. Media mode deliberately does not inherit those text-only optimizations without validation.
 
-The text contract stays unchanged. Add:
+Use the Eider typed request envelope. Add:
 
 ```json
 {"media":{"type":"image","data":"data:image/png;base64,..."}}
@@ -23,4 +23,4 @@ python3 scripts/media-request.py video /path/clip.mp4 examples/request.json > my
 
 The client helper reads a local file explicitly chosen by you; the server itself does not open request-provided paths. Adapt the questions/state in your template. The output distributions are uncalibrated.
 
-The v0.3.0 extension applies to text mode only. `--media` retains the previous8192expanded-input limit,16384internal context and3GiB KV. No image/video limit or audio support has been added.
+The v0.3.0 extension applies to text mode only. `--media` retains the previous8192expanded-input limit,16384internal context and3GiB KV. For speech or audio-bearing video, use `analyze --source` (or `serve-input`); these decode audio with MOSS and align it with visual windows. Direct `predict --media` processes only the supplied visual stream.

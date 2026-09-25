@@ -6,7 +6,7 @@ class HardwareTests(unittest.TestCase):
         options=dict(capability=(12,1),name='NVIDIA GB10',machine='aarch64',system='Linux');options.update(kwargs)
         return select_hardware(requested,**options)
     def test_gb10_auto_and_standard_opt_in(self):
-        self.assertEqual(self.select('gb10'),'spark');self.assertEqual(self.select('spark'),'spark');self.assertEqual(self.select(),'spark');self.assertEqual(self.select('standard'),'standard')
+        self.assertEqual(self.select('spark'),'spark');self.assertEqual(self.select(),'spark');self.assertEqual(self.select('standard'),'standard')
     def test_other_blackwell_gets_no_gb10_patches(self):
         for name,cc in [('RTX 5090',(12,0)),('NVIDIA B200',(10,0))]:
             self.assertEqual(self.select(name=name,capability=cc,machine='x86_64'),'standard')

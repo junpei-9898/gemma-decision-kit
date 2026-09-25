@@ -2,8 +2,8 @@
 import argparse
 import json
 import sys
-from .profiles import PROFILES
-from .core import DecisionEngine, validate
+from .model import MODEL
+from .eider_engine import EiderEngine, validate
 
 
 def parse_json(text):
@@ -17,12 +17,10 @@ def parse_json(text):
 
 
 def main():
-    p=argparse.ArgumentParser(description='Local NVFP4 three-choice decisions')
+    p=argparse.ArgumentParser(description='Eider typed decisions with optimized NVFP4 Gemma')
     p.add_argument('command',choices=['info','validate','predict','serve','transcribe','download-audio','analyze','serve-input'])
-    p.add_argument('--semantics',choices=['eider','legacy'],default='legacy')
-    p.add_argument('--hardware',choices=['auto','spark','standard','gb10'],default='auto',help='Spark / GB10 OEM tuning or standard kernels; gb10 is a compatibility alias; other GPU hardware remains unverified')
+    p.add_argument('--hardware',choices=['auto','spark','standard'],default='auto',help='Spark / GB10 OEM tuning or standard kernels; other GPU hardware remains unverified')
     p.add_argument('--bridge-library',help='Path to pinned Eider Rust bridge library')
-    p.add_argument('--profile',choices=PROFILES,default='speed')
     p.add_argument('--model-path')
     p.add_argument('--media',action='store_true',help='Load vision encoder and validated image/video recipe')
     p.add_argument('--input',default='-',help='JSON path or stdin')
@@ -38,23 +36,17 @@ def main():
     p.add_argument('--audio-max-seconds',type=float,default=1800)
     p.add_argument('--audio-timeout',type=float,default=1800)
     p.add_argument('--audio-max-new-tokens',type=int,default=16384)
-    p.add_argument('--transcript-output',help='New private transcript JSON file for predict --audio')
-    p.add_argument('--output',help='New private JSON output file (predict/transcribe)')
+    p.add_argument('--output',help='New private JSON output file (predict/analyze/transcribe)')
     args=p.parse_args()
-    if args.semantics=='eider':
-        from .eider_engine import EiderEngine, validate as validator
-        engine_factory=lambda media=False:EiderEngine(args.profile,args.model_path,args.max_input_tokens,media=media,bridge_library=args.bridge_library,hardware=args.hardware)
-    else:
-        validator=validate
-        engine_factory=lambda media=False:DecisionEngine(args.profile,args.model_path,args.max_input_tokens,media=media,hardware=args.hardware)
+    validator=validate
+    engine_factory=lambda media=False:EiderEngine(args.model_path,args.max_input_tokens,media=media,bridge_library=args.bridge_library,hardware=args.hardware)
     from .audio.contracts import AudioError
-    from .audio.pipeline import transcribe,predict_audio,write_private_json
+    from .audio.pipeline import transcribe,write_private_json
     def emit(value):
         if args.output:write_private_json(args.output,value)
         else:print(json.dumps(value,ensure_ascii=False))
-    if args.audio and args.command not in ['transcribe','predict']:p.error('--audio supports transcribe/predict only; HTTP audio is not supported')
+    if args.audio and args.command!='transcribe':p.error('--audio is for transcribe; use analyze --source for audio decisions')
     if args.output and args.command not in ['transcribe','predict','analyze']:p.error('--output supports transcribe/predict/analyze only')
-    if args.transcript_output and not (args.command=='predict' and args.audio):p.error('--transcript-output requires predict --audio')
     if args.output:
         from pathlib import Path
         if Path(args.output).exists():p.error('Output already exists')
@@ -74,10 +66,10 @@ def main():
         except Exception:p.error('Audio setup or runtime failed; input details suppressed')
     if args.command in ['analyze','serve-input']:
         if not args.model_path:p.error('--model-path is required')
-        if args.audio or args.media or args.transcript_output:p.error('Unified input selects its own audio/media route')
+        if args.audio or args.media:p.error('Unified input selects its own audio/media route')
         if args.command=='serve-input':
             from .inputs.http import serve
-            options=['--hardware',args.hardware,'--semantics',args.semantics,'--model-path',args.model_path,'--profile',args.profile,
+            options=['--hardware',args.hardware,'--model-path',args.model_path,
                      '--max-decisions',str(args.max_decisions),'--max-total-tokens',str(args.max_total_tokens)]
             for flag,value in [('--bridge-library',args.bridge_library),('--audio-model-path',args.audio_model_path),('--audio-python',args.audio_python),('--cache-dir',args.cache_dir)]:
                 if value:options.extend([flag,value])
@@ -100,7 +92,7 @@ def main():
         if result['status']!='complete':raise SystemExit(2)
         return
     if args.command=='info':
-        print(json.dumps(PROFILES,indent=2));return
+        print(json.dumps(MODEL,indent=2));return
     if args.command in ['validate','predict']:
         text=sys.stdin.read(8*1024**2+1) if args.input=='-' else open(args.input,encoding='utf-8').read(8*1024**2+1)
         if len(text.encode('utf-8'))>8*1024**2:p.error('Input exceeds 8MiB')
@@ -108,17 +100,6 @@ def main():
         except (ValueError,TypeError) as exc:p.error(str(exc))
         if args.command=='validate':print('{"valid":true}');return
     if not args.model_path:p.error('--model-path is required')
-    if args.command=='predict' and args.audio:
-        if not args.audio_model_path:p.error('--audio-model-path is required')
-        from contextlib import redirect_stdout
-        try:
-            with redirect_stdout(sys.stderr):
-                result=predict_audio(body,args.audio,args.audio_model_path,
-                    engine_factory=lambda:engine_factory(media=args.media),validator=validator,
-                    transcript_output=args.transcript_output,**audio_options)
-            emit(result);return
-        except AudioError as exc:p.error(str(exc))
-        except Exception:p.error('Audio decision failed; input details suppressed')
     # Runtime libraries may print during initialization/inference; stdout is JSON only.
     from contextlib import redirect_stdout
     with redirect_stdout(sys.stderr):

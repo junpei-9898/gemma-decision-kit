@@ -32,14 +32,14 @@ Read [model licenses](LICENSES.md), then explicitly download the NVFP4 checkpoin
 docker run --name gemma-kit-download --user "$(id -u):$(id -g)" \
   -e HOME=/state -e PYTHONPATH=/state/package \
   -v "$PWD":/app:ro -v "$PWD/state":/state -w /app \
-  --entrypoint python3 "$IMAGE" scripts/download-model.py speed /state/model-nvfp4
+  --entrypoint python3 "$IMAGE" scripts/download-model.py /state/model-nvfp4
 ```
 
-The script pins model revisions from `gemma_decision.profiles` and refuses an existing target. Do not point a profile at a different checkpoint and assume equivalent predictions. Keep enough disk space for the model and caches; downloads are not included in the package. Supply credentials through your own local Hugging Face setup if upstream access requires them; never put tokens into this repository.
+The script pins model revisions from `gemma_decision.model` and refuses an existing target. Do not supply a different checkpoint and assume equivalent predictions. Keep enough disk space for the model and caches; downloads are not included in the package. Supply credentials through your own local Hugging Face setup if upstream access requires them; never put tokens into this repository.
 
 ## Build the Eider bridge
 
-For Eider mode, follow [Eider setup](EIDER.md), pass `GEMMA_EIDER_LIBRARY` into the container, and add `--semantics eider`. The default remains legacy choice3 while combined AV non-regression is unresolved.
+The Eider CPU bridge is required for every decision. Follow [Eider setup](EIDER.md) and pass `GEMMA_EIDER_LIBRARY` into the inference container. There is no legacy fallback; build the bridge before starting prediction.
 
 ## Predict (offline)
 
@@ -53,14 +53,14 @@ docker run --name gemma-kit-predict --gpus all --network none \
   -e MAX_JOBS=4 -e OMP_NUM_THREADS=4 -e TOKENIZERS_PARALLELISM=true -e RAYON_NUM_THREADS=4 \
   -v "$PWD":/app:ro -v "$PWD/state":/state -w /app \
   --entrypoint python3 "$IMAGE" -m gemma_decision.cli predict \
-  --profile speed --model-path /state/model-nvfp4 --input examples/request.json
+  --model-path /state/model-nvfp4 --input examples/request.json
 ```
 
 Add `--media` to predict images/videos, and choose `examples/image-request.json` or `examples/video-request.json`. Only one NVFP4 model loads. Startup and first-use kernel compilation are excluded from warm speed claims. Preserve your existing model files when upgrading the package; EXL3 installation is no longer needed.
 
 ## Serve
 
-Use the same runtime arguments, change `predict` to `serve --profile speed --model-path /state/model-nvfp4 --port 8765`, and omit `--input`. On Linux use `--network host` instead of `--network none`; the application **still binds only 127.0.0.1**. Docker `-p` alone cannot reach a loopback-only service inside an ordinary bridge network. Use an SSH tunnel for authenticated remote access; no unauthenticated LAN listener is provided.
+Use the same runtime arguments, change `predict` to `serve --model-path /state/model-nvfp4 --port 8765`, and omit `--input`. On Linux use `--network host` instead of `--network none`; the application **still binds only 127.0.0.1**. Docker `-p` alone cannot reach a loopback-only service inside an ordinary bridge network. Use an SSH tunnel for authenticated remote access; no unauthenticated LAN listener is provided.
 
 `GET /health`; `POST /v1/decisions` with `Content-Type: application/json`. Stop this owned container normally with `docker stop gemma-kit-serve` (give it a sufficient timeout for an active request); do not kill other workloads. Start with `--media` to accept images/videos. Restart to change media mode. There is no automatic simultaneous model residency.
 

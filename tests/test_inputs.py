@@ -143,10 +143,14 @@ class InputsTests(unittest.TestCase):
                     body={'request':BODY,'source':{'extension':'.txt','base64':base64.b64encode(b'test').decode()}}
                     req=Request(url,json.dumps(body).encode(),headers={'Content-Type':'application/json'})
                     with urlopen(req) as r:self.assertEqual(json.load(r)['status'],'complete')
+                    for question in [{'type':'noul','instructions':'true?'},{'type':'score','instructions':'level?','criteria':['low','high']}]:
+                        body['request']={'state':'x','questions':{'q':question}}
+                        with urlopen(Request(url,json.dumps(body).encode(),headers={'Content-Type':'application/json'})) as r:
+                            self.assertEqual(json.load(r)['status'],'complete')
                     body['source']={'path':'/private/file'}
                     with self.assertRaises(HTTPError) as ctx:
                         urlopen(Request(url,json.dumps(body).encode(),headers={'Content-Type':'application/json'}))
-                    self.assertEqual(ctx.exception.code,400);self.assertEqual(run.call_count,1)
+                    self.assertEqual(ctx.exception.code,400);self.assertEqual(run.call_count,3)
             finally:server.shutdown();thread.join()
 
 if __name__=='__main__':unittest.main()

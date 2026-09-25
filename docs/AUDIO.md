@@ -1,11 +1,11 @@
-# Local MOSS audio (v0.4.0)
+# Local MOSS audio
 
 `transcribe` produces Japanese/multilingual text, anonymous speaker labels and utterance times.
-`predict --audio` runs this step and supplies the transcript to the existing Gemma choice engine.
+`analyze --source` supplies the transcript to the Eider decision engine and pairs it with video when present.
 MOSS exits before Gemma loads. This adds preprocessing; it does not add an audio encoder to Gemma.
 v0.5.0 verifies the actual MOSS→Gemma path; see [current validation](UNIFIED_VALIDATION.md).
 The [v0.4.0 failed trial](AUDIO-VALIDATION.md) remains recorded.
-Audio is CLI/Python only. Existing HTTP endpoints do not accept audio files or paths.
+`serve-input` accepts bounded inline audio/video uploads; `serve` accepts decision JSON, not audio files or paths.
 
 ## Pinned worker setup
 
@@ -69,23 +69,15 @@ python3 -m gemma_decision.cli transcribe --audio /input/recording.mp4 \
   --audio-model-path /state/model-moss --audio-python /state/moss-env/bin/python \
   --output /state/transcript.json
 
-python3 -m gemma_decision.cli predict --model-path /state/model-nvfp4 \
-  --input /app/examples/request.json --audio /input/recording.mp4 \
+python3 -m gemma_decision.cli analyze --model-path /state/model-nvfp4 \
+  --input /app/examples/request.json --source /input/recording.mp4 \
   --audio-model-path /state/model-moss --audio-python /state/moss-env/bin/python \
-  --transcript-output /state/transcript-for-decision.json --output /state/decision.json
+  --output /state/analysis.json
 ```
 
-The `state` field supplies the task context; recognized utterances are appended as quoted JSON evidence.
-Questions retain exactly three choices. Each question is tokenized in full before decision inference;
-existing context and aggregate token caps apply. No silent truncation, automatic summary or retrieval.
-Decision JSON keeps existing fields and adds `audio` metadata/usage, without transcript content.
-Transcript JSON contains `segments:[{start,end,speaker,text}]`; times are seconds from the recording start.
-Without `--output`, JSON is emitted to stdout. File outputs are mode0600 and refuse overwrite.
+`analyze` uses the Eider typed contract and returns `decision`, coverage and `audio.transcript` evidence. Each request respects context and aggregate limits; no silent truncation. Video additionally uses visual features. See [unified input](UNIFIED_INPUT.md) for result structure and multi-window limits.
 
-Python: `from gemma_decision.audio import transcribe, predict_audio`.
-`predict_audio(body, source, model_path, engine_factory=..., python=...)` creates the engine only
-after the audio subprocess exits. Do not preload a GPU engine in the factory closure if avoiding
-simultaneous residency is required.
+For standalone transcription: `from gemma_decision.audio import transcribe`. For decisions use `gemma_decision.inputs.analyze` with `engine_factory=lambda media: EiderEngine(model_dir, media=media)`; do not preload Gemma before MOSS. Output files are private and never overwritten. Audio tuning flags apply to standalone `transcribe`; unified input uses the fixed limits described below.
 
 ## Limits and failure behavior
 
@@ -105,7 +97,7 @@ simultaneous residency is required.
   this is not a verified single speaker. Missing/invalid timestamps or partially parsed text still fail. Times are utterance spans, not word times.
   Simultaneous-speaker/source separation, face matching, long-audio chunk speaker reconciliation and word alignment
   are not implemented. Recognition mistakes and attribution mistakes remain possible.
-- CLI jobs are synchronous. Server-side audio uploads/background jobs are not part of this release.
+- CLI jobs are synchronous. Bounded uploads use `serve-input`; background jobs are not implemented.
 
 ## Measurement scope
 

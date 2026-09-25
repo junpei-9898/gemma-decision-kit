@@ -1,6 +1,6 @@
-# Unified local inputs (v0.5.0)
+# Unified local inputs
 
-`analyze` accepts one local source and the existing three-choice question JSON. It inspects
+`analyze` accepts one local source and Eider typed question JSON. It inspects
 actual streams, automatically selects text/vision/audio processing and returns processing
 coverage. Install [Gemma](INSTALL.md) and [MOSS/FFmpeg](AUDIO.md) first. Weights remain separate.
 
@@ -32,7 +32,7 @@ rejected: general track retiming is not implemented.
    a final Gemma call considers the local choices and question semantics; no probability
    averaging or majority rule is programmed.
 
-**This aggregation is limited to local three-choice judgments.** It is not a visual narrative
+**Multi-window aggregation supports choice questions only; score/noul is rejected before loading models.** Explicit any/all requires three mapped criteria. It is not a visual narrative
 summary, and it does not re-examine all original frames/transcripts together. Cross-window
 causal relations or ambiguous references can remain unresolved. Use an explicit insufficient-
 evidence choice in your question when uncertainty matters. `evidence` lists inspected material;
@@ -97,7 +97,7 @@ chunked transfer or upload identifiers are accepted. Requests are serialized and
 owned worker process, with3600second timeout, private temporary files and no request logs.
 Models reload per request. Use the pinned container with `--network none`; library offline flags
 alone are not an OS network boundary. Remote access requires an existing authenticated tunnel.
-Existing `serve` and `/v1/decisions` remain unchanged and do not accept audio uploads.
+`serve` and `/v1/decisions` accept the same Eider decision envelope and do not accept audio uploads.
 
 GPU validation results and exclusions are recorded in [UNIFIED_VALIDATION.md](UNIFIED_VALIDATION.md).
 
@@ -116,9 +116,9 @@ judgments, not on verified ground truth; sampled frames still limit absence/all 
 The pipeline processes all intervals even if a witness is already found. No final GPU call is
 needed for such a question. Logical answers use `probabilities:null`, never a fabricated
 confidence distribution. Mixed requests can use explicit policies for some questions and the
-experimental model aggregation for others. The original `/v1/decisions` contract is unchanged.
+experimental model aggregation for others. `/v1/decisions` accepts the Eider envelope without aggregation policies.
 
 When no policy is provided, the model aggregation remains experimental: a synthetic existence
 question was answered incorrectly despite a correct positive window result. Do not use that
 mode as a validated cross-window reasoning system. Prefer an explicit policy where it fits;
-arbitrary relational questions remain limited by local three-choice evidence.
+arbitrary relational questions remain limited by local choice evidence.

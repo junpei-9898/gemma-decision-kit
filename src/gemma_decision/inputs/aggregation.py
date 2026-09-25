@@ -3,7 +3,7 @@
 # @layer infrastructure
 # @work-item-id WI-063
 """Explicit three-valued quantifiers; never guess semantics from arbitrary prose."""
-from ..core import validate
+from ..eider_engine import validate
 
 
 def split_request(value, validator=validate):

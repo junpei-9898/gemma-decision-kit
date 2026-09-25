@@ -1,12 +1,12 @@
 import base64,copy,json,threading,unittest
 from pathlib import Path
-from gemma_decision.core import DecisionEngine,validate
+from gemma_decision.eider_engine import validate
 from gemma_decision.media import validate_media
-from gemma_decision.profiles import PROFILES
+from gemma_decision.model import MODEL
 from test_contract import body,engine
 
 class MediaContractTests(unittest.TestCase):
-    def test_nvfp4_only(self):self.assertEqual(list(PROFILES),['speed'])
+    def test_nvfp4_only(self):self.assertEqual(MODEL['model'],'nvidia/Gemma-4-26B-A4B-NVFP4')
     def test_reject_urls_paths_audio_extra_keys(self):
         for item in [{'type':'image','data':'https://example.com/a.png'}, {'type':'image','data':'file:///etc/passwd'}, {'type':'audio','data':'data:audio/wav;base64,AA=='}, {'type':'image','data':'data:image/png;base64,AA==','path':'x'}]:
             with self.assertRaises(ValueError):validate_media(item)
@@ -23,19 +23,19 @@ class MediaContractTests(unittest.TestCase):
     def test_later_oversize_media_question_prevents_all_inference(self):
         from unittest.mock import patch
         e=engine();e.backend.media=True
-        e.backend.prepare_media=lambda msg,limit:({},[1,2,3],{'image':3})
-        e.backend.score_media=lambda payload: self.fail('Must reject before inference')
-        e.limit=2;b=body();b['media']={'type':'image','data':'data:image/png;base64,AA=='}
+        e.backend.prepare_eider_media=lambda *args:({},[1,2,3],{'image':3})
+        e.backend.selected_media_logits=lambda payload: self.fail('Must reject before inference')
+        e.context=3;b=body();b['media']={'type':'image','data':'data:image/png;base64,AA=='}
         with patch('gemma_decision.media.inspect_media',return_value={'type':'image'}):
             with self.assertRaises(ValueError):e.predict(b)
     def test_prepares_all_questions_before_gpu(self):
         from unittest.mock import patch
         e=engine();e.backend.media=True;prepared=[]
-        def prepare(msg,limit):
+        def prepare(*msg):
             prepared.append(msg)
             if len(prepared)==2:raise ValueError('second too long')
             return {},[1],{'image':1}
-        e.backend.prepare_media=prepare;e.backend.score_media=lambda payload:self.fail('partial inference')
+        e.backend.prepare_eider_media=prepare;e.backend.selected_media_logits=lambda payload:self.fail('partial inference')
         b=body();b['questions']['q2']=copy.deepcopy(b['questions']['q']);b['media']={'type':'image','data':'data:image/png;base64,AA=='}
         with patch('gemma_decision.media.inspect_media',return_value={'type':'image'}):
             with self.assertRaises(ValueError):e.predict(b)
@@ -44,6 +44,6 @@ class MediaContractTests(unittest.TestCase):
         from unittest.mock import patch,MagicMock
         from gemma_decision.cli import main
         request=json.dumps(body());fake=MagicMock();fake.predict.return_value={'ok':True}
-        with patch('sys.argv',['gemma-decision','predict','--semantics','legacy','--media','--model-path','/model']),patch('sys.stdin',__import__('io').StringIO(request)),patch('sys.stdout',__import__('io').StringIO()),patch('gemma_decision.cli.DecisionEngine',return_value=fake) as init:
+        with patch('sys.argv',['gemma-decision','predict','--media','--model-path','/model']),patch('sys.stdin',__import__('io').StringIO(request)),patch('sys.stdout',__import__('io').StringIO()),patch('gemma_decision.cli.EiderEngine',return_value=fake) as init:
             main()
-        init.assert_called_once_with('speed','/model',None,media=True,hardware='auto')
+        init.assert_called_once_with('/model',None,media=True,bridge_library=None,hardware='auto')

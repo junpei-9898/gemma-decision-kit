@@ -1,3 +1,5 @@
+> Historical v0.6 GPU validation. v0.7 removes legacy and uses Eider exclusively; the AV failure below is still unresolved. See [migration](MIGRATION.md).
+
 # v0.6.0 Eider + vLLM multimodal release validation
 
 2026-09-25, WI-076. Original optimized vLLM router weights retained. Actual Eider CPU prepare/finish, pinned source `bf42ac73bcc0718d9b86cb48cd590e332efd14af`; NVIDIA Gemma4-26B-A4B NVFP4 revision `a19cfe00be84568a6867111c9a68c9c44fdcffe6`; vLLM `0.26.1.dev0+gf2654939e.d20260726`. One Edge Xpert GB10, Linux ARM64, one GPU, sequential questions, 8 CPU container limit, OMP/Rayon4, 3GiB KV. Text test context8192; media internal context16384 and input limit8192. No router re-quantization or model training.

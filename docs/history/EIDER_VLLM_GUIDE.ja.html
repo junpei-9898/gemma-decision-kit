@@ -1,0 +1,438 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,"><title>図で理解する Eider・vLLM・Gemma</title><style>
+:root{--ink:#18283e;--muted:#53667c;--blue:#2459a6;--paper:#f6f3ed;--line:#dfe5eb}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;font-size:17px;line-height:1.95}a{color:var(--blue);text-underline-offset:3px;overflow-wrap:anywhere}header{background:#152940;color:#fff;padding:20px max(24px,calc((100vw - 1420px)/2));letter-spacing:.08em;font-size:13px}header span{color:#a5d9d0;margin-left:16px}.layout{max-width:1460px;margin:auto;display:grid;grid-template-columns:255px minmax(0,1fr);gap:42px;padding:42px 28px}aside{position:sticky;top:28px;align-self:start;font-size:13px;line-height:1.7}aside strong{font-size:12px;letter-spacing:.1em;color:var(--muted)}nav{display:grid;gap:7px;margin-top:17px}nav a{padding:6px 8px;text-decoration:none;border-left:2px solid #d4dce4;color:#445971}nav a:hover{border-color:var(--blue);background:#eaf1fc}main{background:white;border:1px solid var(--line);border-radius:18px;padding:46px 52px;min-width:0;box-shadow:0 10px 40px #24395406}h1{font-size:39px;line-height:1.45;letter-spacing:-.025em;margin:0 0 24px}h2{font-size:26px;line-height:1.55;margin:68px 0 22px;padding-top:24px;border-top:1px solid var(--line);scroll-margin-top:24px}h3{font-size:20px;margin:32px 0 12px}p{margin:15px 0}strong{color:#133553}blockquote{margin:24px 0;border-left:4px solid #439c91;padding:14px 24px;background:#edf7f4}blockquote p{margin:0}ul{padding-left:24px}li{margin:12px 0}code{font-family:ui-monospace,monospace;background:#f1f4f8;border-radius:5px;padding:2px 5px;font-size:.86em;overflow-wrap:anywhere}pre{background:#f1f4f8;padding:18px;border-radius:12px;overflow:auto}pre code{padding:0}.table-scroll{overflow:auto;margin:26px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.8;min-width:610px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:13px 14px}th{background:#eff4fa;color:#204568}th:first-child,td:first-child{min-width:128px}.diagram{margin:28px 0;background:#f7f9fc;border:1px solid #e3e9ef;border-radius:16px;overflow:auto;padding:14px}svg{display:block;width:100%;height:auto;min-width:690px}figcaption{font-size:12px;line-height:1.7;color:var(--muted);padding:10px 7px 2px;min-width:0}footer{padding:28px;color:var(--muted);text-align:center;font-size:12px}.toplink{font-size:12px;display:block;margin-top:24px}@media(max-width:1050px){.layout{grid-template-columns:1fr;max-width:1000px;padding:24px 18px}aside{position:static}nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:3px}main{padding:32px}h1{font-size:32px}}@media(max-width:600px){body{font-size:16px}.layout{padding:16px 10px;gap:22px}main{padding:25px 18px;border-radius:12px}h1{font-size:28px}h2{font-size:23px;margin-top:48px}h3{font-size:19px}nav{grid-template-columns:1fr;font-size:13px}.diagram{margin:20px -5px;padding:8px}header{padding:16px}header span{display:block;margin-left:0}figcaption:after{content:"　小さい画面では図を横にスクロールできます。"}}@media print{body{background:#fff;font-size:11pt}.layout{display:block;padding:0}aside,header,footer{display:none}main{border:0;box-shadow:none;padding:0}h1{font-size:25pt}h2{font-size:18pt;break-after:avoid}h3{break-after:avoid}figure,table{break-inside:avoid}svg{min-width:0;width:100%}.diagram{overflow:visible}a{color:inherit}.table-scroll{overflow:visible}table{min-width:0;font-size:10pt}}
+</style></head><body id="top"><p>この図解はv0.5.0時点の構成です。v0.6.0以降のEider統合は同梱のEIDER.mdを参照してください。</p><header>GEMMA DECISION KIT <span>ARCHITECTURE GUIDE · 2026.09</span></header><div class="layout"><aside><strong>読む順番</strong><nav><a href="#1-4">1. 最初に分けたい、4つの役割</a><a href="#2-eidervllm">2. EiderとvLLMは、どこが重なるのか</a><a href="#3-eider">3. Eiderの中では、何が動いているのか</a><a href="#4">4. 「文章を書く」と「選択肢を判定する」は違う</a><a href="#5-eider">5. Eiderが複数の質問を効率よく扱う仕組み</a><a href="#6-vllm">6. vLLMにも、同じ工夫はあるのか</a><a href="#7">7. 今回、独自実装したのはどこか</a><a href="#8">8. 音声付き動画を渡すと、誰が何をするのか</a><a href="#9">9. モデルや量子化を取り替えるだけでは済まない理由</a><a href="#10">10. よくある疑問</a><a href="#_2">用語を見直したくなったら</a><a href="#_3">出典・確認範囲</a></nav><a class="toplink" href="#top">先頭に戻る ↑</a></aside><main><h1 id="eidervllmgemma">図で理解する Eider・vLLM・Gemma</h1>
+<p><strong>モデルを動かす仕組みと、私たちが作った部分を、順番に理解するためのガイド。</strong></p>
+<p>「EiderもvLLMも推論エンジンなら、何が違うのか」「Gemmaはどこにあるのか」「今回の音声機能はどこに実装されたのか」という疑問に答えます。GPUや機械学習の実装経験は前提にしません。</p>
+<p>確認日：2026-09-24。今回の配布物は <strong>gemma-decision-kit v0.5.0／<code>b9db39b</code></strong> を基準にしています。上流Eiderは <strong><code>47e0c0d</code></strong> の公開コードを確認しました。別セッションの移行案や研究用アダプターを、配布済み機能と混同しません。図は説明用に簡略化したもので、速度やメモリ量の実測図ではありません。</p>
+<h2 id="1-4">1. 最初に分けたい、4つの役割</h2>
+<p><strong>Gemmaは学習済みモデル、EiderとvLLMはモデルを実行するソフトウェア、今回のキットは入力処理と判定を使いやすくまとめたパッケージです。</strong></p>
+<figure class="diagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" role="img" aria-label="4つの役割：入力を扱うアプリ、計算を動かすエンジン、モデル重み、GPU"><title>4つの役割：入力を扱うアプリ、計算を動かすエンジン、モデル重み、GPU</title><defs><marker id="01-roles-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#708399"/></marker></defs><style>text{font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;fill:#17253b}.label{font-size:21px;font-weight:650}.detail{font-size:17px;fill:#52637a}.note{font-size:18px;fill:#52637a}</style><rect x="0" y="0" width="1000" height="470" rx="20" fill="#f7f9fc"/>
+<g data-box="true"><rect x="65" y="35" width="535" height="90" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="332.5" y="66" text-anchor="middle">アプリケーション／今回のキット</text>
+<text class="detail" x="332.5" y="94" text-anchor="middle">入力を整理する・質問を作る・結果を返す</text>
+</g>
+<g data-box="true"><rect x="65" y="175" width="535" height="90" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="332.5" y="206" text-anchor="middle">推論エンジン：Eider または vLLM</text>
+<text class="detail" x="332.5" y="234" text-anchor="middle">モデルの計算を実行・管理する</text>
+</g>
+<g data-box="true"><rect x="65" y="315" width="535" height="90" rx="13" fill="#ffffff" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="332.5" y="346" text-anchor="middle">GPU：実際に計算するハードウェア</text>
+<text class="detail" x="332.5" y="374" text-anchor="middle">行列などの数値計算を実行する</text>
+</g>
+<g data-box="true"><rect x="685" y="175" width="255" height="114" rx="13" fill="#fff1df" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="812.5" y="206" text-anchor="middle">モデル：Gemma 4</text>
+<text class="detail" x="812.5" y="234" text-anchor="middle">構造 ＋ 学習済み重み</text>
+<text class="detail" x="812.5" y="258" text-anchor="middle">別途ロードするデータ</text>
+</g>
+<path d="M330 125 L330 170" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#01-roles-arrow)"/>
+<path d="M330 265 L330 310" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#01-roles-arrow)"/>
+<path d="M685 220 L610 220" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#01-roles-arrow)"/>
+<text class="note" x="500" y="447" text-anchor="middle">モデルは「何を計算するか」、エンジンは「どう実行するか」を担う。</text>
+</svg><figcaption>図1：アプリケーション、推論エンジン、モデル重み、GPUの役割</figcaption></figure>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>名前</th>
+<th>何を担当するか</th>
+<th>それだけでは決まらないこと</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gemma 4</td>
+<td>学習済みの数値と、計算の構造。質問に対してどの答えを出しやすいかの土台</td>
+<td>起動方法、HTTPの入口、動画の区間分割</td>
+</tr>
+<tr>
+<td>Eider</td>
+<td>対応モデルの読み込み、GPU計算、リクエスト処理、型付き判定など</td>
+<td>任意のモデル・量子化形式を必ず動かせるわけではない</td>
+</tr>
+<tr>
+<td>vLLM</td>
+<td>対応モデルの実行、処理順の管理、途中計算の保存、API提供など</td>
+<td>今回の会議動画の分割・MOSS連携が標準で付くわけではない</td>
+</tr>
+<tr>
+<td>gemma-decision-kit</td>
+<td>入力の自動判別、音声・映像の前処理、質問の組み立て、判定結果の整理</td>
+<td>モデルを新しく学習したものではない</td>
+</tr>
+</tbody>
+</table></div>
+<p>「モデルをロードする」は、重みファイルを読み、エンジンが計算に使える形でメモリへ準備することです。<strong>エンジンのプログラムと、学習済みの重みファイルは別物</strong>です。Eiderにもモデルを計算する実装がありますが、そこに唯一のGemma重みが固定で埋め込まれている、という意味ではありません。</p>
+<p>参考：<a href="https://github.com/rdaum/eider/blob/47e0c0d370be2dfd74d403844c618189963089dc/README.md">Eiderの概要</a>、<a href="https://docs.vllm.ai/en/latest/design/arch_overview/">vLLMの構成</a>。</p>
+<h2 id="2-eidervllm">2. EiderとvLLMは、どこが重なるのか</h2>
+<p><strong>どちらもモデルを動かす役割を持ちます。Eiderが必ずvLLMの上に載る、という関係ではありません。</strong> Eiderは独自の実行基盤を持ち、確認した実装はRust・CUDA・cuBLASLtを使います。PyTorchやvLLMを土台にしていません。</p>
+<figure class="diagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 515" role="img" aria-label="ネイティブEiderと今回のキットは異なる実行構成"><title>ネイティブEiderと今回のキットは異なる実行構成</title><defs><marker id="02-stacks-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#708399"/></marker></defs><style>text{font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;fill:#17253b}.label{font-size:21px;font-weight:650}.detail{font-size:17px;fill:#52637a}.note{font-size:18px;fill:#52637a}</style><rect x="0" y="0" width="1000" height="515" rx="20" fill="#f7f9fc"/>
+<text class="label" x="250" y="38" text-anchor="middle">ネイティブ Eider</text>
+<text class="label" x="750" y="38" text-anchor="middle">今回の配布物 v0.5.0</text>
+<g data-box="true"><rect x="45" y="65" width="410" height="86" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="250.0" y="96" text-anchor="middle">Eider の API・判定処理</text>
+<text class="detail" x="250.0" y="124" text-anchor="middle">質問を解釈し、回答型を整える</text>
+</g>
+<g data-box="true"><rect x="45" y="195" width="410" height="108" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="250.0" y="226" text-anchor="middle">Eider の実行基盤</text>
+<text class="detail" x="250.0" y="254" text-anchor="middle">Rust・モデル固有実装</text>
+<text class="detail" x="250.0" y="278" text-anchor="middle">CUDA／cuBLASLt</text>
+</g>
+<g data-box="true"><rect x="545" y="65" width="410" height="86" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="750.0" y="96" text-anchor="middle">gemma-decision-kit</text>
+<text class="detail" x="750.0" y="124" text-anchor="middle">入力処理・3択判定・独自最適化</text>
+</g>
+<g data-box="true"><rect x="545" y="195" width="410" height="108" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="750.0" y="226" text-anchor="middle">固定版 vLLM</text>
+<text class="detail" x="750.0" y="254" text-anchor="middle">モデルの実行基盤</text>
+<text class="detail" x="750.0" y="278" text-anchor="middle">キットから設定・一部処理を調整</text>
+</g>
+<g data-box="true"><rect x="45" y="354" width="410" height="92" rx="13" fill="#fff1df" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="250.0" y="385" text-anchor="middle">Gemma 4 の重み ＋ GPU</text>
+<text class="detail" x="250.0" y="413" text-anchor="middle">この構成ではEiderが計算を担当</text>
+</g>
+<g data-box="true"><rect x="545" y="354" width="410" height="92" rx="13" fill="#fff1df" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="750.0" y="385" text-anchor="middle">Gemma 4 の重み ＋ GPU</text>
+<text class="detail" x="750.0" y="413" text-anchor="middle">この構成ではvLLMが計算を担当</text>
+</g>
+<path d="M250 151 L250 190" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#02-stacks-arrow)"/>
+<path d="M250 303 L250 349" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#02-stacks-arrow)"/>
+<path d="M750 151 L750 190" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#02-stacks-arrow)"/>
+<path d="M750 303 L750 349" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#02-stacks-arrow)"/>
+<text class="note" x="500" y="486" text-anchor="middle">Eiderの下にvLLMが必須なわけではない。今回のキットはEiderを呼んでいない。</text>
+</svg><figcaption>図2：ネイティブEiderと今回のvLLMベース構成の比較</figcaption></figure>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>比較する点</th>
+<th>Eider</th>
+<th>vLLM</th>
+<th>今回のキット</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主な位置付け</td>
+<td>DGX Spark／GB10を重点対象にした独立した推論サーバー</td>
+<td>複数モデル・構成を扱う推論・提供基盤</td>
+<td>vLLMを使う判定アプリケーションと最適化コード</td>
+</tr>
+<tr>
+<td>入り口</td>
+<td>ネイティブの判定APIなど</td>
+<td>Pythonの<code>LLM</code>クラス、<code>vllm serve</code>など</td>
+<td><code>predict</code>、<code>analyze</code>、独自のHTTP入口</td>
+</tr>
+<tr>
+<td>型付き判定</td>
+<td>noul／choice／scoreの実装を持つ</td>
+<td>必要な候補のスコア取得などを組み合わせてアプリ側で構成できる</td>
+<td>公開判定は3択。研究用の多形式比較とは別</td>
+</tr>
+<tr>
+<td>GPU計算</td>
+<td>モデル固有のネイティブ実装とCUDA処理</td>
+<td>モデル実装、実行管理、GPUワーカー／カーネル</td>
+<td>vLLM経由。既存の最適化を読み込み時に適用</td>
+</tr>
+<tr>
+<td>文章生成</td>
+<td>対応モデルではチャット／生成経路も持つ</td>
+<td>生成経路を持つ</td>
+<td>現行の公開判定APIは自由文回答を生成しない</td>
+</tr>
+</tbody>
+</table></div>
+<p>「Eiderは判定専用で、vLLMは文章生成しかできない」と覚えると誤解します。<strong>今回比較したいのは、それぞれをどう設定して、どの処理経路で使うか</strong>です。ソフトウェア名だけでは精度・速度の順位は決まりません。</p>
+<p>参考：<a href="https://github.com/rdaum/eider/blob/47e0c0d370be2dfd74d403844c618189963089dc/README.md">Eider README</a>、<a href="https://docs.vllm.ai/en/latest/design/arch_overview/#entrypoints">vLLMの入口</a>、<a href="../src/gemma_decision/backends.py">キットの実行基盤</a>。</p>
+<h2 id="3-eider">3. Eiderの中では、何が動いているのか</h2>
+<p>Eiderの「推論エンジン」という言葉は、HTTPの受付だけでなく、<strong>モデルの読み込みからGPUの計算までを含む一式</strong>を指します。内部は責務ごとに分かれています。</p>
+<figure class="diagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" role="img" aria-label="Eider内部の役割分担。依存関係の完全な図ではなく概念図"><title>Eider内部の役割分担。依存関係の完全な図ではなく概念図</title><defs><marker id="03-eider-internals-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#708399"/></marker></defs><style>text{font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;fill:#17253b}.label{font-size:21px;font-weight:650}.detail{font-size:17px;fill:#52637a}.note{font-size:18px;fill:#52637a}</style><rect x="0" y="0" width="1000" height="520" rx="20" fill="#f7f9fc"/>
+<g data-box="true"><rect x="55" y="40" width="890" height="78" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="71" text-anchor="middle">API：受付と結果の返却</text>
+<text class="detail" x="500.0" y="99" text-anchor="middle">外から来たリクエストを検証する</text>
+</g>
+<g data-box="true"><rect x="55" y="175" width="400" height="110" rx="13" fill="#eeeafb" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="255.0" y="206" text-anchor="middle">Runtime：共通の処理・方針</text>
+<text class="detail" x="255.0" y="234" text-anchor="middle">質問をモデル用に整える</text>
+<text class="detail" x="255.0" y="258" text-anchor="middle">出力やキャッシュの扱いを決める</text>
+</g>
+<g data-box="true"><rect x="545" y="175" width="400" height="110" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="745.0" y="206" text-anchor="middle">Inference：モデルの実行</text>
+<text class="detail" x="745.0" y="234" text-anchor="middle">Gemmaなどの計算を進める</text>
+<text class="detail" x="745.0" y="258" text-anchor="middle">モデルごとの実行状態を持つ</text>
+</g>
+<g data-box="true"><rect x="55" y="355" width="400" height="104" rx="13" fill="#fff1df" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="255.0" y="386" text-anchor="middle">Format：ファイルを読む</text>
+<text class="detail" x="255.0" y="414" text-anchor="middle">重みの形式・数値の配置を扱う</text>
+</g>
+<g data-box="true"><rect x="545" y="355" width="400" height="104" rx="13" fill="#ffffff" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="745.0" y="386" text-anchor="middle">CUDA：GPUを使う</text>
+<text class="detail" x="745.0" y="414" text-anchor="middle">GPUメモリと計算処理を扱う</text>
+</g>
+<path d="M255 118 L255 170" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#03-eider-internals-arrow)"/>
+<path d="M745 118 L745 170" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#03-eider-internals-arrow)"/>
+<path d="M455 230 L540 230" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#03-eider-internals-arrow)"/>
+<path d="M745 285 L745 350" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#03-eider-internals-arrow)"/>
+<path d="M255 355 L255 290" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#03-eider-internals-arrow)"/>
+<path d="M455 405 L540 405" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#03-eider-internals-arrow)"/>
+<text class="note" x="500" y="496" text-anchor="middle">Eiderは窓口だけでなく、重みの読み込みからGPU計算までを持つ。</text>
+</svg><figcaption>図3：Eiderの5つの主要な担当</figcaption></figure>
+<ul>
+<li><strong>API</strong>：リクエストを受け取り、形式を検証して、結果を返す窓口。</li>
+<li><strong>Runtime</strong>：質問をモデルが読める形に整えるなど、モデル間で共通に使う処理や方針。</li>
+<li><strong>Inference</strong>：Gemmaなど各モデルの計算を進め、実行中の状態を持つ部分。</li>
+<li><strong>CUDA</strong>：GPUメモリや、GPU上の個々の計算を扱う部分。</li>
+<li><strong>Format</strong>：重みファイルの形式や数値の並び方を読み取る部分。</li>
+</ul>
+<p>ここでのRuntimeはEider内部のパッケージ名です。vLLM全体と一対一で置き換えられる箱という意味ではありません。図は役割の地図であり、実際の依存関係をすべて直列化したものでもありません。</p>
+<p>参考：<a href="https://github.com/rdaum/eider/blob/47e0c0d370be2dfd74d403844c618189963089dc/docs/architecture.md">Eider architecture</a>。</p>
+<h2 id="4">4. 「文章を書く」と「選択肢を判定する」は違う</h2>
+<p>例えば、次の文章を一度読み、3つの質問をしたいとします。</p>
+<blockquote>
+<p>注文した部品が届いていません。明日の作業で必要なので、今日中に状況を知らせてください。</p>
+</blockquote>
+<p>文章で回答するAIなら、「状況を確認してご案内します……」と続きを何トークンも生成します。型付き判定では、先に答え方を定めます。</p>
+<figure class="diagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 350" role="img" aria-label="型付き判定の3種類。数値は架空の説明例"><title>型付き判定の3種類。数値は架空の説明例</title><defs><marker id="04-answer-types-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#708399"/></marker></defs><style>text{font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;fill:#17253b}.label{font-size:21px;font-weight:650}.detail{font-size:17px;fill:#52637a}.note{font-size:18px;fill:#52637a}</style><rect x="0" y="0" width="1000" height="350" rx="20" fill="#f7f9fc"/>
+<g data-box="true"><rect x="25" y="30" width="300" height="225" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="175.0" y="61" text-anchor="middle">noul：真偽</text>
+<text class="detail" x="175.0" y="89" text-anchor="middle">急ぎの依頼か？</text>
+<text class="detail" x="175.0" y="137" text-anchor="middle">true の確率：0.80</text>
+<text class="detail" x="175.0" y="185" text-anchor="middle">単なる真偽値とは違う</text>
+</g>
+<g data-box="true"><rect x="350" y="30" width="300" height="225" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="61" text-anchor="middle">choice：選択</text>
+<text class="detail" x="500.0" y="89" text-anchor="middle">担当部署は？</text>
+<text class="detail" x="500.0" y="137" text-anchor="middle">物流 0.70／請求 0.20</text>
+<text class="detail" x="500.0" y="161" text-anchor="middle">技術 0.10</text>
+<text class="detail" x="500.0" y="185" text-anchor="middle">選択結果 ＋ 確率分布</text>
+</g>
+<g data-box="true"><rect x="675" y="30" width="300" height="225" rx="13" fill="#fff1df" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="825.0" y="61" text-anchor="middle">score：順序付き段階</text>
+<text class="detail" x="825.0" y="89" text-anchor="middle">不満の強さは？</text>
+<text class="detail" x="825.0" y="137" text-anchor="middle">段階0・1・2 の期待値</text>
+<text class="detail" x="825.0" y="161" text-anchor="middle">例：1.10</text>
+<text class="detail" x="825.0" y="185" text-anchor="middle">整数でなくてもよい</text>
+</g>
+<text class="note" x="500" y="302" text-anchor="middle">いずれも説明用の架空の値。候補の確率は、そのまま正答率ではない。</text>
+</svg><figcaption>図4：noul・choice・scoreの答え方。すべて説明用の架空の値</figcaption></figure>
+<ul>
+<li><strong>noul</strong>：「急ぎの依頼か」のような真偽の問い。返すのはtrue側の確率で、常に単なる<code>true/false</code>ではありません。</li>
+<li><strong>choice</strong>：「物流・請求・技術のどこが担当か」。選ばれた項目と、各項目の確率を返します。</li>
+<li><strong>score</strong>：「落ち着いている・困っている・強く不満」のように順序を付けた段階。段階番号の期待値を返すため、整数とは限りません。</li>
+</ul>
+<p>scoreを0・1・2の3段階とし、確率が0.2・0.5・0.3なら、値は <strong>0×0.2＋1×0.5＋2×0.3＝1.1</strong> です。文章で理由を説明した点数でも、3段階目を選んだという意味でもありません。</p>
+<p>参考：<a href="https://github.com/rdaum/eider/blob/47e0c0d370be2dfd74d403844c618189963089dc/crates/eider-api/src/decisions.rs">Eiderの回答型</a>、<a href="https://github.com/rdaum/eider/blob/47e0c0d370be2dfd74d403844c618189963089dc/crates/eider-runtime/src/decision.rs">結果への変換処理</a>。</p>
+<h2 id="5-eider">5. Eiderが複数の質問を効率よく扱う仕組み</h2>
+<p>以下は、確認した<strong>Gemma 4のネイティブ判定経路</strong>です。他モデルの内部処理まで、すべて同じとは限りません。</p>
+<figure class="diagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 545" role="img" aria-label="Gemmaネイティブ判定：共通文章のKVを共有し、質問ごとに分岐"><title>Gemmaネイティブ判定：共通文章のKVを共有し、質問ごとに分岐</title><defs><marker id="05-shared-prefix-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#708399"/></marker></defs><style>text{font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;fill:#17253b}.label{font-size:21px;font-weight:650}.detail{font-size:17px;fill:#52637a}.note{font-size:18px;fill:#52637a}</style><rect x="0" y="0" width="1000" height="545" rx="20" fill="#f7f9fc"/>
+<g data-box="true"><rect x="40" y="35" width="270" height="95" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="175.0" y="66" text-anchor="middle">共通の文章 state</text>
+<text class="detail" x="175.0" y="94" text-anchor="middle">注文が届かない…</text>
+</g>
+<g data-box="true"><rect x="360" y="35" width="270" height="95" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="495.0" y="66" text-anchor="middle">共通部分を一度計算</text>
+<text class="detail" x="495.0" y="94" text-anchor="middle">prefill：入力を読む</text>
+</g>
+<g data-box="true"><rect x="685" y="35" width="275" height="95" rx="13" fill="#eeeafb" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="822.5" y="66" text-anchor="middle">KVキャッシュ</text>
+<text class="detail" x="822.5" y="94" text-anchor="middle">後続計算のための作業メモ</text>
+</g>
+<path d="M310 82 L355 82" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#05-shared-prefix-arrow)"/>
+<path d="M630 82 L680 82" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#05-shared-prefix-arrow)"/>
+<path d="M820 130 L820 166 L180 166 L180 200" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#05-shared-prefix-arrow)"/>
+<path d="M820 166 L500 166 L500 200" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#05-shared-prefix-arrow)"/>
+<path d="M820 166 L820 200" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#05-shared-prefix-arrow)"/>
+<g data-box="true"><rect x="40" y="205" width="280" height="90" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="180.0" y="236" text-anchor="middle">質問1：急ぎか？</text>
+<text class="detail" x="180.0" y="264" text-anchor="middle">共通KVを参照する子の状態</text>
+</g>
+<path d="M180 295 L180 335" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#05-shared-prefix-arrow)"/>
+<g data-box="true"><rect x="360" y="205" width="280" height="90" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="236" text-anchor="middle">質問2：担当は？</text>
+<text class="detail" x="500.0" y="264" text-anchor="middle">共通KVを参照する子の状態</text>
+</g>
+<path d="M500 295 L500 335" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#05-shared-prefix-arrow)"/>
+<g data-box="true"><rect x="680" y="205" width="280" height="90" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="820.0" y="236" text-anchor="middle">質問3：不満は？</text>
+<text class="detail" x="820.0" y="264" text-anchor="middle">共通KVを参照する子の状態</text>
+</g>
+<path d="M820 295 L820 335" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#05-shared-prefix-arrow)"/>
+<g data-box="true"><rect x="40" y="340" width="920" height="88" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="371" text-anchor="middle">質問部分をまとめて計算 → 候補ラベルの数値を読む</text>
+<text class="detail" x="500.0" y="399" text-anchor="middle">Gemma経路では固定64行の小型読み出しを使用</text>
+</g>
+<text class="note" x="500" y="476" text-anchor="middle">共有するのは計算の途中情報。Gemmaの重みを質問数だけコピーしない。</text>
+<text class="note" x="500" y="511" text-anchor="middle">共通部分の再計算と出力側の負担を減らすが、モデル本体の計算は残る。</text>
+</svg><figcaption>図5：共通の入力を読み、KVを共有して質問ごとに分岐する</figcaption></figure>
+<p>まず、共通の文章<code>state</code>と質問ごとの部分を分けます。文章をモデルで計算する段階を<strong>prefill</strong>と呼びます。計算した途中の情報のうち、後続の処理で参照するものを<strong>KVキャッシュ</strong>に保持します。これは「正解を覚えたデータベース」ではなく、同じ前半を再計算するのを減らすための作業メモです。</p>
+<p>Gemma経路では、その共通部分を参照する子の状態を質問ごとに作り、質問側の計算をまとめて進めます。<strong>質問が3つあっても、モデルの重みを3組ロードするわけではありません。</strong> 分岐用の状態や質問部分の計算・メモリは別途必要です。</p>
+<p>最後に、答えの候補ラベルに対応する数値を読み出します。Eiderのこの経路は固定64行の小さな読み出し部分を持ちます。巨大な語彙全体の出力計算を毎回行う負担を減らせますが、<strong>モデル本体の計算が不要になるわけではありません</strong>。また64行とは出力側の話で、「64個の数値だけでできたモデル」という意味ではありません。</p>
+<p>参考：<a href="https://github.com/rdaum/eider/blob/47e0c0d370be2dfd74d403844c618189963089dc/crates/eider-runtime/src/decision.rs">入力の分割・ラベルの準備</a>、<a href="https://github.com/rdaum/eider/blob/47e0c0d370be2dfd74d403844c618189963089dc/crates/infer/src/gemma4/sequence.rs">KVを共有する分岐</a>、<a href="https://github.com/rdaum/eider/blob/47e0c0d370be2dfd74d403844c618189963089dc/crates/infer/src/gemma4/batch.rs">64行の読み出し</a>、<a href="https://github.com/rdaum/eider/blob/47e0c0d370be2dfd74d403844c618189963089dc/crates/infer/src/execution/gemma4_serving.rs">Gemmaの実行管理</a>。</p>
+<h2 id="6-vllm">6. vLLMにも、同じ工夫はあるのか</h2>
+<p>vLLMにも、同じ入力の先頭部分の計算を再利用する<strong>prefix caching</strong>があります。そのため、「Eiderだけが共通部分を再利用できる」という説明は正確ではありません。一方、キャッシュがあるだけでEiderの質問分岐・バッチ処理・型付き回答まで同じ動きになるわけでもありません。<a href="https://docs.vllm.ai/en/latest/features/automatic_prefix_caching/">vLLMのprefix caching</a>。</p>
+<p>今回のキットは、質問を順番に処理します。v0.5.0のテキスト高速構成ではprefix cachingを無効にし、画像・動画構成では有効にしています。Eiderのネイティブ質問分岐を、そのまま実装したものではありません。テキスト経路にはA/B/Cの候補だけを小さく計算する独自最適化がありますが、画像・動画経路には同じ小型出力処理を適用していません。<a href="../src/gemma_decision/backends.py">設定</a>・<a href="../src/gemma_decision/core.py">逐次判定</a>・<a href="../src/gemma_decision/nv_head.py">小型出力処理</a>。</p>
+<h3 id="_1">出力の確率は、正答率ではない</h3>
+<p>例えば「物流70%」は、入力と選択肢を与えたときの候補間の分布です。「同じような案件を100件処理すれば必ず70件正しい」という保証ではありません。校正は、その確率と実際の正誤の関係を評価データで調整・確認する工程です。Eiderには校正情報を扱う仕組みがありますが、適切なデータと対象条件の確認が必要です。今回のキットのモデル確率は未校正です。<code>any/all</code>の論理集約には、確率を捏造せず<code>null</code>を返します。<a href="https://github.com/rdaum/eider/blob/47e0c0d370be2dfd74d403844c618189963089dc/crates/eider-api/src/decisions.rs">Eiderの校正データ型</a>・<a href="../src/gemma_decision/inputs/aggregation.py">今回の集約</a>。</p>
+<h2 id="7">7. 今回、独自実装したのはどこか</h2>
+<p>今回のキットには、<strong>使い方をまとめる処理</strong>と、<strong>既存のvLLMの動作を調整する処理</strong>の両方が含まれます。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>場所</th>
+<th>今回のコードでの担当</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>inputs/</code>・<code>audio/</code></td>
+<td>ファイルの判別、音声認識、動画分割、時刻対応、処理範囲、区間集約</td>
+</tr>
+<tr>
+<td><code>core.py</code>・<code>cli.py</code></td>
+<td>質問の検証・組み立て、判定結果、CLIの入口</td>
+</tr>
+<tr>
+<td><code>backends.py</code></td>
+<td>固定版vLLMの呼び出し、テキスト／映像モードの設定</td>
+</tr>
+<tr>
+<td><code>nv_head.py</code>・<code>nv_scale.py</code>・<code>nv_runtime.py</code></td>
+<td>読み込み時の出力処理・数値処理・実行処理の最適化</td>
+</tr>
+</tbody>
+</table></div>
+<p>以前の「vLLM本体に今回の音声処理を追加していない」という説明は、音声・動画の自動処理を<strong>キット側に置いた</strong>という意味です。既存の高速化コードには、起動時にvLLM内の処理を差し替える箇所があります。「完全に無変更のvLLMを呼んでいるだけ」と理解すると、その部分を見落とします。</p>
+<p>一方で、vLLMを一から書き直したり、今回の機能をvLLM公式へ取り込んだりしたわけではありません。対応する固定版を使う必要があるのも、こうした内部処理との結び付きがあるためです。現行の固定版は<code>0.26.1.dev0+gf2654939e.d20260726</code>です。</p>
+<p>参考：<a href="../src/gemma_decision/backends.py">バックエンド</a>、<a href="../src/gemma_decision/nv_head.py">出力の差し替え</a>、<a href="../src/gemma_decision/nv_scale.py">数値処理</a>、<a href="../src/gemma_decision/nv_runtime.py">実行設定</a>。</p>
+<h2 id="8">8. 音声付き動画を渡すと、誰が何をするのか</h2>
+<figure class="diagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 625" role="img" aria-label="現在の音声付き動画処理：MOSSを終了してからGemmaを実行"><title>現在の音声付き動画処理：MOSSを終了してからGemmaを実行</title><defs><marker id="06-audiovisual-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#708399"/></marker></defs><style>text{font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;fill:#17253b}.label{font-size:21px;font-weight:650}.detail{font-size:17px;fill:#52637a}.note{font-size:18px;fill:#52637a}</style><rect x="0" y="0" width="1000" height="625" rx="20" fill="#f7f9fc"/>
+<g data-box="true"><rect x="35" y="35" width="930" height="76" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="66" text-anchor="middle">入力：音声付き動画 ＋ 質問</text>
+<text class="detail" x="500.0" y="94" text-anchor="middle">キットが形式・トラック・長さを確認する</text>
+</g>
+<path d="M500 111 L500 140 L255 140 L255 165" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#06-audiovisual-arrow)"/>
+<path d="M500 140 L745 140 L745 165" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#06-audiovisual-arrow)"/>
+<g data-box="true"><rect x="45" y="170" width="420" height="110" rx="13" fill="#eeeafb" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="255.0" y="201" text-anchor="middle">音声 → MOSS</text>
+<text class="detail" x="255.0" y="229" text-anchor="middle">Transformersの別プロセス</text>
+<text class="detail" x="255.0" y="253" text-anchor="middle">文字起こし・匿名話者・発話時刻</text>
+</g>
+<g data-box="true"><rect x="535" y="170" width="420" height="110" rx="13" fill="#fff1df" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="745.0" y="201" text-anchor="middle">映像 → FFmpeg</text>
+<text class="detail" x="745.0" y="229" text-anchor="middle">10秒以内に区切る・フレームを間引く</text>
+<text class="detail" x="745.0" y="253" text-anchor="middle">元の動画の時刻を保持する</text>
+</g>
+<path d="M255 280 L255 319 L500 319 L500 350" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#06-audiovisual-arrow)"/>
+<path d="M745 280 L745 319 L500 319" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#06-audiovisual-arrow)"/>
+<text class="note" x="220" y="311" text-anchor="end">MOSSは終了する</text>
+<g data-box="true"><rect x="135" y="355" width="730" height="93" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="386" text-anchor="middle">Gemma 4 を vLLM で実行</text>
+<text class="detail" x="500.0" y="414" text-anchor="middle">同じ時間帯の映像 ＋ 発言テキストを判定する</text>
+</g>
+<path d="M500 448 L500 480" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#06-audiovisual-arrow)"/>
+<g data-box="true"><rect x="135" y="485" width="730" height="88" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="516" text-anchor="middle">キットが結果を整理</text>
+<text class="detail" x="500.0" y="544" text-anchor="middle">区間の判定・時刻・処理範囲・集約結果</text>
+</g>
+<text class="note" x="500" y="609" text-anchor="middle">Gemmaに音声波形を直接入力する構成ではない。Eiderはこの経路に含まれない。</text>
+</svg><figcaption>図6：映像と音声を分け、MOSS終了後にGemmaへ時刻付き資料を渡す現在の構成</figcaption></figure>
+<p><code>analyze --source recording.mp4</code>を呼ぶと、キットが内容を確認します。音声はFFmpegで取り出し、MOSSが文字起こし・話者ラベル・発話時刻を返します。MOSSは別プロセスのTransformersで実行し、終了後にGemmaをロードします。Gemmaへ渡る音声由来の情報は<strong>テキストと時刻</strong>であり、元の音声波形ではありません。</p>
+<p>映像は最大10秒の区間に分け、重なる発言と組み合わせます。GemmaはvLLM経由で、抽出した映像と発言を判定します。現行実装は固定区間とフレームの間引きを使い、場面の変化を自動で理解して最適な区切りを決める仕組みではありません。</p>
+<p>区間の結果は<code>any</code>（一度でも成立）・<code>all</code>（全区間で成立）を質問側で明示すれば論理的に集約できます。指定しない場合のモデルによる再集約は実験的で、合成問題で誤答を確認しています。<strong>音声の感情理解、話者と顔の同定、映像の一瞬の出来事の漏れない検出まで実装したものではありません。</strong></p>
+<p>実機では短い音声付き動画のHTTP処理と従来のMOSS→Gemma処理を確認済みです。約25分の会議は全150区間の映像前処理まで確認し、全区間のGemma判定はこの版の検証では未実施です。<a href="UNIFIED_INPUT.md">使い方</a>・<a href="UNIFIED_VALIDATION.md">実測と失敗を含む検証記録</a>。</p>
+<h2 id="9">9. モデルや量子化を取り替えるだけでは済まない理由</h2>
+<figure class="diagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 355" role="img" aria-label="実行にはモデル構造・重み形式・GPU計算の対応が必要"><title>実行にはモデル構造・重み形式・GPU計算の対応が必要</title><defs><marker id="07-compatibility-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#708399"/></marker></defs><style>text{font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;fill:#17253b}.label{font-size:21px;font-weight:650}.detail{font-size:17px;fill:#52637a}.note{font-size:18px;fill:#52637a}</style><rect x="0" y="0" width="1000" height="355" rx="20" fill="#f7f9fc"/>
+<g data-box="true"><rect x="25" y="35" width="300" height="150" rx="13" fill="#eaf1fc" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="175.0" y="66" text-anchor="middle">モデルの構造</text>
+<text class="detail" x="175.0" y="94" text-anchor="middle">例：Gemma 4</text>
+<text class="detail" x="175.0" y="118" text-anchor="middle">層・Attention・MoEなど</text>
+<text class="detail" x="175.0" y="142" text-anchor="middle">対応する計算実装が必要</text>
+</g>
+<g data-box="true"><rect x="350" y="35" width="300" height="150" rx="13" fill="#fff1df" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="66" text-anchor="middle">重みの形式</text>
+<text class="detail" x="500.0" y="94" text-anchor="middle">例：NVFP4／EXL3</text>
+<text class="detail" x="500.0" y="118" text-anchor="middle">数値を保存・解釈する形式</text>
+<text class="detail" x="500.0" y="142" text-anchor="middle">対応する読み込み処理が必要</text>
+</g>
+<g data-box="true"><rect x="675" y="35" width="300" height="150" rx="13" fill="#e6f4ef" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="825.0" y="66" text-anchor="middle">エンジンとGPU</text>
+<text class="detail" x="825.0" y="94" text-anchor="middle">Eider／vLLMなど</text>
+<text class="detail" x="825.0" y="118" text-anchor="middle">GPUの命令・カーネル</text>
+<text class="detail" x="825.0" y="142" text-anchor="middle">対応する実行経路が必要</text>
+</g>
+<path d="M175 185 L175 220 L500 220" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#07-compatibility-arrow)"/>
+<path d="M500 185 L500 220 L500 220" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#07-compatibility-arrow)"/>
+<path d="M825 185 L825 220 L500 220" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#07-compatibility-arrow)"/>
+<path d="M500 220 L500 250" fill="none" stroke="#708399" stroke-width="2.5" marker-end="url(#07-compatibility-arrow)"/>
+<g data-box="true"><rect x="115" y="255" width="770" height="66" rx="13" fill="#ffffff" stroke="#cad3df" stroke-width="1.5" />
+<text class="label" x="500.0" y="286" text-anchor="middle">3つがそろって、初めて正しく実行できる</text>
+</g>
+</svg><figcaption>図7：モデル構造・重みの形式・実行コードがそろって初めて動く</figcaption></figure>
+<p><strong>量子化は、重みなどの数値の持ち方を変えることです。</strong> NVFP4やEXL3という名前は、モデルの学習内容そのものの名前とは違います。同じGemma系でも、形式に対応した読み込み処理と計算経路が必要です。小さく保存できること、GPUで速く計算できること、元の精度を保てることは別々に確認します。</p>
+<p>またMoEの「一部のエキスパートだけを使う」は、全重みの保存場所が不要になるという意味ではありません。計算に参加する量と、配置・保持する重みの量を分けて考えます。実際の配置方法はエンジンと設定に依存します。</p>
+<p>現行キットの配布経路はNVFP4に固定しています。EXL3ファイルをパスだけ差し替えて、そのまま動く契約ではありません。Eiderへ戻す場合も、入力形式、候補ラベル、確率の返し方、映像対応などを接続し直す必要があります。同じ重みでも、指示文、トークン化、計算精度、候補の順番が違えば結果が変わり得ます。<a href="../README.ja.md">配布の対応範囲</a>・<a href="../src/gemma_decision/backends.py">現在のバックエンド条件</a>。</p>
+<h2 id="10">10. よくある疑問</h2>
+<h3 id="eidervllm">EiderとvLLMを両方インストールしないと動かない？</h3>
+<p>今回のv0.5.0キットはEiderを推論の依存先にしていません。Gemma側は固定版vLLM、MOSS側は別のTransformers環境を使います。ネイティブEiderを使う構成なら、そのモデル計算をEider側が担当します。</p>
+<h3 id="eider-vllm">Eiderのほうが速い？ vLLMのほうが正確？</h3>
+<p>ソフトウェア名だけでは決まりません。モデル・重み・入力・質問数・実行設定・ハードウェア・初回起動を含むかどうかをそろえて測る必要があります。単問の速さと、共通文書から複数問を処理する速さも別です。このガイドの図は性能比較結果ではありません。</p>
+<h3 id="eider">Eiderへ移行したら、今回の音声対応は捨てることになる？</h3>
+<p>MOSS、映像分割、時刻対応などは再利用できる設計です。ただし、Gemmaを実行する接続先の変更と、映像を渡せるかの確認が必要です。「再利用しやすい」と「Eiderで実装・検証済み」は区別します。移行の検討は、現在の配布物の状態とは別です。</p>
+<h3 id="vllm-serve"><code>vllm serve</code>だけで、今回の自動処理が動く？</h3>
+<p>動きません。今回の入口はキットの<code>analyze</code>／<code>serve-input</code>です。vLLM自身にもAPIサーバーはありますが、このキットの音声・動画処理とは別の入口です。</p>
+<h3 id="jeveider">Jev・Eider・今回のキットは同じもの？</h3>
+<p>同じものではありません。「資料と型付きの質問から判定を返す」という使い方に共通点はありますが、モデル、指示文、実行コード、対応する出力型、校正の状態は別です。今回のキットを公式JevやEiderの完全互換品とはしていません。</p>
+<h2 id="_2">用語を見直したくなったら</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>用語</th>
+<th>この資料での意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>推論</td>
+<td>学習済みモデルを使い、新しい入力を処理すること</td>
+</tr>
+<tr>
+<td>重み</td>
+<td>学習で決まった大量の数値。実行するプログラムとは別</td>
+</tr>
+<tr>
+<td>トークン</td>
+<td>モデルが扱う入力・出力の単位。日本語の1文字と常に一致しない</td>
+</tr>
+<tr>
+<td>prefill</td>
+<td>入力部分を読み、後続処理に使う状態を計算する段階</td>
+</tr>
+<tr>
+<td>decode</td>
+<td>続きの出力を逐次計算する段階。長文生成では繰り返す</td>
+</tr>
+<tr>
+<td>KVキャッシュ</td>
+<td>後続のAttention計算で参照する途中情報</td>
+</tr>
+<tr>
+<td>カーネル</td>
+<td>GPUで実行する個々の計算処理</td>
+</tr>
+<tr>
+<td>logits</td>
+<td>確率へ変換する前の、候補ごとの数値</td>
+</tr>
+<tr>
+<td>校正</td>
+<td>出力確率と実際の正誤の関係を評価データで調整・確認すること</td>
+</tr>
+<tr>
+<td>バックエンド</td>
+<td>上位の処理から呼び出す、実際の計算担当</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="_3">出典・確認範囲</h2>
+<p>本文のリンクは、説明の根拠となる一次資料または今回のコードです。Eiderは上記コミットへ固定したリンクを使っています。vLLMの公式ドキュメントは最新ページであり、一般的な役割の説明に使用しています。今回の固定版の設定はローカルの<code>backends.py</code>で別途確認しました。Eider READMEが参照する<code>docs/decision-endpoint.md</code>は確認したチェックアウトに存在しなかったため、この資料では実際のAPI・コンパイラ・モデルのソースを根拠にしています。</p>
+<p>図と例はこの解説用に作成しました。架空の依頼文・数値を使用しており、会議録画や文字起こしを含めていません。原図を転載したものではありません。コードへの相対リンクはMarkdown版をリポジトリ内で読む際に利用できます。単体HTML版は図を内包しているため、外部サービスへ接続せず本文と図を読めます。</p></main></div><footer>Original diagrams · Local/offline document · gemma-decision-kit v0.5.0</footer></body></html>

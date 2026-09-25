@@ -16,7 +16,7 @@ def make_server(engine, port):
             self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data)
         def do_GET(self):
             if self.path!='/health':self.reply(404,{'error':'not_found'});return
-            self.reply(200,{'status':'ready','profile':engine.profile})
+            self.reply(200,{'status':'ready','semantics':'eider-decision-v1'})
         def do_POST(self):
             if self.path!='/v1/decisions':self.reply(404,{'error':'not_found'});return
             try:

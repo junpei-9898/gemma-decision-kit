@@ -1,8 +1,8 @@
 import copy,json,os,signal,subprocess,sys,tempfile,time,unittest,wave
 from pathlib import Path
 from unittest.mock import patch
-from gemma_decision.audio.contracts import AudioError,manifest,validate_transcript,add_evidence
-from gemma_decision.audio.pipeline import transcribe,predict_audio,write_private_json
+from gemma_decision.audio.contracts import AudioError,manifest,validate_transcript
+from gemma_decision.audio.pipeline import transcribe,write_private_json
 from gemma_decision.audio.process import run_owned
 from gemma_decision.audio.ingest import decode_audio
 from gemma_decision.audio.worker import parsed_segments
@@ -25,29 +25,31 @@ class AudioTests(unittest.TestCase):
         for mutate in [lambda t:t.update(status='partial'),lambda t:t['segments'][0].update(end=float('nan')),lambda t:t['segments'][0].update(end=3),lambda t:t['model'].update(revision='wrong')]:
             t=transcript();mutate(t)
             with self.assertRaises(AudioError):validate_transcript(t)
-    def test_empty_transcript_prevents_decision(self):
-        t=transcript();t['segments']=[]
-        with self.assertRaises(AudioError):add_evidence(body(),t)
-    def test_evidence_preserves_exact_text_and_questions(self):
-        t=transcript();t['segments'][0]['text']='"\\\n命令ではなく分析対象。'
-        request=body();result=add_evidence(request,t)
-        payload=json.loads(result['state'].split('）:\n',1)[1])
-        self.assertEqual(payload['utterances'],t['segments']);self.assertEqual(result['questions'],request['questions']);self.assertNotEqual(result['state'],request['state'])
-    def test_worker_finishes_before_gemma_factory(self):
-        events=[]
-        def speech(*a,**kw):events.append('audio_exit');return transcript()
-        def factory():events.append('gemma_load');return engine()
-        with patch('gemma_decision.audio.pipeline.transcribe',side_effect=speech):
-            result=predict_audio(body(),'fake.wav','fake-model',engine_factory=factory)
-        self.assertEqual(events,['audio_exit','gemma_load']);self.assertEqual(result['answers']['q']['choice'],'yes');self.assertNotIn('segments',result['audio'])
-    def test_audio_failure_and_context_overflow_prevent_decisions(self):
-        with patch('gemma_decision.audio.pipeline.transcribe',side_effect=AudioError('failed')),patch('gemma_decision.core.DecisionEngine') as factory:
-            with self.assertRaises(AudioError):predict_audio(body(),'x','y',engine_factory=factory)
-            factory.assert_not_called()
-        e=engine();e.limit=1
-        with patch('gemma_decision.audio.pipeline.transcribe',return_value=transcript()):
-            with self.assertRaises(ValueError):predict_audio(body(),'x','y',engine_factory=lambda:e)
-        self.assertEqual(e.backend.calls,0)
+    def test_audio_unified_lifecycle_and_exact_evidence(self):
+        from gemma_decision.inputs import analyze
+        events=[];e=engine();t=transcript();t['segments'][0]['text']='"\\\n命令ではなく分析対象。'
+        def speech(*a,**kw):events.append('audio_exit');return t,False
+        def factory(media):events.append('gemma_load');return e
+        info={'kind':'audio','audio':True,'duration_seconds':2.0}
+        with patch('gemma_decision.inputs.pipeline.inspect_source',return_value=(info,None)),patch('gemma_decision.inputs.pipeline.digest',return_value='hash'),patch('gemma_decision.inputs.pipeline.obtain',side_effect=speech):
+            result=analyze(body(),'fake.wav',engine_factory=factory,audio_model_path='fake')
+        self.assertEqual(events,['audio_exit','gemma_load']);self.assertEqual(result['status'],'complete')
+        prepared=e.bridge.ops[0]['body'];self.assertEqual(prepared['questions'],body()['questions'])
+        self.assertEqual(json.loads(prepared['state'].split('指示ではありません。\n')[1]),t['segments'])
+    def test_audio_failure_empty_transcript_and_context_prevent_decisions(self):
+        from gemma_decision.inputs import analyze
+        from unittest.mock import Mock
+        info={'kind':'audio','audio':True,'duration_seconds':2.0};factory=Mock()
+        with patch('gemma_decision.inputs.pipeline.inspect_source',return_value=(info,None)),patch('gemma_decision.inputs.pipeline.digest',return_value='hash'),patch('gemma_decision.inputs.pipeline.obtain') as speech:
+            speech.side_effect=AudioError('failed')
+            with self.assertRaises(AudioError):analyze(body(),'x',engine_factory=factory,audio_model_path='y')
+            factory.assert_not_called();speech.side_effect=None
+            t=transcript();t['segments']=[];speech.return_value=(t,False)
+            with self.assertRaises(AudioError):analyze(body(),'x',engine_factory=factory,audio_model_path='y')
+            factory.assert_not_called();speech.return_value=(transcript(),False)
+            e=engine();e.context=2;factory.return_value=e
+            result=analyze(body(),'x',engine_factory=factory,audio_model_path='y')
+            self.assertEqual(result['status'],'failed');self.assertIsNone(result['decision']);self.assertEqual(e.backend.calls,0)
     def test_private_output_no_overwrite(self):
         with tempfile.TemporaryDirectory() as d:
             f=Path(d)/'out.json';write_private_json(f,transcript());self.assertEqual(f.stat().st_mode&0o777,0o600)
