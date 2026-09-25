@@ -1,5 +1,6 @@
 include LICENSE NOTICE README.md README.ja.md
 recursive-include licenses *.txt
+include docs/JEVBENCH.md
 include docs/INSTALL.md docs/EIDER.md docs/HARDWARE.md docs/MIGRATION.md docs/AUDIO.md docs/UNIFIED_INPUT.md docs/MEDIA.md docs/LICENSES.md docs/model-licenses.json
 recursive-include scripts *.py
 recursive-include examples *.json *.png *.mp4 *.md

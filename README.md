@@ -1,5 +1,7 @@
 # Gemma Decision Kit
 
+*Eider-powered decisions with optimized vLLM.*
+
 **Eider typed decisions + optimized vLLM + NVFP4 Gemma 4**, for text, images, video and transcribed speech. Returns `choice`, `noul` or `score` with uncalibrated probabilities; no prose generation. [日本語](README.ja.md).
 
 v0.7 has one decision engine: actual pinned Eider prepares questions and constructs answers; vLLM runs the model. MOSS handles speech, and the kit aligns it with sampled video windows. No bundled weights, new training, or claim of official Jev compatibility.
@@ -31,11 +33,34 @@ No `legacy`, `--semantics`, `--profile`, `gb10` alias or `predict --audio` path 
 
 ## Validation and limits
 
-The last GPU Eider evaluation (v0.6) retained all 64 prior answers/probabilities, with 61/64 provisional-label agreement; Spark mode median76.36ms for63warm short single-question requests (121–188tokens). Image9/9, short video3/3 and speech1/1 were small synthetic checks. **Combined audiovisual questions were1/2 versus legacy2/2 on an ambiguous fixture; this remains unresolved.** Making Eider the sole engine is a product simplification, not proof that the error is fixed. v0.7 is CPU/package validated, not newly GPU-benchmarked. [Validation details](docs/EIDER_RELEASE_VALIDATION.md).
+The earlier GPU Eider evaluation (v0.6) retained all 64 prior answers/probabilities, with 61/64 provisional-label agreement; Spark mode median76.36ms for63warm short single-question requests (121–188tokens). Image9/9, short video3/3 and speech1/1 were small synthetic checks. **Combined audiovisual questions were1/2 versus legacy2/2 on an ambiguous fixture; this remains unresolved.** Making Eider the sole engine is a product simplification, not proof that the error is fixed. The v0.7 release was CPU/package validated; the subsequent text-only JevBench GPU evaluation is reported below. [Validation details](docs/EIDER_RELEASE_VALIDATION.md).
 
 Audio uses transcription, not a native Gemma audio encoder. Videos are sampled; long-video output aggregates local judgments and cannot guarantee arbitrary cross-window reasoning. Multi-window score/noul is unsupported. Audio/file workflows include cold loading and do not have the short-text latency above. [Input behavior](docs/UNIFIED_INPUT.md).
 
 Text context defaults to64K, max256K total; media input limit8192expanded tokens. No silent truncation. Long context can reduce accuracy; [measured curve and future work](docs/CONTEXT.md). Eider media/audio runs reached about23.5GiB allocated /25.4GiB reserved; these are not a minimum VRAM guarantee or proof of24GB fit.
+
+## JevBench public subset (v0.7.0)
+
+**205/231 correct (88.7%), with a median of 84.5ms per decision** on the [JevBench](https://github.com/fstandhartinger/jevbench) public subset, measured 2026-09-25. All three passes returned identical answers and probabilities. This is not an official JevBench score or ranking; sealed tasks are not included.
+
+| System | Correct on the same 231 public tasks | Accuracy |
+|---|---:|---:|
+| **Gemma Decision Kit · Eider + optimized vLLM, Gemma 4 NVFP4** | **205/231** | **88.7%** |
+| Jev 1.13.0 · published result | 200/231 | 86.6% |
+| djev · published result | 194/231 | 84.0% |
+| SemIf Qwen3.5-4B · published result | 187/231 | 81.0% |
+
+External rows come from the pinned v1.3.0 public per-task artifact, not new runs on our hardware. The five-answer difference versus Jev does **not establish a statistically clear advantage**. Generative comparators scored higher; see the [fuller comparison and method](docs/JEVBENCH.md).
+
+| Pass · 231 decisions each | Median (p50) | p95 |
+|---|---:|---:|
+| First pass | 84.49ms | 504.22ms |
+| Replay 1 | 83.82ms | 497.90ms |
+| Replay 2 | 84.38ms | 496.70ms |
+
+One GB10 (Edge Xpert), v0.7.0, NVFP4 weights / FP8 KV, one question per request, sequential loopback HTTP; 123–3,958 input tokens (median 202). Model loaded once; existing compilation caches and default prefix cache retained. Model loading took 135.54s separately; the first decision took 1.045s and is included in the first-pass table. These local timings are not a controlled speed comparison with remote APIs.
+
+Probabilities remain uncalibrated (ECE 0.0950; Brier 0.2091). All 693 responses passed schema validation, but a post-results shutdown-monitor warning left the supervisor gate **FAIL**; the container exited with code 0 and no GPU work remained. [Conditions, uncertainty and shutdown caveat](docs/JEVBENCH.md).
 
 ## Historical comparisons (not a v0.7 remeasurement)
 
@@ -98,4 +123,4 @@ The baseline is the **stabilized native CUTLASS** recipe. The earlier FlashInfer
 
 [Typed-output comparison](docs/TYPED_OUTPUTS.md) · [model comparison](docs/COMPARISON.md) · [long-input measurements](docs/MEMORY_AND_LONG_INPUT.md) · [historical research](docs/history/README.md).
 
-Code is Apache-2.0; vendored Eider licenses/notices/provenance are retained. Model and third-party runtime licenses are separate. [License details](docs/LICENSES.md). Research fixtures/results stay in Git, outside installed runtime and source release artifacts. Never treat provisional labels as human-gold certification.
+Code is Apache-2.0. This kit incorporates unmodified decision, chat and API source from [Eider](https://github.com/rdaum/eider), also under Apache-2.0; our contributions include the bridge, media/transport integration and runtime optimizations. See the [Eider license](licenses/Eider.txt), [attribution and additions](NOTICE), and [pinned source provenance](native/eider-bridge/vendor/PROVENANCE.json). This is an independent project, not an official Eider release. Model and third-party runtime licenses are separate. [License details](docs/LICENSES.md). Research fixtures/results stay in Git, outside installed runtime and source release artifacts. Never treat provisional labels as human-gold certification.

@@ -5,7 +5,7 @@ Pinned-source audit 2026-09-23, distribution updated 2026-09-25. This project di
 | Component | Examined version/source | License / handling |
 |---|---|---|
 | Project code | this repository | Apache-2.0; root LICENSE |
-| Eider CPU decision/chat/API source | [bf42ac73](https://github.com/rdaum/eider/tree/bf42ac73bcc0718d9b86cb48cd590e332efd14af) | Apache-2.0; retained license/notices and provenance; thin ABI/media adapters and reduced build manifests identified as modifications |
+| Eider CPU decision/chat/API source | [bf42ac73](https://github.com/rdaum/eider/tree/bf42ac73bcc0718d9b86cb48cd590e332efd14af) | Apache-2.0; retained license/notices and provenance; thin ABI/media adapters and standalone build workspace identified as project additions; vendored files unchanged |
 | vLLM runtime adaptations | [f2654939e](https://github.com/vllm-project/vllm/tree/f2654939e), packaged version0.26.1.dev0+gf2654939e.d20260726 | Apache-2.0; modifications identified in source/NOTICE; license retained |
 | NVFP4 checkpoint | [NVIDIA pinned card](https://huggingface.co/nvidia/Gemma-4-26B-A4B-NVFP4/tree/a19cfe00be84568a6867111c9a68c9c44fdcffe6) | card metadata Apache-2.0; downloaded separately |
 
@@ -28,3 +28,12 @@ The optional MOSS worker adapts the prompt/processing flow and vendors the trans
 ## Typed-output evaluation artifacts
 
 The new fictional benchmark cases, evaluation bridges, scoring summaries and recorded outputs are project-created evaluation artifacts under Apache-2.0. They import separately provisioned pinned OSS implementations; no upstream weights, dependencies, private user data or additional runtime binaries are included. Existing upstream license obligations remain unchanged.
+
+
+## Eider attribution verification (2026-09-25)
+
+All 25 files listed in [PROVENANCE.json](../native/eider-bridge/vendor/PROVENANCE.json), including the two vendored Cargo manifests and LICENSE, were byte-compared with the pinned upstream commit and are unchanged. The Eider license copies in `licenses/Eider.txt` and `native/eider-bridge/vendor/LICENSE` match upstream. The pinned upstream tree contains no NOTICE file; our root [NOTICE](../NOTICE) and [bridge NOTICE](../native/eider-bridge/NOTICE) describe attribution and project additions, rather than claiming to reproduce an upstream NOTICE.
+
+The standalone bridge workspace, Rust ABI and Python integration are project additions. We do not claim authorship of the vendored Eider implementation. If those upstream files are changed in a future release, the changed files must carry prominent modification notices; update the provenance record as well. Retain applicable upstream copyright, patent, trademark and attribution notices. See [Apache-2.0 section 4](https://www.apache.org/licenses/LICENSE-2.0#redistribution).
+
+Source distributions include the vendored source, its LICENSE, bridge NOTICE and provenance. Wheels include the project LICENSE/NOTICE and third-party license texts, including Eider; the Eider bridge is built separately from the supplied source. These files describe the shipped code; model weights and third-party runtime images remain separate distributions with their own terms.

@@ -19,8 +19,9 @@ Eider (Apache-2.0): https://github.com/rdaum/eider
 The pinned CPU decision/chat/API modules are bundled under native/eider-bridge/vendor
 at commit bf42ac73bcc0718d9b86cb48cd590e332efd14af. Upstream source copyright and
 Apache-2.0 license are retained. The thin Rust ABI, Python media/transport adapters,
-and reduced Cargo manifests are project modifications. See native/eider-bridge/NOTICE
-and vendor/PROVENANCE.json. Upstream decision prompt and result semantics are retained.
+and standalone Cargo workspace are project additions; the vendored Cargo manifests
+are unchanged. See native/eider-bridge/NOTICE and
+native/eider-bridge/vendor/PROVENANCE.json. Upstream decision prompt and result semantics are retained.
 licenses/Eider.txt contains the upstream license. No endorsement is implied.
 
 Model weights and runtime images are not distributed by this repository.
