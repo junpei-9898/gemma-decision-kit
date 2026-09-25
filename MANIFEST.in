@@ -8,3 +8,6 @@ recursive-include tests *.py
 recursive-include native/eider-bridge *.rs *.toml *.lock *.json LICENSE NOTICE
 prune docs/history
 prune benchmarks
+recursive-include docs/assets *.svg
+include docs/COMPARISON.md docs/comparison-results.json docs/BENCHMARKS.md docs/EIDER_RELEASE_VALIDATION.md
+include docs/MEMORY_AND_LONG_INPUT.md docs/CONTEXT.md docs/TYPED_OUTPUTS.md

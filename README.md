@@ -1,126 +1,139 @@
 # Gemma Decision Kit
 
-*Eider-powered decisions with optimized vLLM.*
+*Eider-powered decisions with optimized vLLM.* · [日本語](README.ja.md)
 
-**Eider typed decisions + optimized vLLM + NVFP4 Gemma 4**, for text, images, video and transcribed speech. Returns `choice`, `noul` or `score` with uncalibrated probabilities; no prose generation. [日本語](README.ja.md).
+**Ask questions about text, images and video; get choices, yes/no probabilities or scores. Transcribe speech with speaker labels and timestamps.** Runs locally with Eider, optimized vLLM and Gemma 4 NVFP4; MOSS handles speech.
 
-v0.7 has one decision engine: actual pinned Eider prepares questions and constructs answers; vLLM runs the model. MOSS handles speech, and the kit aligns it with sampled video windows. No bundled weights, new training, or claim of official Jev compatibility.
+[Capabilities](#capabilities) · [Speed](#measured-processing-times) · [Jev comparison](#comparison-with-jev) · [Japanese OSS comparison](#japanese-task-comparison) · [Setup](#setup-and-usage)
 
-## Start here
+## Capabilities
 
-1. [Install the pinned runtime and model](docs/INSTALL.md).
-2. [Build the mandatory Eider CPU bridge](docs/EIDER.md) and set `GEMMA_EIDER_LIBRARY`.
-3. For speech, also [install MOSS and FFmpeg](docs/AUDIO.md).
+| Input / function | Output | Example use |
+|---|---|---|
+| Text decisions | Choice, yes/no probability, ordinal score | Does this evidence support a claim? |
+| Image recognition and decisions | Answers to specified visual questions | Is a red object present? |
+| Video decisions | Sampled-frame and interval decisions | Did a specified action occur at least once? |
+| Speech recognition | Japanese / multilingual transcription | Turn a meeting recording into text |
+| Speaker diarization | Anonymous speaker IDs and utterance times | Distinguish speakers within a recording |
+| Combined speech and video | Decisions using time-aligned transcript and frames | Compare speech with the corresponding visuals |
+
+Diarization **labels speakers**; it does not separate voices into audio tracks, identify people by name or match voices to faces. Missing speaker labels are reported as unknown. Decisions use the `choice`, `noul` and `score` contracts for programmatic use, rather than free-form generated answers.
+
+```mermaid
+flowchart LR
+    T[Text] --> E[Eider + Gemma / vLLM]
+    I[Images] --> E
+    V[Video] --> F[Frame sampling and windows]
+    F --> E
+    A[Audio or video soundtrack] --> M[MOSS: transcript, speakers, times]
+    M --> E
+    M --> R[Transcript output]
+    E --> O[Choice / Yes-No probability / Score]
+```
+
+MOSS exits before Gemma loads in audio/file workflows. Video analysis samples frames rather than inspecting every frame. [Audio behavior](docs/AUDIO.md) · [File processing](docs/UNIFIED_INPUT.md)
+
+## Measured processing times
+
+**Measured on one Edge Xpert NVIDIA GB10, Linux ARM64.** These rows cover different workflows and versions. Resident-model decisions and cold file processing have different timing boundaries.
+
+| Workflow | Observed time | Measurement boundary |
+|---|---:|---|
+| Text decisions · v0.7 | **84.5ms median / question** | 231 public JevBench tasks; p95 504.2ms. Resident model, loopback HTTP included |
+| Image decisions · v0.6 | **148.3ms median / three-question workflow** | Three synthetic images, three questions each, replayed with warm model/caches; direct Python |
+| Short video decisions · v0.6 | **174.6ms / three-question workflow** | One replay of a three-second synthetic clip with warm model/caches; direct Python |
+| Transcription + speaker labels · development MOSS | **441.51s (7m22s)** | One 24m56s meeting → 250 utterance spans, two anonymous speakers; preprocessing/inference, loading excluded |
+| Audio file → decision · v0.6 | **180.32s** | One short synthetic speech fixture, including cold MOSS and Gemma loading |
+
+The image number is for **all three questions, not one question**. Image 9/9 and video 3/3 judgments matched provisional labels; these are small synthetic integration checks, not general real-photo or OCR accuracy benchmarks. The meeting is one development measurement, with no formal recognition error rate or diarization error rate established.
+
+<details>
+<summary>Input lengths, repetitions and cache conditions</summary>
+
+Text uses NVFP4 weights / FP8 KV, 123–3,958 input tokens (median 202), sequential single-question requests, 231 tasks × three passes. Medians were 83.82–84.49ms; answers and probabilities matched across passes. The first request (1.045s) is included; loading (135.54s) is separate. Image replay: 1,086 total input tokens per workflow, three workflows; video replay: 1,623 tokens, one workflow. Media uses NVFP4 / BF16-auto KV; meeting ASR uses BF16, batch 1. **Startup, unseen media and file-based processing can take longer.**
+
+</details>
+
+[Text methodology](docs/JEVBENCH.md) · [Eider media measurements](docs/EIDER_RELEASE_VALIDATION.md) · [MOSS measurement](docs/AUDIO.md#measurement-scope) · [Earlier media cache comparison](docs/BENCHMARKS.md)
+
+## Comparison with Jev
+
+**On the same 231 public tasks: 205 correct for this kit, 200 for Jev. This kit's median is 84.5ms; a speedup factor versus Jev has not been established.**
+
+| Same JevBench public tasks | Correct | Accuracy | Timing comparison |
+|---|---:|---:|---|
+| **Kit v0.7 · Eider + optimized vLLM + Gemma 4 NVFP4** | **205/231** | **88.7%** | Local HTTP median 84.5ms |
+| Jev 1.13.0 · published result | 200/231 | 86.6% | No matched hardware/network measurement |
+| djev · published result | 194/231 | 84.0% | Same limitation |
+| SemIf Qwen3.5-4B · published result | 187/231 | 81.0% | Same limitation |
+
+The difference versus Jev is **five answers / +2.16 percentage points**, but a statistically clear advantage is not established. External rows are pinned published results, not our reruns. This is not the official sealed-set ranking; some generative models scored higher.
+
+**This does not establish “8× faster than Jev.”** Local inference and cloud API timings differ in networking, queueing, hardware and batching. We also cannot attribute the difference solely to network latency. [Full comparison, uncertainty and method](docs/JEVBENCH.md)
+
+## Japanese task comparison
+
+**The historical optimized kit configuration had the highest agreement among six tested configurations on 120 fixed Japanese evidence tasks.** This is separate from JevBench. Scores measure **agreement with AI-provisional labels**, not human-certified accuracy. The corpus was also used during development, so it is regression evidence rather than an independent unseen test.
+
+![Separate charts of public JevBench accuracy on 231 tasks and Japanese provisional-label agreement on 120 cases](docs/assets/decision-comparison.svg)
+
+*Left: JevBench accuracy. Right: Japanese provisional-label agreement. Different datasets; do not compare percentages across panels. Tables provide the figures and conditions.*
+
+| Configuration | Japanese agreement /120 | Short-question median | Study |
+|---|---:|---:|---|
+| **Kit · Gemma 4 26B-A4B NVFP4** | **93.3% (112/120)** | **80.4ms** | A |
+| DiffusionGemma 26B-A4B NVFP4 | 88.3% (106/120) | 130.6ms | A |
+| Eider · Qwen3.6-35B-A3B NVFP4 | 85.8% (103/120) | 250.3ms | B |
+| SemIf · Qwen3.5-4B BF16 | 64.2% (77/120) | 119.6ms | B |
+| Laya multilingual · 0.322B | 39.2% (47/120) | 8.8ms | B |
+| NanoJev · 0.6B navigation checkpoint | 38.3% (46/120) | 40.6ms | B |
+
+A: same GB10 node, 2026-09-23, HTTP. B: another GB10 node, 2026-09-20; Qwen HTTP, others Python API. Timings are loaded/warm medians of one 54-character state repeated 20 times, not average latency across the quality corpus. Models, precision, prompts and API boundaries differ. The kit row is the **historical optimized recipe, with prediction parity checked in v0.2, not a v0.7 remeasurement**.
+
+- **Same-node short question:** 1.62× faster than DiffusionGemma, with +5.0 percentage points of label agreement.
+- **Eight-question workflow:** DiffusionGemma wins: 377.6ms versus kit 732.8ms; agreement 40/40 versus 35/40 across five repeats of the same eight questions.
+- **Small models:** Laya and NanoJev are faster on the short probe, with lower task agreement. Laya's tabled v1 inputs were not truncated; separate long-input probes were. NanoJev uses a navigation-oriented checkpoint.
+- **Instruction sensitivity:** SemIf improved from 57.5% to 92.5% on the same 40 cases after an instruction change. The table is not a capability ceiling.
+
+[Versions, precision, conditions and truncation details](docs/COMPARISON.md) · [Aggregate JSON](docs/comparison-results.json)
+
+## Setup and usage
+
+1. [Install the pinned runtime and model](docs/INSTALL.md); weights are downloaded separately.
+2. [Build the Eider CPU bridge](docs/EIDER.md) and set `GEMMA_EIDER_LIBRARY`.
+3. For transcription and speaker labels, [install MOSS and FFmpeg](docs/AUDIO.md).
 
 ```sh
-# Typed text request; model and bridge already installed.
+# Make a typed decision.
 gemma-decision predict --model-path /models/nvfp4 --input examples/eider-request.json
-# A file: automatic text/image/audio/video routing.
+
+# Get transcript, speaker IDs and utterance times.
+gemma-decision transcribe --audio /input/meeting.wav \
+  --audio-model-path /models/moss --audio-python /state/moss-env/bin/python
+
+# Process an audio/video file and answer the supplied questions.
 gemma-decision analyze --model-path /models/nvfp4 \
   --source /input/recording.mp4 --input examples/request.json \
   --audio-model-path /models/moss --audio-python /state/moss-env/bin/python
 ```
 
-| Interface | Purpose |
+| Interface | When to use it |
 |---|---|
-| `predict` / `serve` | Typed JSON; `serve` keeps Gemma resident. Add `--media` at startup for inline images/short videos. |
-| `analyze` / `serve-input` | Automatic file processing, including speech; MOSS exits before Gemma loads. HTTP workers reload per request. |
-| `transcribe` / `download-audio` | Optional speech preprocessing and explicit model setup. |
+| `predict` / `serve` | JSON decisions; `serve` keeps Gemma resident. Add `--media` at startup for images / short videos |
+| `transcribe` | Transcript and speaker labels without decisions |
+| `analyze` / `serve-input` | Automatic file routing; Gemma loads after audio processing. HTTP workers reload per request |
 
-Hardware defaults to `auto`: `spark` optimization for GB10-based DGX Spark/OEM machines (measured on Edge Xpert), `standard` otherwise within the supported capability check. Other physical GPUs are unverified. [Hardware boundaries](docs/HARDWARE.md).
+Hardware defaults to `auto`: `spark` for GB10 DGX Spark / Edge Xpert machines, `standard` for other GPUs meeting capability checks. Other physical GPUs are unverified. [Hardware requirements](docs/HARDWARE.md) · [Breaking changes in v0.7](docs/MIGRATION.md)
 
-No `legacy`, `--semantics`, `--profile`, `gb10` alias or `predict --audio` path remains. Upgrading is a breaking API migration: use [v0.7 migration notes](docs/MIGRATION.md), particularly for Python clients and response fields.
+## Limits to know
 
-## Validation and limits
+- **Probabilities are uncalibrated.** On JevBench, 21 of 26 wrong answers had confidence ≥0.9. High confidence alone does not establish correctness.
+- **Combined audio/video has unresolved failures.** An ambiguous v0.6 synthetic fixture scored Eider 1/2 versus legacy 2/2. Cross-window reasoning also has known failures; multi-window `score`/`noul` is unsupported. [Validation](docs/EIDER_RELEASE_VALIDATION.md)
+- **JevBench's shutdown-monitor gate remains FAIL.** An owned-PID warning followed all 693 saved responses. The container exited with code 0 and no GPU work remained; the cause is unverified. [Details](docs/JEVBENCH.md#execution-caveat)
+- **Memory and context:** Eider media measured about 23.5GiB allocated / 25.4GiB reserved; do not add these. This is not minimum VRAM certification or proof of 24GB GPU compatibility. Text defaults to 64K context, max 256K; media input is limited to 8,192 tokens. Long-input accuracy remains a limitation. [Memory](docs/MEMORY_AND_LONG_INPUT.md) · [Context evaluation](docs/CONTEXT.md)
 
-The earlier GPU Eider evaluation (v0.6) retained all 64 prior answers/probabilities, with 61/64 provisional-label agreement; Spark mode median76.36ms for63warm short single-question requests (121–188tokens). Image9/9, short video3/3 and speech1/1 were small synthetic checks. **Combined audiovisual questions were1/2 versus legacy2/2 on an ambiguous fixture; this remains unresolved.** Making Eider the sole engine is a product simplification, not proof that the error is fixed. The v0.7 release was CPU/package validated; the subsequent text-only JevBench GPU evaluation is reported below. [Validation details](docs/EIDER_RELEASE_VALIDATION.md).
+## Further evidence and licensing
 
-Audio uses transcription, not a native Gemma audio encoder. Videos are sampled; long-video output aggregates local judgments and cannot guarantee arbitrary cross-window reasoning. Multi-window score/noul is unsupported. Audio/file workflows include cold loading and do not have the short-text latency above. [Input behavior](docs/UNIFIED_INPUT.md).
+[Typed-output comparison](docs/TYPED_OUTPUTS.md) · [Historical research](docs/history/README.md)
 
-Text context defaults to64K, max256K total; media input limit8192expanded tokens. No silent truncation. Long context can reduce accuracy; [measured curve and future work](docs/CONTEXT.md). Eider media/audio runs reached about23.5GiB allocated /25.4GiB reserved; these are not a minimum VRAM guarantee or proof of24GB fit.
-
-## JevBench public subset (v0.7.0)
-
-**205/231 correct (88.7%), with a median of 84.5ms per decision** on the [JevBench](https://github.com/fstandhartinger/jevbench) public subset, measured 2026-09-25. All three passes returned identical answers and probabilities. This is not an official JevBench score or ranking; sealed tasks are not included.
-
-| System | Correct on the same 231 public tasks | Accuracy |
-|---|---:|---:|
-| **Gemma Decision Kit · Eider + optimized vLLM, Gemma 4 NVFP4** | **205/231** | **88.7%** |
-| Jev 1.13.0 · published result | 200/231 | 86.6% |
-| djev · published result | 194/231 | 84.0% |
-| SemIf Qwen3.5-4B · published result | 187/231 | 81.0% |
-
-External rows come from the pinned v1.3.0 public per-task artifact, not new runs on our hardware. The five-answer difference versus Jev does **not establish a statistically clear advantage**. Generative comparators scored higher; see the [fuller comparison and method](docs/JEVBENCH.md).
-
-| Pass · 231 decisions each | Median (p50) | p95 |
-|---|---:|---:|
-| First pass | 84.49ms | 504.22ms |
-| Replay 1 | 83.82ms | 497.90ms |
-| Replay 2 | 84.38ms | 496.70ms |
-
-One GB10 (Edge Xpert), v0.7.0, NVFP4 weights / FP8 KV, one question per request, sequential loopback HTTP; 123–3,958 input tokens (median 202). Model loaded once; existing compilation caches and default prefix cache retained. Model loading took 135.54s separately; the first decision took 1.045s and is included in the first-pass table. These local timings are not a controlled speed comparison with remote APIs.
-
-Probabilities remain uncalibrated (ECE 0.0950; Brier 0.2091). All 693 responses passed schema validation, but a post-results shutdown-monitor warning left the supervisor gate **FAIL**; the container exited with code 0 and no GPU work remained. [Conditions, uncertainty and shutdown caveat](docs/JEVBENCH.md).
-
-## Historical comparisons (not a v0.7 remeasurement)
-
-**93.3% label agreement (112/120) and ~80ms warm short-question latency on GB10.** This was the highest agreement among the six tested configurations below. In the same-node HTTP comparison, short-question latency was **1.62× faster than DiffusionGemma**, with **+5.0percentage points** higher v1 agreement.
-
-### Measured hardware
-
-| Item | Test environment |
-|---|---|
-| Machine / GPU | Edge Xpert, one NVIDIA GB10 (Blackwell, SM121) per run |
-| Memory | CPU/GPU unified memory; OS-visible approximately121.6GiB, **not dedicated model VRAM** |
-| Platform | Linux ARM64; kit uses PyTorch2.11.0+cu130; other runtimes pinned per configuration |
-| Study-A CPU allocation | Container quota8CPUs, `OMP_NUM_THREADS=4` |
-
-A more powerful GPU **may reduce latency**, especially for compute-heavy long-input prefill, but we have not measured a speedup factor on other GPUs. CPU preprocessing, memory bandwidth and compatible kernels also matter; do not multiply these timings by advertised TOPS or bandwidth ratios. The pinned ARM64/GB10 image is not a validated x86/RTX deployment.
-
-### Model memory footprint
-
-| NVFP4 mode | Peak live GPU tensors | Peak allocator-reserved memory |
-|---|---:|---:|
-| Optimized text |21.99GiB|23.91GiB|
-| Images/video (`--media`) |23.11GiB|24.10GiB|
-
-Measured in the v0.2.0 GB10 regression; media peaks include initialization profiling. Reserved memory **includes** live allocations: do not add the columns. These are PyTorch GPU measurements, excluding some driver/host allocations, not minimum VRAM certifications. GB10 shares system memory between CPU and GPU, so allow additional room for the OS, runtime and loading. The machine's121.6GiB capacity is not the model requirement; conversely, these results do not prove that a24GB discrete GPU can run this package. [Memory definitions and evidence](docs/MEMORY_AND_LONG_INPUT.md).
-
-These are fixed Japanese evidence judgments (`supported / refuted / insufficient`) against **AI-provisional labels**, not human-certified accuracy or a general leaderboard. Quality uses120case IDs; latency uses one54-character state repeated20times. Fast answers to that one example do not imply high corpus accuracy.
-
-| Configuration | Agreement (v1,120cases) | Short-question median | Study |
-|---|---:|---:|---|
-| Gemma Decision Kit · Gemma 4 26B-A4B NVFP4 | **93.3% (112/120)** | **80.4ms** | A |
-| DiffusionGemma 26B-A4B NVFP4 | 88.3% (106/120) | 130.6ms | A |
-| Eider · Qwen3.6-35B-A3B NVFP4 | 85.8% (103/120) | 250.3ms | B |
-| SemIf · Qwen3.5-4B BF16 | 64.2% (77/120) | 119.6ms | B |
-| Laya multilingual · 0.322B † | 39.2% (47/120) | 8.8ms | B |
-| NanoJev · 0.6B navigation checkpoint | 38.3% (46/120) | 40.6ms | B |
-
-**A:** same GB10 node,2026-09-23, loopback HTTP. **B:** earlier2026-09-20 runs on a different GB10 node; Qwen uses HTTP, others native Python APIs. All are loaded/warm medians, excluding startup. Model sizes, quantization, templates and API boundaries differ: this is a configuration comparison, not a controlled model-only speed ranking. Current-kit rows measure its frozen optimized recipe through the evaluation HTTP adapter; v0.2.0 verifies prediction parity, not an identical public-server latency guarantee.
-
-**† Laya input coverage:** its8.8ms result is for the54-character short probe: **no truncation**,20/20matching labels on repetitions of one question. The2099/8108-character probes instead truncate5/5requests each, take21.6/23.1ms, and match0/5labels each; these are **not full-document latencies**. All100v2quality prompts also truncate the target-claim-containing head. The120v1cases used in the table do not truncate, so their39.2%agreement must not be explained as a truncation artifact. [Coverage counts](docs/MEMORY_AND_LONG_INPUT.md).
-
-Laya and NanoJev are faster on this short input but have lower label agreement on this task. DiffusionGemma wins the8-question workflow:377.6ms vs732.8ms, with40/40 vs35/40 matching labels across5repeats of the same8questions. The tested NanoJev checkpoint targets navigation, not general Japanese evidence classification. No blanket claim of being faster or more accurate than every OSS model is made.
-
-[Full comparison, instruction sensitivity and immutable versions](docs/COMPARISON.md) · [Machine-readable aggregates](docs/comparison-results.json) · [Text/image/video timings and startup limits](docs/BENCHMARKS.md)
-
-### Long-input optimization history
-
-**Historical native-runner measurements.** These fixtures used65536internal context. v0.3.0 separately validates the public API up to262143input tokens; see [new HTTP measurements and accuracy by length](docs/CONTEXT.md). Do not treat the historical timings below as identical public-server timings.
-
-| State characters / prompt tokens | Stabilized baseline | Final recipe | Time reduction |
-|---|---:|---:|---:|
-|10,000 / 7,138|1.563s|1.319s|15.6%|
-|30,000 / 21,197|6.569s|4.570s|30.4%|
-|50,000 / 35,257|15.248s|8.686s|43.0%|
-
-Same GB10, pinned Gemma4 NVFP4 weights and full input fixtures, one question, loaded/shape-warmed, no prefix-cache reuse,3repeats per length. Includes input preparation + native inference; excludes model load, HTTP and profiling. Each length is one document, not a representative long-document benchmark. Improvement includes attention launch tuning, MoE buffer/copy handling and compact ABC projection.
-
-The baseline is the **stabilized native CUTLASS** recipe. The earlier FlashInfer path was13.714s at50kcharacters (vs final8.686s,36.7% shorter), but had different stability/quality; at10k it was1.242s and faster than final1.319s. We do not claim every input got faster versus every historical recipe. [Stages, quality checks and limits](docs/MEMORY_AND_LONG_INPUT.md).
-
-## Evidence and licensing
-
-[Typed-output comparison](docs/TYPED_OUTPUTS.md) · [model comparison](docs/COMPARISON.md) · [long-input measurements](docs/MEMORY_AND_LONG_INPUT.md) · [historical research](docs/history/README.md).
-
-Code is Apache-2.0. This kit incorporates unmodified decision, chat and API source from [Eider](https://github.com/rdaum/eider), also under Apache-2.0; our contributions include the bridge, media/transport integration and runtime optimizations. See the [Eider license](licenses/Eider.txt), [attribution and additions](NOTICE), and [pinned source provenance](native/eider-bridge/vendor/PROVENANCE.json). This is an independent project, not an official Eider release. Model and third-party runtime licenses are separate. [License details](docs/LICENSES.md). Research fixtures/results stay in Git, outside installed runtime and source release artifacts. Never treat provisional labels as human-gold certification.
+Code is Apache-2.0. This kit incorporates unmodified [Eider](https://github.com/rdaum/eider) decision, chat and API source; project additions include the bridge, media/transport integration and runtime optimizations. This is an independent project, not an official Eider distribution. [Eider license](licenses/Eider.txt) · [Attribution and additions](NOTICE) · [Pinned provenance](native/eider-bridge/vendor/PROVENANCE.json). Model weights and third-party runtimes have separate terms; weights are not bundled. [License details](docs/LICENSES.md)
