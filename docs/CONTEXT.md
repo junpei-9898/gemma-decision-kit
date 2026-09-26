@@ -41,6 +41,8 @@ The blue curve uses a **fixed262144internal context and8GiB FP8 KV at every leng
 
 Latency is same-container loopback HTTP including input validation, tokenization, inference and JSON. The model was loaded and a short warmup excluded from the curve; any length-specific first-use work remains included. Lengths ran in increasing order, not randomized; warmup and legacy parity calls remain in the raw budget. Every accepted input was checked against the backend's returned prompt token IDs. Largest actual prompt262141tokens; CPU tests cover configured262143boundary. Oversized requests returnedHTTP400 at each tier. The interrupted256K request has no scored output and remains in the conservative budget; the resumed nine precommitted cases supply the complete256K measurement.
 
+The following table preserves the original context-extension measurements. The current Spark64K text default uses1.625GiB KV;128K/256K and standard/media settings are unchanged. [New64K memory comparison](KV_MEMORY.md).
+
 | Text process | Input limit / question | KV allocation | Peak allocated | Peak reserved |
 |---|---:|---:|---:|---:|
 |65,536 total context|65,535|3GiB|22.005GiB|23.912GiB|

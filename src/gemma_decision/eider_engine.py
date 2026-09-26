@@ -45,5 +45,5 @@ class EiderEngine(EiderDecision):
             if _LOADED:raise RuntimeError('One backend/bridge per process; restart to change configuration')
             bridge=EiderBridge(library,model_path)
             from .backends import load_backend
-            backend=load_backend(model_path,media=media,context=context,kv_bytes=kv,hardware=hardware)
+            backend=load_backend(model_path,media=media,context=context,kv_bytes=None if not media and context == 65536 else kv,hardware=hardware)
             super().__init__(bridge,backend,limit+1)

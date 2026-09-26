@@ -21,6 +21,10 @@ class ContextTests(unittest.TestCase):
             e=EiderEngine('/model',131071,bridge_library='/lib')
             self.assertEqual(e.context,131072)
             load.assert_called_once_with('/model',media=False,context=131072,kv_bytes=4*1024**3,hardware="auto")
+    def test_64k_budget_resolved_by_hardware_backend(self):
+        with patch('gemma_decision.backends.load_backend') as load, patch('gemma_decision.eider_engine.EiderBridge'), patch('gemma_decision.eider_engine.Path.is_file',return_value=True), patch('gemma_decision.backends._LOADED',False):
+            EiderEngine('/model',bridge_library='/lib')
+            load.assert_called_once_with('/model',media=False,context=65536,kv_bytes=None,hardware="auto")
     def test_exact_limit_and_later_overflow(self):
         e=engine();e.context=4;e.predict(body());self.assertEqual(e.backend.calls,1)
         e.backend.calls=0;b=body();b['questions']['q2']=copy.deepcopy(b['questions']['q'])

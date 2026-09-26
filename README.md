@@ -130,7 +130,7 @@ Hardware defaults to `auto`: `spark` for GB10 DGX Spark / Edge Xpert machines, `
 - **Probabilities are uncalibrated.** On JevBench, 21 of 26 wrong answers had confidence ≥0.9. High confidence alone does not establish correctness.
 - **Combined audio/video has unresolved failures.** An ambiguous v0.6 synthetic fixture scored Eider 1/2 versus legacy 2/2. Cross-window reasoning also has known failures; multi-window `score`/`noul` is unsupported. [Validation](docs/EIDER_RELEASE_VALIDATION.md)
 - **JevBench's shutdown-monitor gate remains FAIL.** An owned-PID warning followed all 693 saved responses. The container exited with code 0 and no GPU work remained; the cause is unverified. [Details](docs/JEVBENCH.md#execution-caveat)
-- **Memory and context:** Eider media measured about 23.5GiB allocated / 25.4GiB reserved; do not add these. This is not minimum VRAM certification or proof of 24GB GPU compatibility. Text defaults to 64K context, max 256K; media input is limited to 8,192 tokens. Long-input accuracy remains a limitation. [Memory](docs/MEMORY_AND_LONG_INPUT.md) · [Context evaluation](docs/CONTEXT.md)
+- **Memory and context:** Spark64K text uses1.625GiB KV; the validated configuration measured about20.62GiB peak allocated ([scope and checks](docs/KV_MEMORY.md)). Eider media measured about 23.5GiB allocated / 25.4GiB reserved; do not add these. This is not minimum VRAM certification or proof of 24GB GPU compatibility. Text defaults to 64K context, max 256K; media input is limited to 8,192 tokens. Long-input accuracy remains a limitation. [Memory](docs/MEMORY_AND_LONG_INPUT.md) · [Context evaluation](docs/CONTEXT.md)
 
 ## Further evidence and licensing
 

@@ -4,7 +4,7 @@ from pathlib import Path
 _LOADED=False
 
 
-def load_backend(model_path, media=False, context=65536, kv_bytes=3221225472, hardware="auto"):
+def load_backend(model_path, media=False, context=65536, kv_bytes=None, hardware="auto"):
     global _LOADED
     if _LOADED:raise RuntimeError('One backend per process; restart to change configuration')
     if not Path(model_path).is_dir():raise ValueError('A local model directory is required')
@@ -19,7 +19,7 @@ def candidate_ids(tokenizer):
 
 
 class SpeedBackend:
-    def __init__(self,path,media=False,context=65536,kv_bytes=3221225472,decision_kv_dtype=None,hardware="auto"):
+    def __init__(self,path,media=False,context=65536,kv_bytes=None,decision_kv_dtype=None,hardware="auto"):
         os.environ['VLLM_ENABLE_V1_MULTIPROCESSING']='0'
         import vllm
         from .hardware import detect_hardware,validate_runtime
@@ -36,6 +36,8 @@ class SpeedBackend:
             from .nv_runtime import prepare_attention
             prepare_attention({'query_block':32},{'patches':[]})
         elif self.hardware=='spark':install_runtime()
+        if kv_bytes is None:
+            kv_bytes = 1744830464 if self.hardware == 'spark' and not media and context == 65536 else 3 * 1024**3
         self.model=LLM(model=path,trust_remote_code=False,dtype='auto',kv_cache_dtype=decision_kv_dtype or ('auto' if media else 'fp8_e4m3'),max_model_len=context,kv_cache_memory_bytes=kv_bytes,gpu_memory_utilization=.25,max_num_seqs=1,max_num_batched_tokens=8192,enable_prefix_caching=media,enforce_eager=True,async_scheduling=False,logprobs_mode='raw_logits',max_logprobs=64,limit_mm_per_prompt={'image':int(media),'audio':0,'video':int(media)},mm_processor_cache_gb=.125 if media else 0,seed=0,kernel_config={'moe_backend':'cutlass'})
         self.tokenizer=self.model.get_tokenizer();self.ids=candidate_ids(self.tokenizer)
         if self.hardware=='spark' and not media:self.model.apply_model(lambda m:install_candidates(m,TRIAL,self.ids,None))

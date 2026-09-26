@@ -127,7 +127,7 @@ GPU設定は通常`auto`。GB10搭載DGX Spark／Edge Xpert等は`spark`、対�
 - **確率は未校正。** JevBenchの誤答26問中21問で確信度が0.9以上でした。高い数値だけで正解と判断しないでください。
 - **映像＋音声の複合判断は未解決の失敗あり。** v0.6の曖昧な合成素材でEider 1/2、旧方式2/2。区間をまたぐ推論にも失敗があり、複数区間の`score`/`noul`は未対応です。[検証記録](docs/EIDER_RELEASE_VALIDATION.md)
 - **JevBenchの終了監視gateはFAILを保持。** 全693応答の保存後に所有PID監視の警告が発生。コンテナは終了コード0、GPU処理の残留なしですが、原因は未確定です。[詳細](docs/JEVBENCH.md#execution-caveat)
-- **メモリと長文。** Eiderメディア実測は約23.5GiB使用／25.4GiB予約（足し合わせません）。最小VRAM要件や24GB GPUでの動作保証ではありません。テキスト既定64K・最大256K、メディア入力8,192トークン。長文精度には課題があります。[メモリ](docs/MEMORY_AND_LONG_INPUT.md) · [長文評価](docs/CONTEXT.md)
+- **メモリと長文。** Spark向け64KテキストはKV予約1.625GiB、検証構成の使用ピーク約20.62GiBです（[適用範囲と検証](docs/KV_MEMORY.md)）。Eiderメディア実測は約23.5GiB使用／25.4GiB予約（足し合わせません）。最小VRAM要件や24GB GPUでの動作保証ではありません。テキスト既定64K・最大256K、メディア入力8,192トークン。長文精度には課題があります。[メモリ](docs/MEMORY_AND_LONG_INPUT.md) · [長文評価](docs/CONTEXT.md)
 
 ## 詳細資料・ライセンス
 

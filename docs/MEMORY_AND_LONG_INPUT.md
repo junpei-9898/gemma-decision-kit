@@ -2,6 +2,8 @@
 
 ## Memory: measured usage versus minimum capacity
 
+Current Spark64K text defaults to1.625GiB KV. The measured candidate reduced peak allocated memory from22.00 to20.62GiB with52/52exact answer/logit matches; other profiles retain their allocations. See [scope and validation](KV_MEMORY.md). The table below is historical.
+
 ### Model memory footprint
 
 | NVFP4 mode | Peak live GPU tensors | Peak allocator-reserved memory |
